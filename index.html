@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Slam Book | Farewell Archive</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Main Navigation / Header -->
+    <header class="app-header">
+        <div class="header-container">
+            <h1 class="logo">The Farewell Archive</h1>
+            <p class="subtitle">A digital slam book and memory box.</p>
+        </div>
+    </header>
+
+    <!-- Main Dynamic Layout Container -->
+    <main class="app-container">
+        
+        <!-- Left Column: Interactive Submission Form -->
+        <section class="form-section">
+            <div class="card form-card">
+                <h2>Leave a Note</h2>
+                <p class="form-description">Share your core memories, message, and an optional audio/video clip or image. Your message will appear in real-time in the feed.</p>
+                
+                <form id="slamForm" novalidate>
+                    <div class="form-group">
+                        <label for="userName">Your Name <span class="required">*</span></label>
+                        <input type="text" id="userName" name="userName" required placeholder="Jane Doe" maxlength="60">
+                        <span class="error-msg" id="nameError">Name is required.</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="userRole">Relationship / Team <span class="required">*</span></label>
+                        <input type="text" id="userRole" name="userRole" required placeholder="e.g., Frontend Team / Batch of '24" maxlength="100">
+                        <span class="error-msg" id="roleError">Please state your team or connection.</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="coreMemory">Core Memory <span class="required">*</span></label>
+                        <textarea id="coreMemory" name="coreMemory" required placeholder="What is that one standout memory you'll always carry?" rows="3" maxlength="500"></textarea>
+                        <span class="error-msg" id="memoryError">Please share a core memory.</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="userMessage">Your Message <span class="required">*</span></label>
+                        <textarea id="userMessage" name="userMessage" required placeholder="Write a note, a secret, or well wishes for the future..." rows="5" maxlength="2000"></textarea>
+                        <span class="error-msg" id="messageError">Please leave a message.</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="mediaUpload">Attach Media <span class="optional">(Audio, Video, or Image)</span></label>
+                        <div class="file-dropzone" id="dropzone">
+                            <input type="file" id="mediaUpload" name="mediaUpload" accept="audio/*,video/*,image/*">
+                            <div class="dropzone-text">
+                                <span class="icon">📁</span>
+                                <span class="text">Drag & drop or <span class="browse">browse</span></span>
+                                <span class="limits">Max size: 20MB</span>
+                            </div>
+                        </div>
+                        <div id="filePreview" class="file-preview-container hidden">
+                            <span id="fileName">file-name.mp3</span>
+                            <button type="button" id="removeFileBtn" class="btn-text">Remove</button>
+                        </div>
+                    </div>
+
+                    <button type="submit" id="submitBtn" class="btn btn-primary">
+                        <span class="btn-text">Post to Slam Book</span>
+                        <span class="loader hidden"></span>
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Right Column: Live Memory Feed -->
+        <section class="feed-section">
+            <div class="feed-header">
+                <h2>Shared Memories</h2>
+                <div class="feed-stats">
+                    <span id="entryCount">Loading notes...</span>
+                </div>
+            </div>
+
+            <!-- This wrapper is where dynamic cards will be injected via JS -->
+            <div id="memoryFeed" class="memory-feed">
+                
+                <!-- Mockup of a text-only card (for layout testing) -->
+                <article class="feed-card">
+                    <header class="feed-card-header">
+                        <div class="user-meta">
+                            <h3 class="user-name">Alex Smith</h3>
+                            <span class="user-badge">Backend Team</span>
+                        </div>
+                        <time class="post-time">Just now</time>
+                    </header>
+                    <div class="feed-card-body">
+                        <div class="memory-block">
+                            <h4>Core Memory:</h4>
+                            <p>"Debugging the production outage at 2 AM while eating cold pizza. We solved it, but those Slack threads were legendary."</p>
+                        </div>
+                        <div class="message-block">
+                            <h4>The Note:</h4>
+                            <p>Wishing you the best in your career. You were an amazing mentor and always answered my trivial CSS questions with absolute patience. Let's stay in touch!</p>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Mockup of a card containing uploaded Media -->
+                <article class="feed-card">
+                    <header class="feed-card-header">
+                        <div class="user-meta">
+                            <h3 class="user-name">Sarah Jenkins</h3>
+                            <span class="user-badge">UI/UX Designer</span>
+                        </div>
+                        <time class="post-time">2 hours ago</time>
+                    </header>
+                    <div class="feed-card-body">
+                        <div class="memory-block">
+                            <h4>Core Memory:</h4>
+                            <p>"Designing the whiteboard layouts during our first physical sprint session after the remote transition."</p>
+                        </div>
+                        <div class="message-block">
+                            <h4>The Note:</h4>
+                            <p>Here is a quick video memo from the team! Thanks for being an incredible partner to the design organization.</p>
+                        </div>
+                        
+                        <!-- Dynamic Media Container (Mocking a video file source) -->
+                        <div class="media-container">
+                            <video controls preload="metadata" class="feed-media">
+                                <source src="" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="app-footer">
+        <p>&copy; 2026 Departure Lounge. Built with Pure Vanilla Web Technologies.</p>
+    </footer>
+
+
+<!-- Firebase SDK Imports via ESM CDN -->
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { 
+        getFirestore, 
+        collection, 
+        addDoc, 
+        onSnapshot, 
+        query, 
+        orderBy 
+    } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+    // 1. Paste your Web App's Firebase Configuration here
+    const firebaseConfig = {
+        apiKey: "YOUR_API_KEY",
+        authDomain: "YOUR_AUTH_DOMAIN",
+        projectId: "YOUR_PROJECT_ID",
+        storageBucket: "YOUR_STORAGE_BUCKET",
+        messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+        appId: "YOUR_APP_ID"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // DOM Elements
+    const slamForm = document.getElementById('slamForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const memoryFeed = document.getElementById('memoryFeed');
+    const entryCountSpan = document.getElementById('entryCount');
+
+    // Replace the file input HTML in your form with a clean Link Input (Optional visual update)
+    const mediaContainer = document.querySelector('.form-group:nth-child(5)');
+    if (mediaContainer) {
+        mediaContainer.innerHTML = `
+            <label for="mediaUrl">Attach Media Link <span class="optional">(Google Drive, Dropbox, YouTube, Imgur, etc.)</span></label>
+            <input type="text" id="mediaUrl" name="mediaUrl" placeholder="https://drive.google.com/... or https://youtube.com/..." style="width: 100%;">
+            <span class="error-msg" id="mediaLinkError" style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-top: 0.25rem;">
+                Paste a shared link. The page will dynamically display your image, audio, or video.
+            </span>
+        `;
+    }
+
+    /* ==========================================================================
+       Firebase Firestore Submission
+       ========================================================================== */
+    slamForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        let isValid = true;
+        const requiredInputs = slamForm.querySelectorAll('[required]');
+        requiredInputs.forEach(input => {
+            const parent = input.closest('.form-group');
+            if (!input.value.trim()) {
+                parent.classList.add('invalid');
+                isValid = false;
+            } else {
+                parent.classList.remove('invalid');
+            }
+        });
+
+        if (!isValid) return;
+
+        setLoadingState(true);
+
+        const name = document.getElementById('userName').value.trim();
+        const role = document.getElementById('userRole').value.trim();
+        const coreMemory = document.getElementById('coreMemory').value.trim();
+        const message = document.getElementById('userMessage').value.trim();
+        const rawMediaUrl = document.getElementById('mediaUrl') ? document.getElementById('mediaUrl').value.trim() : '';
+
+        try {
+            // Process the shared link to ensure it's embeddable
+            let cleanMediaUrl = rawMediaUrl;
+            let mediaType = 'unknown';
+
+            if (rawMediaUrl) {
+                cleanMediaUrl = transformShareLink(rawMediaUrl);
+                mediaType = detectMediaType(rawMediaUrl);
+            }
+
+            // Write metadata strictly to Firestore
+            await addDoc(collection(db, "slambook_entries"), {
+                name,
+                role,
+                coreMemory,
+                message,
+                mediaUrl: cleanMediaUrl,
+                mediaType,
+                timestamp: new Date()
+            });
+
+            slamForm.reset();
+
+        } catch (error) {
+            console.error("Database submission failed: ", error);
+            alert("Error sending message. Please check connection parameters and security rules.");
+        } finally {
+            setLoadingState(false);
+        }
+    });
+
+    function setLoadingState(isLoading) {
+        const btnText = submitBtn.querySelector('.btn-text');
+        const loader = submitBtn.querySelector('.loader');
+        
+        if (isLoading) {
+            submitBtn.disabled = true;
+            btnText.textContent = "Posting to archive...";
+            loader.classList.remove('hidden');
+        } else {
+            submitBtn.disabled = false;
+            btnText.textContent = "Post to Slam Book";
+            loader.classList.add('hidden');
+        }
+    }
+
+    /* ==========================================================================
+       Utility Functions to Parse & Convert Cloud Share Links (Senior Logic)
+       ========================================================================== */
+    function detectMediaType(url) {
+        const lowerUrl = url.toLowerCase();
+        
+        // Simple pattern matching for media classification
+        if (lowerUrl.includes('youtube.com') || lowerUrl.includes('youtu.be') || lowerUrl.endsWith('.mp4') || lowerUrl.endsWith('.mov') || lowerUrl.endsWith('.webm')) {
+            return 'video';
+        }
+        if (lowerUrl.endsWith('.mp3') || lowerUrl.endsWith('.wav') || lowerUrl.endsWith('.m4a') || lowerUrl.endsWith('.ogg') || lowerUrl.includes('drive.google.com/file/d/')) {
+            // We default drive file links safely to dynamic players
+            return 'audio_or_video';
+        }
+        if (lowerUrl.endsWith('.jpg') || lowerUrl.endsWith('.jpeg') || lowerUrl.endsWith('.png') || lowerUrl.endsWith('.gif') || lowerUrl.includes('imgur.com')) {
+            return 'image';
+        }
+        return 'unknown'; // Fallback to raw link button
+    }
+
+    function transformShareLink(url) {
+        // Automatically handle Google Drive Share links so they direct stream instead of loading the Drive viewer page
+        if (url.includes('drive.google.com/file/d/')) {
+            const matches = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
+            if (matches && matches[1]) {
+                return `https://docs.google.com/uc?export=download&id=${matches[1]}`;
+            }
+        }
+        // Automatically convert YouTube standard watch links to embeddable player urls
+        if (url.includes('youtube.com/watch?v=')) {
+            const urlParams = new URLSearchParams(new URL(url).search);
+            const videoId = urlParams.get('v');
+            if (videoId) {
+                return `https://www.youtube.com/embed/${videoId}`;
+            }
+        }
+        if (url.includes('youtu.be/')) {
+            const matches = url.match(/youtu\.be\/([a-zA-Z0-9_-]+)/);
+            if (matches && matches[1]) {
+                return `https://www.youtube.com/embed/${matches[1]}`;
+            }
+        }
+        return url;
+    }
+
+    /* ==========================================================================
+       Real-Time Data Feed Streams
+       ========================================================================== */
+    const feedQuery = query(collection(db, "slambook_entries"), orderBy("timestamp", "desc"));
+
+    onSnapshot(feedQuery, (snapshot) => {
+        memoryFeed.innerHTML = '';
+        const count = snapshot.size;
+        entryCountSpan.textContent = `${count} ${count === 1 ? 'note' : 'notes'} shared`;
+
+        if (count === 0) {
+            memoryFeed.innerHTML = `
+                <div class="empty-state">
+                    <span class="icon">✨</span>
+                    <p>No memories shared yet. Be the first to leave a message!</p>
+                </div>`;
+            return;
+        }
+
+        snapshot.forEach((doc) => {
+            const data = doc.data();
+            const card = document.createElement('article');
+            card.className = 'feed-card';
+
+            const dateStr = data.timestamp ? new Date(data.timestamp.seconds * 1000).toLocaleDateString(undefined, {
+                month: 'short',
+                day: 'numeric',
+                year: 'numeric'
+            }) : 'Recent';
+
+            const escapeHTML = (str) => {
+                if (!str) return '';
+                return str.replace(/[&<>'"]/g, 
+                    tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
+                );
+            };
+
+            // Build dynamic Media elements
+            let mediaMarkup = '';
+            if (data.mediaUrl) {
+                const escapedUrl = escapeHTML(data.mediaUrl);
+                
+                if (data.mediaType === 'image') {
+                    mediaMarkup = `
+                        <div class="media-container">
+                            <img src="${escapedUrl}" alt="Memory attachment" class="feed-media" loading="lazy">
+                        </div>`;
+                } else if (data.mediaType === 'video' && escapedUrl.includes('youtube.com/embed/')) {
+                    mediaMarkup = `
+                        <div class="media-container" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+                            <iframe src="${escapedUrl}" frameborder="0" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
+                        </div>`;
+                } else if (data.mediaType === 'video') {
+                    mediaMarkup = `
+                        <div class="media-container">
+                            <video controls preload="metadata" class="feed-media">
+                                <source src="${escapedUrl}">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>`;
+                } else if (data.mediaType === 'audio_or_video') {
+                    // Try to stream Google Drive link natively (works if direct link is processed)
+                    mediaMarkup = `
+                        <div class="media-container" style="padding: 1rem; background: var(--bg-secondary); flex-direction: column; align-items: center;">
+                            <p style="font-size:0.75rem; color: var(--text-muted); margin-bottom: 0.5rem;">Streaming Google Drive/Cloud Attachment</p>
+                            <audio controls class="feed-media" style="width: 100%;">
+                                <source src="${escapedUrl}">
+                                Your browser does not support the audio element.
+                            </audio>
+                        </div>`;
+                } else {
+                    // Fallback to a clean link button if the parser cannot determine media type
+                    mediaMarkup = `
+                        <div class="media-container" style="padding: 1rem; background: var(--bg-secondary); text-align: center;">
+                            <a href="${escapedUrl}" target="_blank" rel="noopener noreferrer" class="btn" style="background-color: var(--border-color); color: var(--text-primary); text-decoration: none; display: inline-flex; width: auto; font-size: 0.85rem;">
+                                🔗 View Attached Media Link
+                            </a>
+                        </div>`;
+                }
+            }
+
+            card.innerHTML = `
+                <header class="feed-card-header">
+                    <div class="user-meta">
+                        <h3 class="user-name">${escapeHTML(data.name)}</h3>
+                        <span class="user-badge">${escapeHTML(data.role)}</span>
+                    </div>
+                    <time class="post-time">${dateStr}</time>
+                </header>
+                <div class="feed-card-body">
+                    <div class="memory-block">
+                        <h4>Core Memory:</h4>
+                        <p>"${escapeHTML(data.coreMemory)}"</p>
+                    </div>
+                    <div class="message-block">
+                        <h4>The Note:</h4>
+                        <p>${escapeHTML(data.message)}</p>
+                    </div>
+                    ${mediaMarkup}
+                </div>
+            `;
+            memoryFeed.appendChild(card);
+        });
+    }, (error) => {
+        console.error("Failed to fetch real-time updates: ", error);
+    });
+</script>
+
+</body>
+</html>
