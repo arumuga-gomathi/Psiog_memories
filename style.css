@@ -1,25 +1,25 @@
 /* ==========================================================================
-   1. CSS Custom Properties & Core Variables (Soft Cloud Aesthetic)
+   1. CSS Custom Properties & Base Variables (Fluid Soft Cloud Theme)
    ========================================================================== */
 :root {
-    /* Cloud gradient color boundaries */
-    --bg-gradient: linear-gradient(135deg, #fff0f5 0%, #e0f2fe 50%, #f0fdf4 100%); /* Soft Pink to Sky Blue to Soft Green-White */
+    /* Main Background - Soft clouds gradient (Can also link a background image below) */
+    --bg-gradient: linear-gradient(135deg, #fff2f6 0%, #e0f2fe 50%, #f0fdf4 100%);
     
-    /* Dynamic UI colors */
+    /* Soft Cloud Color Palette */
     --color-pink-soft: #fbcfe8;
     --color-blue-soft: #bae6fd;
     --accent: #ec4899; /* Cloud Rose Pink */
     --accent-hover: #db2777;
-    --accent-light: rgba(236, 72, 153, 0.1);
+    --accent-light: rgba(236, 72, 153, 0.08);
     --error: #ef4444;
     --success: #10b981;
 
-    /* Typographic & Boundary contrast colors */
-    --text-primary: #1e293b; /* Deep slate blue for perfect legibility */
-    --text-secondary: #475569; /* Muted slate */
+    /* Typographic High-Contrast Slate Colors */
+    --text-primary: #1e293b; /* Deep slate blue for perfect legibility on pastel backgrounds */
+    --text-secondary: #475569; /* Slate Gray */
     --text-muted: #64748b;
-    --border-color: rgba(255, 255, 255, 0.6); /* Translucent borders */
-    --bg-card: rgba(255, 255, 255, 0.75); /* Cloudy/Glassmorphic container background */
+    --border-color: rgba(255, 255, 255, 0.6); /* Glassmorphic translucent border */
+    --bg-card: rgba(255, 255, 255, 0.75); /* Cloudy semi-transparent card fill */
 
     /* Typography, shadows and borders */
     --font-system: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -27,11 +27,13 @@
     --radius-md: 16px;
     --radius-lg: 24px;
     --transition-smooth: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    --cloud-shadow: 0 10px 30px -5px rgba(148, 163, 184, 0.12), 0 4px 12px -2px rgba(148, 163, 184, 0.05);
+    
+    /* Puffier, softer cloud-like shadows */
+    --cloud-shadow: 0 10px 30px -5px rgba(148, 163, 184, 0.12), 0 4px 12px -2px rgba(148, 163, 184, 0.04);
 }
 
 /* ==========================================================================
-   2. Base Document Resets & Elements
+   2. Base Document Resets & Background Configurations
    ========================================================================== */
 *, *::before, *::after {
     box-sizing: border-box;
@@ -41,23 +43,30 @@
 
 body {
     background: var(--bg-gradient);
+    /* 
+       UNCOMMENT & CONFIGURE IF YOU WANT A FIXED BACKGROUND IMAGE STORED IN GITHUB:
+       background-image: url('images/clouds_bg.jpg');
+       background-size: cover;
+       background-position: center;
+    */
     background-attachment: fixed;
     color: var(--text-primary);
     font-family: var(--font-system);
-    line-height: 1.6;
+    line-height: 1.5;
     min-height: 100vh;
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
+    padding-bottom: 2rem;
 }
 
-/* Custom Soft-Theme Scrollbars */
+/* Styled Light-Blue Scrollbar to fit the cloud theme */
 ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.2);
 }
 
 ::-webkit-scrollbar-thumb {
@@ -70,55 +79,58 @@ body {
 }
 
 /* ==========================================================================
-   3. Header Navigation & Glass Tabs
+   3. Header Navigation & Dynamic Glass Tabs
    ========================================================================== */
 .app-header {
-    padding: 3.5rem 1rem 1.5rem 1rem;
+    padding: 2.5rem 1.5rem 1rem 1.5rem;
     text-align: center;
 }
 
 .header-container {
-    max-width: 1200px;
+    max-width: 1320px;
     margin: 0 auto;
 }
 
 .logo {
-    font-size: 2.4rem;
+    font-size: 2.2rem;
     font-weight: 800;
     letter-spacing: -0.04em;
-    line-height: 1.2;
+    line-height: 1.1;
     background: linear-gradient(135deg, #db2777 0%, #0284c7 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.25rem;
 }
 
 .subtitle {
-    font-size: 1rem;
+    font-size: 0.95rem;
     color: var(--text-secondary);
-    margin-bottom: 2rem;
-    font-weight: 500;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
 }
 
-/* Cloud-morphic Navigation panel */
+/* Navigation Tabs Panel */
 .tab-nav {
     display: inline-flex;
-    gap: 0.5rem;
-    background: rgba(255, 255, 255, 0.5);
+    gap: 0.25rem;
+    background: rgba(255, 255, 255, 0.55);
     backdrop-filter: blur(8px);
-    padding: 6px;
+    -webkit-backdrop-filter: blur(8px);
+    padding: 5px;
     border-radius: var(--radius-md);
     border: 1px solid var(--border-color);
     box-shadow: var(--cloud-shadow);
 }
 
 .tab-btn {
-    padding: 0.75rem 1.5rem;
+    padding: 0.65rem 1.25rem;
     background: none;
     border: none;
     color: var(--text-secondary);
-    font-size: 0.9rem;
-    font-weight: 600;
+    font-size: 0.85rem;
+    font-weight: 700;
     border-radius: 12px;
     cursor: pointer;
     transition: all var(--transition-smooth);
@@ -132,70 +144,56 @@ body {
 .tab-btn.active {
     background-color: #ffffff;
     color: var(--accent);
-    box-shadow: 0 4px 12px rgba(148, 163, 184, 0.1);
+    box-shadow: 0 4px 10px rgba(148, 163, 184, 0.08);
 }
 
-/* Dynamic Tab Views transitions */
+/* Navigation view transitions */
 .tab-view {
     display: none;
-    animation: cloudFadeIn 0.5s ease-out forwards;
+    animation: cloudSlideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .tab-view.active {
     display: block;
 }
 
-@keyframes cloudFadeIn {
-    from { opacity: 0; transform: translateY(12px); }
+@keyframes cloudSlideIn {
+    from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
 /* ==========================================================================
-   4. Main Container & Page Grids
+   4. Layout Containers & Grid Systems (Snug & Compact)
    ========================================================================== */
 .app-container {
-    max-width: 1100px;
-    margin: 2rem auto;
-    padding: 0 1.5rem;
+    width: 95%; /* Fills screen width gracefully */
+    max-width: 1320px; /* Expands wider to utilize modern display sizes */
+    margin: 1.5rem auto;
+    padding: 0 0.5rem; /* Reduced massive side paddings */
 }
 
-/* Grid Layout for Tab 1 (Home) */
+/* Our Journey (Home) Grid */
 .home-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 2rem;
+    gap: 1.5rem; /* Snug spacing */
 }
 
 @media (min-width: 768px) {
     .home-grid {
-        grid-template-columns: 2fr 1fr;
+        grid-template-columns: 1.8fr 1fr;
         align-items: start;
     }
 }
 
-/* Grid Layout for Tab 2 (Slam Book) */
-.slambook-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 2.5rem;
-}
-
-@media (min-width: 992px) {
-    .slambook-grid {
-        grid-template-columns: 450px 1fr;
-        align-items: start;
-    }
-    
-    .form-section {
-        position: sticky;
-        top: 2rem;
-    }
+/* Shared Memories (Full-width readout layout) */
+.full-width-feed {
+    width: 100%;
 }
 
 /* ==========================================================================
-   5. Card Layouts & Visual Blocks
+   5. Card Layouts & Workspace Snapshots (Morphic Glass)
    ========================================================================== */
-.card, 
 .cloud-card,
 .audio-widget {
     background: var(--bg-card);
@@ -206,44 +204,41 @@ body {
     box-shadow: var(--cloud-shadow);
 }
 
-.card, .cloud-card {
-    padding: 2.5rem;
+.cloud-card {
+    padding: 2rem; /* Compact padding */
 }
 
-h2 {
-    font-size: 1.6rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-    letter-spacing: -0.02em;
+.cloud-card h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
     color: var(--text-primary);
-}
-
-p {
-    color: var(--text-secondary);
-    font-size: 0.95rem;
+    font-weight: 700;
 }
 
 .cloud-card p {
-    margin-bottom: 1.25rem;
+    margin-bottom: 1rem;
+    color: var(--text-secondary);
 }
 
-/* Workspace Snapshots Media Grid */
+/* Workspace Snapshots Panel */
 .snapshots-title {
-    margin-top: 2.5rem;
-    font-size: 1.2rem;
-    margin-bottom: 1rem;
+    margin-top: 2rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.75rem;
 }
 
 .media-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 0.75rem;
 }
 
 .media-placeholder {
     aspect-ratio: 4 / 3;
     background: rgba(255, 255, 255, 0.55);
-    border: 2px dashed rgba(236, 72, 153, 0.25);
+    border: 2px dashed rgba(236, 72, 153, 0.2);
     border-radius: var(--radius-md);
     display: flex;
     flex-direction: column;
@@ -251,60 +246,60 @@ p {
     justify-content: center;
     color: var(--text-secondary);
     font-size: 0.85rem;
-    padding: 1rem;
+    padding: 0.75rem;
     text-align: center;
-    transition: border-color var(--transition-smooth);
+    transition: all var(--transition-smooth);
 }
 
 .media-placeholder:hover {
     border-color: var(--accent);
+    background: rgba(255, 255, 255, 0.75);
 }
 
 .placeholder-icon {
-    font-size: 1.8rem;
-    margin-bottom: 0.25rem;
+    font-size: 1.5rem;
+    margin-bottom: 0.15rem;
     display: block;
 }
 
 /* ==========================================================================
-   6. Custom Cloud Audio Widget
+   6. Custom Cloud Audio Player Widget
    ========================================================================== */
 .audio-widget {
-    padding: 2rem 1.5rem;
+    padding: 1.5rem;
     text-align: center;
 }
 
 .audio-widget h3 {
-    font-size: 1.15rem;
-    font-weight: 700;
-    margin-bottom: 0.25rem;
+    font-size: 1.1rem;
+    margin-bottom: 0.15rem;
 }
 
 .audio-widget p {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     color: var(--text-muted);
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
 }
 
 .custom-audio-controls {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 0.75rem;
     background: #ffffff;
-    padding: 0.75rem 1rem;
+    padding: 0.5rem 0.75rem;
     border-radius: var(--radius-md);
     border: 1px solid rgba(255, 255, 255, 0.8);
-    box-shadow: 0 4px 12px rgba(148, 163, 184, 0.05);
+    box-shadow: 0 4px 10px rgba(148, 163, 184, 0.04);
 }
 
 .play-pause-btn {
     background: var(--accent);
     border: none;
     color: #ffffff;
-    width: 44px;
-    height: 44px;
+    width: 38px;
+    height: 38px;
     border-radius: 50%;
-    font-size: 1.1rem;
+    font-size: 1rem;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -314,7 +309,7 @@ p {
 }
 
 .play-pause-btn:hover {
-    transform: scale(1.06);
+    transform: scale(1.05);
     background: var(--accent-hover);
 }
 
@@ -333,24 +328,18 @@ p {
 }
 
 /* ==========================================================================
-   7. Form Controls & Interactive Inputs (Your Fields)
+   7. Form Inputs & Interactive Dropzones
    ========================================================================== */
-.form-description {
-    color: var(--text-secondary);
-    font-size: 0.925rem;
-    margin-bottom: 1.5rem;
-}
-
 .form-group {
-    margin-bottom: 1.25rem;
+    margin-bottom: 1rem;
     display: flex;
     flex-direction: column;
 }
 
 label {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     font-weight: 700;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.35rem;
     color: var(--text-secondary);
 }
 
@@ -362,19 +351,19 @@ label {
 .optional {
     color: var(--text-muted);
     font-weight: 400;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
 }
 
 input[type="text"],
 textarea {
     width: 100%;
-    padding: 0.8rem 1rem;
+    padding: 0.7rem 0.9rem;
     background-color: rgba(255, 255, 255, 0.8);
     border: 1px solid var(--color-blue-soft);
     border-radius: var(--radius-md);
     color: var(--text-primary);
     font-family: inherit;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     transition: border-color var(--transition-smooth), box-shadow var(--transition-smooth), background-color var(--transition-smooth);
 }
 
@@ -383,18 +372,18 @@ textarea:focus {
     outline: none;
     background-color: #ffffff;
     border-color: var(--accent);
-    box-shadow: 0 0 0 4px var(--accent-light);
+    box-shadow: 0 0 0 3px var(--accent-light);
 }
 
 textarea {
     resize: vertical;
 }
 
-/* Real-Time Form Validation Warnings */
+/* Real-Time Form Validation Feedback */
 .error-msg {
     color: var(--error);
-    font-size: 0.8rem;
-    margin-top: 0.4rem;
+    font-size: 0.75rem;
+    margin-top: 0.3rem;
     font-weight: 600;
     display: none;
 }
@@ -409,14 +398,94 @@ textarea {
     display: block;
 }
 
-/* Interactive Buttons */
+/* Canvas Photo Upload Dropzone inside modal */
+.file-dropzone {
+    position: relative;
+    border: 2px dashed rgba(236, 72, 153, 0.25);
+    border-radius: var(--radius-md);
+    padding: 1.25rem;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.6);
+    transition: border-color var(--transition-smooth), background-color var(--transition-smooth);
+    cursor: pointer;
+}
+
+.file-dropzone:hover {
+    border-color: var(--accent);
+    background-color: rgba(255, 255, 255, 0.85);
+}
+
+.file-dropzone input[type="file"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.dropzone-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    pointer-events: none;
+}
+
+.dropzone-text .icon {
+    font-size: 1.5rem;
+    margin-bottom: 0.25rem;
+}
+
+.dropzone-text .text {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.dropzone-text .browse {
+    color: var(--accent);
+    font-weight: 700;
+}
+
+/* Selected File Preview Badge */
+.file-preview-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.6rem 0.8rem;
+    background-color: rgba(255, 255, 255, 0.95);
+    border: 1px solid var(--accent);
+    border-radius: var(--radius-md);
+    margin-top: 0.5rem;
+}
+
+.file-preview-container span {
+    font-size: 0.8rem;
+    color: var(--text-primary);
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 80%;
+}
+
+.btn-text {
+    background: none;
+    border: none;
+    color: var(--error);
+    font-size: 0.8rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+/* Buttons Controls */
 .btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     width: 100%;
-    padding: 0.9rem 1.5rem;
-    font-size: 0.95rem;
+    padding: 0.8rem 1.25rem;
+    font-size: 0.9rem;
     font-weight: 700;
     border-radius: var(--radius-md);
     border: none;
@@ -428,7 +497,7 @@ textarea {
 .btn-primary {
     background-color: var(--accent);
     color: #ffffff;
-    box-shadow: 0 4px 14px rgba(236, 72, 153, 0.25);
+    box-shadow: 0 4px 12px rgba(236, 72, 153, 0.2);
 }
 
 .btn-primary:hover {
@@ -443,10 +512,9 @@ textarea {
     display: none !important;
 }
 
-/* Submit Loaders */
 .loader {
-    width: 20px;
-    height: 20px;
+    width: 16px;
+    height: 16px;
     border: 2px solid #ffffff;
     border-top: 2px solid transparent;
     border-radius: 50%;
@@ -460,26 +528,21 @@ textarea {
 }
 
 /* ==========================================================================
-   8. Shared Memory Card Feed (Mockups & Dynamic Cards)
+   8. Shared Memory Card Feed (Read-Only Columns)
    ========================================================================== */
-.feed-section {
-    display: flex;
-    flex-direction: column;
-}
-
 .feed-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
 }
 
 .feed-stats {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     font-weight: 700;
     color: var(--text-muted);
     background-color: rgba(255, 255, 255, 0.6);
-    padding: 0.25rem 0.75rem;
+    padding: 0.2rem 0.6rem;
     border-radius: 999px;
     border: 1px solid var(--border-color);
 }
@@ -487,14 +550,14 @@ textarea {
 .memory-feed {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1.25rem; /* Snug vertical spacing */
 }
 
 .feed-card {
     background-color: var(--bg-card);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-lg);
-    padding: 1.75rem;
+    padding: 1.5rem;
     box-shadow: var(--cloud-shadow);
     transition: transform var(--transition-smooth), border-color var(--transition-smooth);
 }
@@ -508,7 +571,7 @@ textarea {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-bottom: 1.25rem;
+    margin-bottom: 1rem;
 }
 
 .user-meta {
@@ -517,30 +580,30 @@ textarea {
 }
 
 .user-name {
-    font-size: 1.15rem;
+    font-size: 1.05rem;
     font-weight: 800;
     line-height: 1.2;
     color: var(--text-primary);
 }
 
 .user-badge {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     font-weight: 700;
     color: var(--accent);
-    margin-top: 0.25rem;
+    margin-top: 0.15rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
 }
 
 .post-time {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     color: var(--text-muted);
 }
 
 .feed-card-body {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 0.75rem;
 }
 
 .memory-block,
@@ -550,16 +613,16 @@ textarea {
 }
 
 .feed-block-title {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     font-weight: 700;
     text-transform: uppercase;
     color: var(--text-muted);
     letter-spacing: 0.05em;
-    margin-bottom: 0.25rem;
+    margin-bottom: 0.15rem;
 }
 
 .feed-card-body p {
-    font-size: 0.95rem;
+    font-size: 0.925rem;
     color: var(--text-primary);
 }
 
@@ -568,9 +631,9 @@ textarea {
     color: var(--text-secondary);
 }
 
-/* Responsive Dynamic Embed Media players */
+/* Embedded Media players inside feeds */
 .media-container {
-    margin-top: 0.75rem;
+    margin-top: 0.5rem;
     border-radius: var(--radius-md);
     overflow: hidden;
     background-color: #000000;
@@ -581,33 +644,34 @@ textarea {
 
 .feed-media {
     max-width: 100%;
-    max-height: 380px;
+    max-height: 360px;
     display: block;
 }
 
-/* Empty State */
+/* Empty State Card */
 .empty-state {
     text-align: center;
-    padding: 4rem 2rem;
+    padding: 3rem 1.5rem;
     border: 2px dashed var(--border-color);
     border-radius: var(--radius-lg);
     background-color: rgba(255, 255, 255, 0.4);
 }
 
 .empty-state .icon {
-    font-size: 3rem;
+    font-size: 2.5rem;
     display: block;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
 }
 
 .empty-state p {
     color: var(--text-secondary);
+    font-size: 0.9rem;
 }
 
-/* Custom classes for injected embeds (To prevent inline-styles) */
+/* Responsive Embed Helpers */
 .video-responsive-container {
     position: relative;
-    padding-bottom: 56.25%; /* Keeps 16:9 box */
+    padding-bottom: 56.25%; /* keeps 16:9 box */
     height: 0;
     overflow: hidden;
 }
@@ -621,7 +685,7 @@ textarea {
 }
 
 .audio-streaming-container {
-    padding: 1.25rem;
+    padding: 1rem;
     background-color: var(--bg-card);
     display: flex;
     flex-direction: column;
@@ -629,14 +693,14 @@ textarea {
 }
 
 .audio-streaming-subtext {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     color: var(--text-muted);
-    margin-bottom: 0.5rem;
-    font-weight: 600;
+    margin-bottom: 0.35rem;
+    font-weight: 700;
 }
 
 .fallback-link-container {
-    padding: 1.25rem;
+    padding: 1rem;
     background-color: var(--bg-card);
     text-align: center;
 }
@@ -644,7 +708,7 @@ textarea {
 .fallback-link {
     color: var(--accent);
     text-decoration: none;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     font-weight: 700;
 }
 
@@ -653,29 +717,29 @@ textarea {
 }
 
 /* ==========================================================================
-   9. Tab 3: Friends Portal Locked Grid
+   9. Tab 3: Friends Portal Grid (Clean Spacing)
    ========================================================================== */
 .private-intro {
     text-align: center;
-    max-width: 600px;
-    margin: 0 auto 2.5rem auto;
+    max-width: 650px;
+    margin: 0.5rem auto 2rem auto;
 }
 
 .private-intro h2 {
     color: var(--text-primary);
-    font-size: 1.75rem;
+    font-size: 1.6rem;
 }
 
 .private-intro p {
     color: var(--text-secondary);
-    font-size: 0.95rem;
-    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    margin-top: 0.35rem;
 }
 
 .friends-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.25rem;
 }
 
 .locked-friend-card {
@@ -683,7 +747,7 @@ textarea {
     backdrop-filter: blur(12px);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-lg);
-    padding: 2.5rem 2rem;
+    padding: 2rem 1.5rem;
     text-align: center;
     cursor: pointer;
     transition: all var(--transition-smooth);
@@ -693,23 +757,23 @@ textarea {
 .locked-friend-card:hover {
     transform: translateY(-4px);
     border-color: var(--accent);
-    box-shadow: 0 15px 35px -5px rgba(236, 72, 153, 0.1);
+    box-shadow: 0 15px 30px -5px rgba(236, 72, 153, 0.08);
 }
 
 .cloud-badge-icon {
-    font-size: 2.2rem;
-    margin-bottom: 1rem;
+    font-size: 2rem;
+    margin-bottom: 0.75rem;
     display: inline-block;
 }
 
 .locked-friend-card h3 {
-    font-size: 1.25rem;
+    font-size: 1.15rem;
     color: var(--text-primary);
-    margin-bottom: 0.25rem;
+    margin-bottom: 0.15rem;
 }
 
 .locked-friend-card p {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     color: var(--text-muted);
     font-weight: 700;
     text-transform: uppercase;
@@ -726,12 +790,12 @@ textarea {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(224, 242, 254, 0.85); /* Sky blue tint back-curtain */
+    background-color: rgba(224, 242, 254, 0.8); /* Translucent sky blue backdrop */
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     z-index: 1000;
     overflow-y: auto;
-    padding: 2rem 1rem;
+    padding: 1.5rem 0.5rem;
 }
 
 .private-letter-overlay.active {
@@ -739,39 +803,41 @@ textarea {
 }
 
 .letter-container {
-    max-width: 720px;
-    margin: 2rem auto;
-    background-color: rgba(255, 255, 255, 0.9);
+    width: 95%;
+    max-width: 680px;
+    margin: 1rem auto;
+    background-color: rgba(255, 255, 255, 0.92);
     border: 1px solid rgba(255, 255, 255, 0.8);
     border-radius: var(--radius-lg);
-    padding: 2.5rem;
-    box-shadow: 0 20px 50px -10px rgba(148, 163, 184, 0.25);
+    padding: 1.75rem; /* Squeezed spacing */
+    box-shadow: 0 20px 45px -10px rgba(148, 163, 184, 0.2);
     position: relative;
-    animation: modalSlideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: modalSlideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 @keyframes modalSlideUp {
-    from { opacity: 0; transform: translateY(30px); }
+    from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
 .close-letter-btn {
     position: absolute;
-    top: 1.5rem;
-    right: 1.5rem;
+    top: 1.25rem;
+    right: 1.25rem;
     background: #ffffff;
     border: 1px solid var(--border-color);
     color: var(--text-secondary);
-    width: 38px;
-    height: 38px;
+    width: 34px;
+    height: 34px;
     border-radius: 50%;
     cursor: pointer;
-    font-size: 1.1rem;
+    font-size: 1rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 4px 10px rgba(148, 163, 184, 0.08);
+    box-shadow: 0 4px 10px rgba(148, 163, 184, 0.06);
     transition: all var(--transition-smooth);
+    z-index: 10;
 }
 
 .close-letter-btn:hover {
@@ -779,38 +845,38 @@ textarea {
     transform: rotate(90deg);
 }
 
-/* Password prompting lockscreen */
+/* Password Lockscreen styling */
 .password-prompt-box {
     text-align: center;
-    padding: 2.5rem 1rem;
+    padding: 2rem 1rem;
 }
 
 .lock-icon {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
+    font-size: 2.2rem;
+    margin-bottom: 0.75rem;
     display: block;
 }
 
 .prompt-subtext {
     color: var(--text-secondary);
-    font-size: 0.925rem;
-    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    margin-top: 0.35rem;
 }
 
 .prompt-input {
-    max-width: 300px;
-    margin: 1.5rem auto 0 auto;
+    max-width: 280px;
+    margin: 1.25rem auto 0 auto;
     text-align: center;
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     font-weight: 700;
     letter-spacing: 0.1em;
 }
 
 .error-text {
     color: var(--error);
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     font-weight: 700;
-    margin-top: 1rem;
+    margin-top: 0.75rem;
     display: none;
 }
 
@@ -825,86 +891,94 @@ textarea {
 
 #friendName {
     color: var(--text-primary);
-    font-size: 2rem;
-    margin-bottom: 0.25rem;
+    font-size: 1.75rem;
+    margin-bottom: 0.15rem;
 }
 
 .friend-subtitle {
     color: var(--accent);
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.25rem;
 }
 
+/* Hero image inside unlocked cards modal */
 .friend-image-placeholder {
     width: 100%;
-    height: 260px;
+    height: 240px;
     background: rgba(255, 255, 255, 0.65);
     border-radius: var(--radius-md);
-    border: 2px dashed rgba(236, 72, 153, 0.2);
+    border: 2px dashed rgba(236, 72, 153, 0.15);
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
     color: var(--text-muted);
-    font-size: 0.9rem;
+    font-size: 0.85rem;
+    overflow: hidden; /* Clips boundaries */
 }
 
-/* The 5 Narrative Steps Inside Unlocked Modal */
+.friend-hero-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Beautiful cropped scale */
+}
+
+/* Your 5-Step Story Inside unlocked modal */
 .narrative-step {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.25rem;
     border-left: 3px solid var(--accent);
-    padding-left: 1.25rem;
+    padding-left: 1rem;
 }
 
 .narrative-step h4 {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     font-weight: 700;
     text-transform: uppercase;
     color: var(--accent);
     letter-spacing: 0.05em;
-    margin-bottom: 0.35rem;
+    margin-bottom: 0.25rem;
 }
 
 .narrative-step p {
     color: var(--text-secondary);
-    font-size: 0.95rem;
+    font-size: 0.9rem;
 }
 
 /* Private Response Form Inside Modal */
 .private-write-back-section {
-    margin-top: 3.5rem;
-    padding-top: 2.5rem;
+    margin-top: 3rem;
+    padding-top: 2rem;
     border-top: 1px solid var(--color-blue-soft);
 }
 
 .private-write-back-section h3 {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     font-weight: 700;
     color: var(--text-primary);
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.35rem;
 }
 
 .private-section-desc {
     color: var(--text-secondary);
-    font-size: 0.9rem;
-    margin-bottom: 1.5rem;
+    font-size: 0.85rem;
+    margin-bottom: 1.25rem;
 }
 
 .private-form {
-    background: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.45);
     border: 1px solid var(--border-color);
-    padding: 1.5rem;
+    padding: 1.25rem;
     border-radius: var(--radius-md);
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
 }
 
 .private-response-feed {
     display: flex;
     flex-direction: column;
-    gap: 1.25rem;
+    gap: 1rem;
 }
 
 /* ==========================================================================
@@ -912,8 +986,8 @@ textarea {
    ========================================================================== */
 .app-footer {
     text-align: center;
-    padding: 3rem 1rem;
+    padding: 2rem 1rem;
     color: var(--text-muted);
-    font-size: 0.875rem;
+    font-size: 0.8rem;
     background: transparent;
 }
