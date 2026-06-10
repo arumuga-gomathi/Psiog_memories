@@ -1,28 +1,38 @@
 /* ==========================================================================
-   CSS Custom Properties & Reset
+   1. CSS Custom Properties & Core Variables (Soft Cloud Aesthetic)
    ========================================================================== */
 :root {
-    --bg-primary: #121214;
-    --bg-secondary: #1a1a1e;
-    --bg-card: #222226;
-    --border-color: #2e2e34;
+    /* Cloud gradient color boundaries */
+    --bg-gradient: linear-gradient(135deg, #fff0f5 0%, #e0f2fe 50%, #f0fdf4 100%); /* Soft Pink to Sky Blue to Soft Green-White */
     
-    --text-primary: #f3f4f6;
-    --text-secondary: #9ca3af;
-    --text-muted: #6b7280;
-    
-    --accent: #d4af37; /* Champagne Gold / Warm Accent */
-    --accent-hover: #bfa030;
+    /* Dynamic UI colors */
+    --color-pink-soft: #fbcfe8;
+    --color-blue-soft: #bae6fd;
+    --accent: #ec4899; /* Cloud Rose Pink */
+    --accent-hover: #db2777;
+    --accent-light: rgba(236, 72, 153, 0.1);
     --error: #ef4444;
     --success: #10b981;
 
+    /* Typographic & Boundary contrast colors */
+    --text-primary: #1e293b; /* Deep slate blue for perfect legibility */
+    --text-secondary: #475569; /* Muted slate */
+    --text-muted: #64748b;
+    --border-color: rgba(255, 255, 255, 0.6); /* Translucent borders */
+    --bg-card: rgba(255, 255, 255, 0.75); /* Cloudy/Glassmorphic container background */
+
+    /* Typography, shadows and borders */
     --font-system: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    --radius-sm: 6px;
-    --radius-md: 12px;
-    --radius-lg: 16px;
-    --transition-fast: 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    --radius-sm: 8px;
+    --radius-md: 16px;
+    --radius-lg: 24px;
+    --transition-smooth: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    --cloud-shadow: 0 10px 30px -5px rgba(148, 163, 184, 0.12), 0 4px 12px -2px rgba(148, 163, 184, 0.05);
 }
 
+/* ==========================================================================
+   2. Base Document Resets & Elements
+   ========================================================================== */
 *, *::before, *::after {
     box-sizing: border-box;
     margin: 0;
@@ -30,21 +40,40 @@
 }
 
 body {
-    background-color: var(--bg-primary);
+    background: var(--bg-gradient);
+    background-attachment: fixed;
     color: var(--text-primary);
     font-family: var(--font-system);
     line-height: 1.6;
+    min-height: 100vh;
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
 }
 
+/* Custom Soft-Theme Scrollbars */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--color-blue-soft);
+    border-radius: var(--radius-sm);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-pink-soft);
+}
+
 /* ==========================================================================
-   Header & Footer
+   3. Header Navigation & Glass Tabs
    ========================================================================== */
 .app-header {
-    background-color: var(--bg-secondary);
-    border-bottom: 1px solid var(--border-color);
-    padding: 2rem 1rem;
+    padding: 3.5rem 1rem 1.5rem 1rem;
     text-align: center;
 }
 
@@ -54,41 +83,105 @@ body {
 }
 
 .logo {
-    font-size: 2rem;
+    font-size: 2.4rem;
     font-weight: 800;
-    color: var(--text-primary);
-    letter-spacing: -0.05em;
+    letter-spacing: -0.04em;
+    line-height: 1.2;
+    background: linear-gradient(135deg, #db2777 0%, #0284c7 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.5rem;
 }
 
 .subtitle {
     font-size: 1rem;
     color: var(--text-secondary);
-    margin-top: 0.5rem;
+    margin-bottom: 2rem;
+    font-weight: 500;
 }
 
-.app-footer {
-    text-align: center;
-    padding: 3rem 1rem;
-    color: var(--text-muted);
-    font-size: 0.875rem;
-    border-top: 1px solid var(--border-color);
-    background-color: var(--bg-secondary);
+/* Cloud-morphic Navigation panel */
+.tab-nav {
+    display: inline-flex;
+    gap: 0.5rem;
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(8px);
+    padding: 6px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--cloud-shadow);
+}
+
+.tab-btn {
+    padding: 0.75rem 1.5rem;
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    font-weight: 600;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all var(--transition-smooth);
+}
+
+.tab-btn:hover {
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.4);
+}
+
+.tab-btn.active {
+    background-color: #ffffff;
+    color: var(--accent);
+    box-shadow: 0 4px 12px rgba(148, 163, 184, 0.1);
+}
+
+/* Dynamic Tab Views transitions */
+.tab-view {
+    display: none;
+    animation: cloudFadeIn 0.5s ease-out forwards;
+}
+
+.tab-view.active {
+    display: block;
+}
+
+@keyframes cloudFadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 /* ==========================================================================
-   Layout Grid
+   4. Main Container & Page Grids
    ========================================================================== */
 .app-container {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 2.5rem;
-    max-width: 1200px;
+    max-width: 1100px;
     margin: 2rem auto;
     padding: 0 1.5rem;
 }
 
+/* Grid Layout for Tab 1 (Home) */
+.home-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+}
+
+@media (min-width: 768px) {
+    .home-grid {
+        grid-template-columns: 2fr 1fr;
+        align-items: start;
+    }
+}
+
+/* Grid Layout for Tab 2 (Slam Book) */
+.slambook-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+}
+
 @media (min-width: 992px) {
-    .app-container {
+    .slambook-grid {
         grid-template-columns: 450px 1fr;
         align-items: start;
     }
@@ -100,197 +193,242 @@ body {
 }
 
 /* ==========================================================================
-   Base Cards & Elements
+   5. Card Layouts & Visual Blocks
    ========================================================================== */
-.card {
-    background-color: var(--bg-card);
+.card, 
+.cloud-card,
+.audio-widget {
+    background: var(--bg-card);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-lg);
-    padding: 2rem;
+    box-shadow: var(--cloud-shadow);
+}
+
+.card, .cloud-card {
+    padding: 2.5rem;
 }
 
 h2 {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     font-weight: 700;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
     letter-spacing: -0.02em;
+    color: var(--text-primary);
+}
+
+p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+}
+
+.cloud-card p {
+    margin-bottom: 1.25rem;
+}
+
+/* Workspace Snapshots Media Grid */
+.snapshots-title {
+    margin-top: 2.5rem;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.media-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+}
+
+.media-placeholder {
+    aspect-ratio: 4 / 3;
+    background: rgba(255, 255, 255, 0.55);
+    border: 2px dashed rgba(236, 72, 153, 0.25);
+    border-radius: var(--radius-md);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    padding: 1rem;
+    text-align: center;
+    transition: border-color var(--transition-smooth);
+}
+
+.media-placeholder:hover {
+    border-color: var(--accent);
+}
+
+.placeholder-icon {
+    font-size: 1.8rem;
+    margin-bottom: 0.25rem;
+    display: block;
 }
 
 /* ==========================================================================
-   Forms & Custom Controls
+   6. Custom Cloud Audio Widget
+   ========================================================================== */
+.audio-widget {
+    padding: 2rem 1.5rem;
+    text-align: center;
+}
+
+.audio-widget h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+}
+
+.audio-widget p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+}
+
+.custom-audio-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: #ffffff;
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 4px 12px rgba(148, 163, 184, 0.05);
+}
+
+.play-pause-btn {
+    background: var(--accent);
+    border: none;
+    color: #ffffff;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: transform var(--transition-smooth), background-color var(--transition-smooth);
+}
+
+.play-pause-btn:hover {
+    transform: scale(1.06);
+    background: var(--accent-hover);
+}
+
+.progress-container {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+}
+
+.progress-bar {
+    width: 100%;
+    accent-color: var(--accent);
+    cursor: pointer;
+    height: 6px;
+    border-radius: 3px;
+}
+
+/* ==========================================================================
+   7. Form Controls & Interactive Inputs (Your Fields)
    ========================================================================== */
 .form-description {
     color: var(--text-secondary);
-    font-size: 0.9rem;
+    font-size: 0.925rem;
     margin-bottom: 1.5rem;
 }
 
 .form-group {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.25rem;
     display: flex;
     flex-direction: column;
 }
 
 label {
-    font-size: 0.875rem;
-    font-weight: 600;
+    font-size: 0.85rem;
+    font-weight: 700;
     margin-bottom: 0.5rem;
     color: var(--text-secondary);
 }
 
 .required {
     color: var(--error);
+    margin-left: 0.15rem;
 }
 
 .optional {
     color: var(--text-muted);
     font-weight: 400;
+    font-size: 0.8rem;
 }
 
 input[type="text"],
 textarea {
     width: 100%;
-    padding: 0.75rem 1rem;
-    background-color: var(--bg-secondary);
-    border: 1px solid var(--border-color);
+    padding: 0.8rem 1rem;
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid var(--color-blue-soft);
     border-radius: var(--radius-md);
     color: var(--text-primary);
     font-family: inherit;
     font-size: 0.95rem;
-    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+    transition: border-color var(--transition-smooth), box-shadow var(--transition-smooth), background-color var(--transition-smooth);
 }
 
 input[type="text"]:focus,
 textarea:focus {
     outline: none;
+    background-color: #ffffff;
     border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
+    box-shadow: 0 0 0 4px var(--accent-light);
 }
 
 textarea {
     resize: vertical;
 }
 
-/* Error states */
+/* Real-Time Form Validation Warnings */
 .error-msg {
     color: var(--error);
     font-size: 0.8rem;
-    margin-top: 0.35rem;
+    margin-top: 0.4rem;
+    font-weight: 600;
     display: none;
 }
 
 .form-group.invalid input,
 .form-group.invalid textarea {
     border-color: var(--error);
+    background-color: rgba(239, 68, 68, 0.02);
 }
 
 .form-group.invalid .error-msg {
     display: block;
 }
 
-/* Drag-and-drop File Zone */
-.file-dropzone {
-    position: relative;
-    border: 2px dashed var(--border-color);
-    border-radius: var(--radius-md);
-    padding: 1.5rem;
-    text-align: center;
-    background-color: var(--bg-secondary);
-    transition: border-color var(--transition-fast);
-    cursor: pointer;
-}
-
-.file-dropzone:hover,
-.file-dropzone.drag-over {
-    border-color: var(--accent);
-}
-
-.file-dropzone input[type="file"] {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-    cursor: pointer;
-}
-
-.dropzone-text {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    pointer-events: none;
-}
-
-.dropzone-text .icon {
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
-}
-
-.dropzone-text .text {
-    font-size: 0.875rem;
-    color: var(--text-secondary);
-}
-
-.dropzone-text .browse {
-    color: var(--accent);
-    font-weight: 600;
-}
-
-.dropzone-text .limits {
-    font-size: 0.75rem;
-    color: var(--text-muted);
-    margin-top: 0.25rem;
-}
-
-.file-preview-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0.75rem 1rem;
-    background-color: var(--bg-secondary);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-md);
-    margin-top: 0.75rem;
-}
-
-.file-preview-container span {
-    font-size: 0.875rem;
-    color: var(--text-secondary);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 80%;
-}
-
-.btn-text {
-    background: none;
-    border: none;
-    color: var(--error);
-    font-size: 0.875rem;
-    font-weight: 600;
-    cursor: pointer;
-}
-
-/* Buttons & CTA */
+/* Interactive Buttons */
 .btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     width: 100%;
-    padding: 0.875rem 1.5rem;
+    padding: 0.9rem 1.5rem;
     font-size: 0.95rem;
-    font-weight: 600;
+    font-weight: 700;
     border-radius: var(--radius-md);
     border: none;
     cursor: pointer;
-    transition: background-color var(--transition-fast), transform var(--transition-fast);
+    transition: background-color var(--transition-smooth), transform var(--transition-smooth);
     position: relative;
 }
 
 .btn-primary {
     background-color: var(--accent);
-    color: #121214;
+    color: #ffffff;
+    box-shadow: 0 4px 14px rgba(236, 72, 153, 0.25);
 }
 
 .btn-primary:hover {
@@ -305,13 +443,14 @@ textarea {
     display: none !important;
 }
 
-/* Loading Spinners */
+/* Submit Loaders */
 .loader {
     width: 20px;
     height: 20px;
-    border: 2px solid #121214;
+    border: 2px solid #ffffff;
     border-top: 2px solid transparent;
     border-radius: 50%;
+    margin-left: 0.5rem;
     animation: spin 0.8s linear infinite;
 }
 
@@ -321,8 +460,13 @@ textarea {
 }
 
 /* ==========================================================================
-   Memory Feed & Feed Cards
+   8. Shared Memory Card Feed (Mockups & Dynamic Cards)
    ========================================================================== */
+.feed-section {
+    display: flex;
+    flex-direction: column;
+}
+
 .feed-header {
     display: flex;
     justify-content: space-between;
@@ -331,9 +475,10 @@ textarea {
 }
 
 .feed-stats {
-    font-size: 0.875rem;
-    color: var(--text-secondary);
-    background-color: var(--bg-secondary);
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    background-color: rgba(255, 255, 255, 0.6);
     padding: 0.25rem 0.75rem;
     border-radius: 999px;
     border: 1px solid var(--border-color);
@@ -349,12 +494,14 @@ textarea {
     background-color: var(--bg-card);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-lg);
-    padding: 1.5rem;
-    transition: transform var(--transition-fast), border-color var(--transition-fast);
+    padding: 1.75rem;
+    box-shadow: var(--cloud-shadow);
+    transition: transform var(--transition-smooth), border-color var(--transition-smooth);
 }
 
 .feed-card:hover {
-    border-color: var(--text-muted);
+    transform: translateY(-2px);
+    border-color: var(--color-pink-soft);
 }
 
 .feed-card-header {
@@ -370,14 +517,15 @@ textarea {
 }
 
 .user-name {
-    font-size: 1.1rem;
-    font-weight: 700;
+    font-size: 1.15rem;
+    font-weight: 800;
     line-height: 1.2;
+    color: var(--text-primary);
 }
 
 .user-badge {
     font-size: 0.75rem;
-    font-weight: 600;
+    font-weight: 700;
     color: var(--accent);
     margin-top: 0.25rem;
     text-transform: uppercase;
@@ -401,7 +549,7 @@ textarea {
     flex-direction: column;
 }
 
-.feed-card-body h4 {
+.feed-block-title {
     font-size: 0.8rem;
     font-weight: 700;
     text-transform: uppercase;
@@ -420,12 +568,12 @@ textarea {
     color: var(--text-secondary);
 }
 
-/* Media containers within cards */
+/* Responsive Dynamic Embed Media players */
 .media-container {
     margin-top: 0.75rem;
     border-radius: var(--radius-md);
     overflow: hidden;
-    background-color: #000;
+    background-color: #000000;
     border: 1px solid var(--border-color);
     display: flex;
     justify-content: center;
@@ -433,17 +581,17 @@ textarea {
 
 .feed-media {
     max-width: 100%;
-    max-height: 350px;
+    max-height: 380px;
     display: block;
 }
 
-/* Empty State Styling */
+/* Empty State */
 .empty-state {
     text-align: center;
     padding: 4rem 2rem;
     border: 2px dashed var(--border-color);
     border-radius: var(--radius-lg);
-    background-color: var(--bg-secondary);
+    background-color: rgba(255, 255, 255, 0.4);
 }
 
 .empty-state .icon {
@@ -456,10 +604,10 @@ textarea {
     color: var(--text-secondary);
 }
 
-/* Styling for Dynamically Injected Media */
+/* Custom classes for injected embeds (To prevent inline-styles) */
 .video-responsive-container {
     position: relative;
-    padding-bottom: 56.25%; /* Keeps 16:9 Aspect Ratio */
+    padding-bottom: 56.25%; /* Keeps 16:9 box */
     height: 0;
     overflow: hidden;
 }
@@ -473,8 +621,8 @@ textarea {
 }
 
 .audio-streaming-container {
-    padding: 1rem;
-    background-color: var(--bg-secondary);
+    padding: 1.25rem;
+    background-color: var(--bg-card);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -484,11 +632,12 @@ textarea {
     font-size: 0.75rem;
     color: var(--text-muted);
     margin-bottom: 0.5rem;
+    font-weight: 600;
 }
 
 .fallback-link-container {
-    padding: 1rem;
-    background-color: var(--bg-secondary);
+    padding: 1.25rem;
+    background-color: var(--bg-card);
     text-align: center;
 }
 
@@ -496,23 +645,275 @@ textarea {
     color: var(--accent);
     text-decoration: none;
     font-size: 0.9rem;
-    font-weight: 600;
+    font-weight: 700;
 }
 
 .fallback-link:hover {
     text-decoration: underline;
 }
 
-/* Feed Typography Classes */
-.feed-card-title {
-    font-size: 1.1rem;
+/* ==========================================================================
+   9. Tab 3: Friends Portal Locked Grid
+   ========================================================================== */
+.private-intro {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto 2.5rem auto;
+}
+
+.private-intro h2 {
+    color: var(--text-primary);
+    font-size: 1.75rem;
+}
+
+.private-intro p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    margin-top: 0.5rem;
+}
+
+.friends-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.locked-friend-card {
+    background: var(--bg-card);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 2.5rem 2rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all var(--transition-smooth);
+    box-shadow: var(--cloud-shadow);
+}
+
+.locked-friend-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent);
+    box-shadow: 0 15px 35px -5px rgba(236, 72, 153, 0.1);
+}
+
+.cloud-badge-icon {
+    font-size: 2.2rem;
+    margin-bottom: 1rem;
+    display: inline-block;
+}
+
+.locked-friend-card h3 {
+    font-size: 1.25rem;
+    color: var(--text-primary);
     margin-bottom: 0.25rem;
 }
 
-.feed-block-title {
-    font-size: 0.75rem;
+.locked-friend-card p {
+    font-size: 0.85rem;
     color: var(--text-muted);
+    font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.05em;
+}
+
+/* ==========================================================================
+   10. Overlay lock modal & Private letter screens
+   ========================================================================== */
+.private-letter-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(224, 242, 254, 0.85); /* Sky blue tint back-curtain */
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    z-index: 1000;
+    overflow-y: auto;
+    padding: 2rem 1rem;
+}
+
+.private-letter-overlay.active {
+    display: block;
+}
+
+.letter-container {
+    max-width: 720px;
+    margin: 2rem auto;
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    border-radius: var(--radius-lg);
+    padding: 2.5rem;
+    box-shadow: 0 20px 50px -10px rgba(148, 163, 184, 0.25);
+    position: relative;
+    animation: modalSlideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes modalSlideUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.close-letter-btn {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(148, 163, 184, 0.08);
+    transition: all var(--transition-smooth);
+}
+
+.close-letter-btn:hover {
+    color: var(--accent);
+    transform: rotate(90deg);
+}
+
+/* Password prompting lockscreen */
+.password-prompt-box {
+    text-align: center;
+    padding: 2.5rem 1rem;
+}
+
+.lock-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.prompt-subtext {
+    color: var(--text-secondary);
+    font-size: 0.925rem;
+    margin-top: 0.5rem;
+}
+
+.prompt-input {
+    max-width: 300px;
+    margin: 1.5rem auto 0 auto;
+    text-align: center;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+}
+
+.error-text {
+    color: var(--error);
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin-top: 1rem;
+    display: none;
+}
+
+/* Unlocked Contents */
+.unlocked-content {
+    display: none;
+}
+
+.unlocked-content.active {
+    display: block;
+}
+
+#friendName {
+    color: var(--text-primary);
+    font-size: 2rem;
     margin-bottom: 0.25rem;
+}
+
+.friend-subtitle {
+    color: var(--accent);
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 1.5rem;
+}
+
+.friend-image-placeholder {
+    width: 100%;
+    height: 260px;
+    background: rgba(255, 255, 255, 0.65);
+    border-radius: var(--radius-md);
+    border: 2px dashed rgba(236, 72, 153, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2rem;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+/* The 5 Narrative Steps Inside Unlocked Modal */
+.narrative-step {
+    margin-bottom: 1.5rem;
+    border-left: 3px solid var(--accent);
+    padding-left: 1.25rem;
+}
+
+.narrative-step h4 {
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+    margin-bottom: 0.35rem;
+}
+
+.narrative-step p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+}
+
+/* Private Response Form Inside Modal */
+.private-write-back-section {
+    margin-top: 3.5rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--color-blue-soft);
+}
+
+.private-write-back-section h3 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.private-section-desc {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+}
+
+.private-form {
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid var(--border-color);
+    padding: 1.5rem;
+    border-radius: var(--radius-md);
+    margin-bottom: 2rem;
+}
+
+.private-response-feed {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+/* ==========================================================================
+   11. Document Footer
+   ========================================================================== */
+.app-footer {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    background: transparent;
 }
