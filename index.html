@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Psiog Memories..Digital Slam Book | Farewell Archive</title>
+    <title>Psiog Memories...Digital Slam Book | Farewell Archive</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
     <!-- Main Navigation / Header -->
     <header class="app-header">
         <div class="header-container">
@@ -15,10 +14,8 @@
             <p class="subtitle">A digital slam book and memory box.</p>
         </div>
     </header>
-
     <!-- Main Dynamic Layout Container -->
-    <main class="app-container">
-        
+    <main class="app-container"> 
         <!-- Left Column: Interactive Submission Form -->
         <section class="form-section">
             <div class="card form-card">
@@ -352,44 +349,33 @@ const firebaseConfig = {
             let mediaMarkup = '';
             if (data.mediaUrl) {
                 const escapedUrl = escapeHTML(data.mediaUrl);
-                
-                if (data.mediaType === 'image') {
-                    mediaMarkup = `
-                        <div class="media-container">
-                            <img src="${escapedUrl}" alt="Memory attachment" class="feed-media" loading="lazy">
-                        </div>`;
-                } else if (data.mediaType === 'video' && escapedUrl.includes('youtube.com/embed/')) {
-                    mediaMarkup = `
-                        <div class="media-container" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-                            <iframe src="${escapedUrl}" frameborder="0" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
-                        </div>`;
-                } else if (data.mediaType === 'video') {
-                    mediaMarkup = `
-                        <div class="media-container">
-                            <video controls preload="metadata" class="feed-media">
-                                <source src="${escapedUrl}">
-                                Your browser does not support the video tag.
-                            </video>
-                        </div>`;
-                } else if (data.mediaType === 'audio_or_video') {
-                    // Try to stream Google Drive link natively (works if direct link is processed)
-                    mediaMarkup = `
-                        <div class="media-container" style="padding: 1rem; background: var(--bg-secondary); flex-direction: column; align-items: center;">
-                            <p style="font-size:0.75rem; color: var(--text-muted); margin-bottom: 0.5rem;">Streaming Google Drive/Cloud Attachment</p>
-                            <audio controls class="feed-media" style="width: 100%;">
-                                <source src="${escapedUrl}">
-                                Your browser does not support the audio element.
-                            </audio>
-                        </div>`;
-                } else {
-                    // Fallback to a clean link button if the parser cannot determine media type
-                    mediaMarkup = `
-                        <div class="media-container" style="padding: 1rem; background: var(--bg-secondary); text-align: center;">
-                            <a href="${escapedUrl}" target="_blank" rel="noopener noreferrer" class="btn" style="background-color: var(--border-color); color: var(--text-primary); text-decoration: none; display: inline-flex; width: auto; font-size: 0.85rem;">
-                                🔗 View Attached Media Link
-                            </a>
-                        </div>`;
-                }
+                // Example of the cleaned-up template literals using class names instead of style attributes:
+if (data.mediaType === 'image') {
+    mediaMarkup = `
+        <div class="media-container">
+            <img src="${escapedUrl}" class="feed-media" loading="lazy">
+        </div>`;
+} else if (data.mediaType === 'video' && escapedUrl.includes('youtube.com/embed/')) {
+    mediaMarkup = `
+        <div class="media-container video-responsive-container">
+            <iframe src="${escapedUrl}" frameborder="0" allowfullscreen></iframe>
+        </div>`;
+} else if (data.mediaType === 'audio_or_video') {
+    mediaMarkup = `
+        <div class="media-container audio-streaming-container">
+            <p class="audio-streaming-subtext">Streaming Attachment</p>
+            <audio controls class="feed-media">
+                <source src="${escapedUrl}">
+            </audio>
+        </div>`;
+} else {
+    mediaMarkup = `
+        <div class="media-container fallback-link-container">
+            <a href="${escapedUrl}" target="_blank" rel="noopener noreferrer" class="fallback-link">
+                🔗 View Attached Media Link
+            </a>
+        </div>`;
+}
             }
 
             card.innerHTML = `

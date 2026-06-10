@@ -455,3 +455,64 @@ textarea {
 .empty-state p {
     color: var(--text-secondary);
 }
+
+/* Styling for Dynamically Injected Media */
+.video-responsive-container {
+    position: relative;
+    padding-bottom: 56.25%; /* Keeps 16:9 Aspect Ratio */
+    height: 0;
+    overflow: hidden;
+}
+
+.video-responsive-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.audio-streaming-container {
+    padding: 1rem;
+    background-color: var(--bg-secondary);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.audio-streaming-subtext {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+}
+
+.fallback-link-container {
+    padding: 1rem;
+    background-color: var(--bg-secondary);
+    text-align: center;
+}
+
+.fallback-link {
+    color: var(--accent);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.fallback-link:hover {
+    text-decoration: underline;
+}
+
+/* Feed Typography Classes */
+.feed-card-title {
+    font-size: 1.1rem;
+    margin-bottom: 0.25rem;
+}
+
+.feed-block-title {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.25rem;
+}
