@@ -4,10 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Psiog Memories...Archives</title>
-    <!-- Cache-busting link directly targeting your upcoming stylesheet style.css -->
-    <link rel="stylesheet" href="style.css?v=3">
+    <!-- Cache-busting link directly targeting your separate stylesheet style.css -->
+    <link rel="stylesheet" href="style.css?v=4">
 </head>
 <body>
+
+    <!-- Floating Minimal Speaker Audio Button (Bottom-Right Corner) -->
+    <button id="floatingAudioBtn" class="audio-floating-btn" title="Toggle background piano cover">🎵</button>
+    <!-- HTML5 audio node -->
+    <audio id="bgPianoAudio" src="new_years_day.mp3" loop preload="metadata"></audio>
 
     <!-- Main Navigation / Header Panel -->
     <header class="app-header">
@@ -28,43 +33,25 @@
     <main class="app-container">
 
         <!-- ==================================================================
-             TAB 1: OUR JOURNEY (HOME SCROLLING TIMELINE)
+             TAB 1: OUR JOURNEY (AUTHENTIC VERTICAL TIMELINE)
              ================================================================== -->
         <section id="view-home" class="tab-view active">
-            
-            <!-- Custom Styled Floating Piano Player -->
-            <div class="audio-banner">
-                <aside class="audio-widget-compact">
-                    <div class="audio-info">
-                        <h3>New Year's Day</h3>
-                        <p>My Mobile Piano Cover</p>
-                    </div>
-                    <!-- HTML5 audio node (Make sure new_years_day.mp3 is uploaded to your root folder) -->
-                    <audio id="bgPianoAudio" src="new_years_day.mp3" preload="metadata"></audio>
-                    
-                    <div class="custom-audio-controls">
-                        <button id="playAudioBtn" class="play-pause-btn">▶</button>
-                        <div class="progress-container">
-                            <input type="range" id="audioProgress" class="progress-bar" value="0" min="0" step="1">
-                        </div>
-                    </div>
-                </aside>
-            </div>
-
-            <!-- Flowy Vertical Storytelling Timeline -->
             <div class="timeline-wrapper">
                 <div class="timeline-intro">
                     <h2>Time @ psiog</h2>
                     <p>We learn, grow, and part ways at each stage of our lives. In the process, it's human nature that we forget the simple, fun, and every moments filled with all kinds of emotions. Scroll down to look back and cherish the memories of psiog and the people that it gave me.</p>
                 </div>
 
+                <!-- True Alternate Vertical Timeline -->
                 <div class="timeline-track">
                     <div class="timeline-line"></div>
 
                     <!-- Step 1: First Day -->
                     <div class="timeline-item scroll-reveal left">
+                        <div class="timeline-dot"></div>
                         <div class="timeline-media">
-                            <img src="images/firstday.jpeg" alt="First Day" class="timeline-img" onerror="this.onerror=null; this.parentNode.innerHTML='<div class="img-err">📸 [firstday.jpeg]</div>'">
+                            <img src="images/firstday.jpeg" alt="First Day" class="timeline-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="img-err" style="display:none;">📸 [firstday.jpeg]</div>
                         </div>
                         <div class="timeline-content">
                             <span class="timeline-step">Step 1</span>
@@ -75,8 +62,10 @@
 
                     <!-- Step 2: The Badge -->
                     <div class="timeline-item scroll-reveal right">
+                        <div class="timeline-dot"></div>
                         <div class="timeline-media">
-                            <img src="images/badge.jpeg" alt="The Badge" class="timeline-img" onerror="this.onerror=null; this.parentNode.innerHTML='<div class="img-err">📸 [badge.jpeg]</div>'">
+                            <img src="images/badge.jpeg" alt="The Badge" class="timeline-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="img-err" style="display:none;">📸 [badge.jpeg]</div>
                         </div>
                         <div class="timeline-content">
                             <span class="timeline-step">Step 2</span>
@@ -87,8 +76,10 @@
 
                     <!-- Step 3: Pathway -->
                     <div class="timeline-item scroll-reveal left">
+                        <div class="timeline-dot"></div>
                         <div class="timeline-media">
-                            <img src="images/pathway.jpeg" alt="The Pathway" class="timeline-img" onerror="this.onerror=null; this.parentNode.innerHTML='<div class="img-err">📸 [pathway.jpeg]</div>'">
+                            <img src="images/pathway.jpeg" alt="The Pathway" class="timeline-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="img-err" style="display:none;">📸 [pathway.jpeg]</div>
                         </div>
                         <div class="timeline-content">
                             <span class="timeline-step">Step 3</span>
@@ -99,8 +90,10 @@
 
                     <!-- Step 4: The Break -->
                     <div class="timeline-item scroll-reveal right">
+                        <div class="timeline-dot"></div>
                         <div class="timeline-media">
-                            <img src="images/break.jpeg" alt="Coffee Break" class="timeline-img" onerror="this.onerror=null; this.parentNode.innerHTML='<div class="img-err">📸 [break.jpeg]</div>'">
+                            <img src="images/break.jpeg" alt="Coffee Break" class="timeline-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="img-err" style="display:none;">📸 [break.jpeg]</div>
                         </div>
                         <div class="timeline-content">
                             <span class="timeline-step">Step 4</span>
@@ -111,8 +104,10 @@
 
                     <!-- Step 5: Razz Event -->
                     <div class="timeline-item scroll-reveal left">
+                        <div class="timeline-dot"></div>
                         <div class="timeline-media">
-                            <img src="images/razz2025.jpeg" alt="Razz Event" class="timeline-img" onerror="this.onerror=null; this.parentNode.innerHTML='<div class="img-err">📸 [razz2025.jpeg]</div>'">
+                            <img src="images/razz2025.jpeg" alt="Razz Event" class="timeline-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="img-err" style="display:none;">📸 [razz2025.jpeg]</div>
                         </div>
                         <div class="timeline-content">
                             <span class="timeline-step">Step 5</span>
@@ -123,8 +118,10 @@
 
                     <!-- Step 6: Pongal Celebration -->
                     <div class="timeline-item scroll-reveal right">
+                        <div class="timeline-dot"></div>
                         <div class="timeline-media">
-                            <img src="images/pongal.jpeg" alt="Pongal Celebrations" class="timeline-img" onerror="this.onerror=null; this.parentNode.innerHTML='<div class="img-err">📸 [pongal.jpeg]</div>'">
+                            <img src="images/pongal.jpeg" alt="Pongal Celebrations" class="timeline-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="img-err" style="display:none;">📸 [pongal.jpeg]</div>
                         </div>
                         <div class="timeline-content">
                             <span class="timeline-step">Step 6</span>
@@ -135,8 +132,10 @@
 
                     <!-- Step 7: The Last Days -->
                     <div class="timeline-item scroll-reveal left">
+                        <div class="timeline-dot"></div>
                         <div class="timeline-media">
-                            <img src="images/herlastday.jpeg" alt="The Last Days" class="timeline-img" onerror="this.onerror=null; this.parentNode.innerHTML='<div class="img-err">📸 [herlastday.jpeg]</div>'">
+                            <img src="images/herlastday.jpeg" alt="The Last Days" class="timeline-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="img-err" style="display:none;">📸 [herlastday.jpeg]</div>
                         </div>
                         <div class="timeline-content">
                             <span class="timeline-step">Step 7</span>
@@ -147,8 +146,10 @@
 
                     <!-- Step 8: The Exit -->
                     <div class="timeline-item scroll-reveal right">
+                        <div class="timeline-dot"></div>
                         <div class="timeline-media">
-                            <img src="images/exitinterview.jpeg" alt="The Exit Interview" class="timeline-img" onerror="this.onerror=null; this.parentNode.innerHTML='<div class="img-err">📸 [exitinterview.jpeg]</div>'">
+                            <img src="images/exitinterview.jpeg" alt="The Exit Interview" class="timeline-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="img-err" style="display:none;">📸 [exitinterview.jpeg]</div>
                         </div>
                         <div class="timeline-content">
                             <span class="timeline-step">Step 8</span>
@@ -387,45 +388,37 @@
         });
 
         /* ==================================================================
-           2. Audio Cover Player Controls
+           2. Audio Speaker Controls
            ================================================================== */
         const audioNode = document.getElementById('bgPianoAudio');
-        const playBtn = document.getElementById('playAudioBtn');
-        const progressSlider = document.getElementById('audioProgress');
+        const floatingBtn = document.getElementById('floatingAudioBtn');
 
-        playBtn.addEventListener('click', () => {
+        floatingBtn.addEventListener('click', () => {
             if (audioNode.paused) {
-                audioNode.play().catch(e => console.log("User interaction required to stream music."));
-                playBtn.textContent = '⏸';
+                audioNode.play()
+                    .then(() => {
+                        floatingBtn.textContent = '🔊';
+                        floatingBtn.classList.add('playing');
+                    })
+                    .catch(e => console.log("User interaction constraint limits autoplay."));
             } else {
                 audioNode.pause();
-                playBtn.textContent = '▶';
+                floatingBtn.textContent = '🎵';
+                floatingBtn.classList.remove('playing');
             }
         });
 
-        audioNode.addEventListener('timeupdate', () => {
-            progressSlider.value = audioNode.currentTime;
-        });
-
-        audioNode.addEventListener('loadedmetadata', () => {
-            progressSlider.max = audioNode.duration;
-        });
-
-        progressSlider.addEventListener('input', () => {
-            audioNode.currentTime = progressSlider.value;
-        });
-
         /* ==================================================================
-           3. Tribute Friends Data Structure (Relative Local Images)
+           3. Tribute Friends Data Structure
            ================================================================== */
         const friendsData = [
             {
                 id: "shruthi",
                 displayName: "Shruthi",
                 role: "PM / Friend",
-                password: "shruthi_nickname", // Your secret nickname password
-                heroImage: "images/shrutzbday.jpeg", // Main image displayed when unlocked
-                cardAvatar: "images/shrutzselfie.jpeg", // Image displayed on the card front
+                password: "shruthi_nickname", // Secret nickname
+                heroImage: "images/shrutzbday.jpeg",
+                cardAvatar: "images/shrutzselfie.jpeg",
                 spark: "We met in our first developer sprint meeting when discussing timeline commitments.",
                 connection: "Do you remember the first first time we interacted?",
                 evolution: "From formal colleagues to my dearest advisor on designs.",
@@ -482,7 +475,8 @@
                 card.className = 'locked-friend-card';
                 card.innerHTML = `
                     <div class="friend-card-avatar-box">
-                        <img src="${friend.cardAvatar}" alt="${friend.displayName}" class="card-avatar-img" onerror="this.onerror=null; this.parentNode.innerHTML='<span class="cloud-badge-icon">☁️</span>'">
+                        <img src="${friend.cardAvatar}" alt="${friend.displayName}" class="card-avatar-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+                        <span class="cloud-badge-icon" style="display:none;">☁️</span>
                     </div>
                     <h3>${friend.displayName}</h3>
                     <p>${friend.role}</p>
@@ -528,7 +522,8 @@
                 // Set up local hero image inside overlay
                 const heroImgContainer = document.getElementById('friendHeroImage');
                 heroImgContainer.innerHTML = `
-                    <img src="${activeFriend.heroImage}" alt="${activeFriend.displayName} and Me" class="friend-hero-img" onerror="this.onerror=null; this.parentNode.innerHTML='<span>📸 Photo of Us</span>'">
+                    <img src="${activeFriend.heroImage}" alt="${activeFriend.displayName} and Me" class="friend-hero-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="img-err" style="display:none;">📸 Photo of Us</div>
                 `;
 
                 // Load real-time private messages specifically for this friend
@@ -558,7 +553,7 @@
         const privateImageName = document.getElementById('privateImageName');
         const removePrivateImageBtn = document.getElementById('removePrivateImageBtn');
         
-        let base64CompressedImage = null; // Stored string
+        let base64CompressedImage = null; 
 
         privateImageInput.addEventListener('change', async (e) => {
             const file = e.target.files[0];
@@ -571,7 +566,7 @@
             }
 
             try {
-                // Compress and convert to base64
+                // Compress and convert to base64 string
                 base64CompressedImage = await compressImageToJPEG(file);
                 privateImageName.textContent = `${file.name} (Compressed)`;
                 privateImagePreview.classList.remove('hidden');
@@ -590,7 +585,7 @@
             base64CompressedImage = null;
         }
 
-        // Elegant Canvas Compression Algorithm
+        // Canvas Compression Algorithm (Bypasses Blaze restrictions)
         function compressImageToJPEG(file) {
             return new Promise((resolve, reject) => {
                 const reader = new FileReader();
@@ -742,7 +737,6 @@
 
                     let mediaMarkup = '';
                     if (data.mediaUrl) {
-                        // Safe rendering of both Base64 compressed strings and raw shared URLs
                         const isBase64 = data.mediaUrl.startsWith('data:image/');
                         const escapedUrl = isBase64 ? data.mediaUrl : escapeHTML(data.mediaUrl);
 
@@ -922,13 +916,12 @@
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('reveal-active');
-                    // Stop observing once revealed to maintain high layout performance
                     observer.unobserve(entry.target);
                 }
             });
         }, {
-            threshold: 0.15, // Triggers when 15% of the card crosses into screen space
-            rootMargin: "0px 0px -50px 0px" // Slight bottom offset for smoother timing
+            threshold: 0.15,
+            rootMargin: "0px 0px -50px 0px"
         });
 
         revealItems.forEach(item => revealObserver.observe(item));
