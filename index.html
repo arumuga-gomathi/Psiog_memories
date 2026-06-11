@@ -9,21 +9,20 @@
            1. CSS Custom Properties & Base Variables (Fluid Soft Cloud Theme)
            ========================================================================== */
         :root {
-            --bg-gradient: linear-gradient(135deg, #fff2f6 0%, #e0f2fe 50%, #f0fdf4 100%);
+            --accent-pink: #ec4899; /* Cloud Rose Pink */
+            --accent-pink-hover: #db2777;
+            --accent-pink-light: rgba(236, 72, 153, 0.08);
             
-            --color-pink-soft: #fbcfe8;
             --color-blue-soft: #bae6fd;
-            --accent: #ec4899; /* Cloud Rose Pink */
-            --accent-hover: #db2777;
-            --accent-light: rgba(236, 72, 153, 0.08);
+            --color-pink-soft: #fbcfe8;
             --error: #ef4444;
             --success: #10b981;
 
-            --text-primary: #1e293b; /* Deep slate blue for perfect legibility on pastel backdrops */
-            --text-secondary: #475569; /* Slate Gray */
+            --text-primary: #1e293b; /* Deep slate blue for high readability */
+            --text-secondary: #475569;
             --text-muted: #64748b;
-            --border-color: rgba(255, 255, 255, 0.6); /* Glassmorphic translucent border */
-            --bg-card: rgba(255, 255, 255, 0.75); /* Cloudy semi-transparent card fill */
+            --border-color: rgba(255, 255, 255, 0.6);
+            --bg-card: rgba(255, 255, 255, 0.75);
 
             --font-system: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             --radius-sm: 8px;
@@ -35,7 +34,7 @@
         }
 
         /* ==========================================================================
-           2. Base Document Resets & Background Configurations
+           2. Base Document Resets & Dynamic Drifting Cloud Background
            ========================================================================== */
         *, *::before, *::after {
             box-sizing: border-box;
@@ -44,18 +43,73 @@
         }
 
         body {
-            background: var(--bg-gradient);
-            background-attachment: fixed;
+            background-color: #f0f4f8;
             color: var(--text-primary);
             font-family: var(--font-system);
             line-height: 1.5;
             min-height: 100vh;
             -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
-            padding-bottom: 2rem;
+            padding-bottom: 4rem;
+            position: relative;
         }
 
-        /* Styled Light-Blue Scrollbar */
+        /* Natively Animated CSS Cloud Canvas */
+        .cloud-background-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .cloud-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.45;
+            mix-blend-mode: multiply;
+            animation: drift-clouds 22s infinite alternate ease-in-out;
+        }
+
+        .cloud-blob-1 {
+            width: 450px;
+            height: 450px;
+            background: #ffd6e8; /* Soft pink */
+            top: -10%;
+            left: -10%;
+        }
+
+        .cloud-blob-2 {
+            width: 500px;
+            height: 500px;
+            background: #bae6fd; /* Sky blue */
+            bottom: -10%;
+            right: -10%;
+            animation-delay: -5s;
+            animation-duration: 28s;
+        }
+
+        .cloud-blob-3 {
+            width: 400px;
+            height: 400px;
+            background: #f0e6ff; /* Soft lavender */
+            top: 40%;
+            left: 50%;
+            animation-delay: -10s;
+            animation-duration: 32s;
+        }
+
+        @keyframes drift-clouds {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(60px, -40px) scale(1.1); }
+            100% { transform: translate(-30px, 50px) scale(0.9); }
+        }
+
+        /* Custom Scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
             height: 8px;
@@ -100,12 +154,12 @@
         .audio-floating-btn:hover {
             transform: scale(1.08);
             background: #ffffff;
-            border-color: var(--accent);
+            border-color: var(--accent-pink);
         }
 
         .audio-floating-btn.playing {
             box-shadow: 0 0 20px rgba(236, 72, 153, 0.3);
-            border-color: var(--accent);
+            border-color: var(--accent-pink);
             animation: gentle-pulse 2s infinite;
         }
 
@@ -118,7 +172,7 @@
 
         .audio-floating-btn:hover .audio-icon-svg,
         .audio-floating-btn.playing .audio-icon-svg {
-            fill: var(--accent);
+            fill: var(--accent-pink);
         }
 
         @keyframes gentle-pulse {
@@ -128,56 +182,59 @@
         }
 
         /* ==========================================================================
-           4. Header & Tab Navigation
+           4. Highly Compact Header Area (No Wasted Space)
            ========================================================================== */
         .app-header {
-            padding: 2.5rem 1.5rem 1rem 1.5rem;
+            padding: 1.5rem 1rem 1rem 1rem; /* Squeezed paddings */
             text-align: center;
         }
 
         .header-container {
-            max-width: 1320px;
+            max-width: 1200px;
             margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .logo {
-            font-size: 2.2rem;
+            font-size: 1.8rem;
             font-weight: 800;
             letter-spacing: -0.04em;
             line-height: 1.1;
             background: linear-gradient(135deg, #db2777 0%, #0284c7 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 0.25rem;
         }
 
         .subtitle {
-            font-size: 0.95rem;
+            font-size: 0.8rem;
             color: var(--text-secondary);
-            margin-bottom: 1.5rem;
-            font-weight: 600;
+            font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.08em;
+            margin-bottom: 0.25rem;
         }
 
         .tab-nav {
             display: inline-flex;
             gap: 0.25rem;
-            background: rgba(255, 255, 255, 0.55);
+            background: rgba(255, 255, 255, 0.65);
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
-            padding: 5px;
+            padding: 4px;
             border-radius: var(--radius-md);
             border: 1px solid var(--border-color);
             box-shadow: var(--cloud-shadow);
         }
 
         .tab-btn {
-            padding: 0.65rem 1.25rem;
+            padding: 0.55rem 1.15rem;
             background: none;
             border: none;
             color: var(--text-secondary);
-            font-size: 0.85rem;
+            font-size: 0.825rem;
             font-weight: 700;
             border-radius: 12px;
             cursor: pointer;
@@ -191,7 +248,7 @@
 
         .tab-btn.active {
             background-color: #ffffff;
-            color: var(--accent);
+            color: var(--accent-pink);
             box-shadow: 0 4px 10px rgba(148, 163, 184, 0.08);
         }
 
@@ -215,7 +272,7 @@
         .app-container {
             width: 95%;
             max-width: 1320px;
-            margin: 1rem auto;
+            margin: 0.5rem auto;
             padding: 0 0.5rem;
         }
 
@@ -228,7 +285,7 @@
            ========================================================================== */
         .timeline-wrapper {
             width: 100%;
-            margin-top: 1rem;
+            margin-top: 0.5rem;
         }
 
         .timeline-intro {
@@ -237,14 +294,14 @@
             -webkit-backdrop-filter: blur(12px);
             border: 1px solid var(--border-color);
             border-radius: var(--radius-lg);
-            padding: 2rem;
+            padding: 1.75rem;
             box-shadow: var(--cloud-shadow);
-            margin-bottom: 3.5rem;
+            margin-bottom: 2.5rem;
             text-align: center;
         }
 
         .timeline-intro h2 {
-            font-size: 1.6rem;
+            font-size: 1.5rem;
             margin-bottom: 0.5rem;
         }
 
@@ -252,6 +309,7 @@
             color: var(--text-secondary);
             max-width: 800px;
             margin: 0 auto;
+            font-size: 0.925rem;
         }
 
         .timeline-track {
@@ -259,7 +317,7 @@
             width: 100%;
             max-width: 920px;
             margin: 0 auto;
-            padding: 1.5rem 0;
+            padding: 1rem 0;
         }
 
         .timeline-line {
@@ -276,10 +334,10 @@
         .timeline-item {
             position: relative;
             width: 50%;
-            padding: 0 2.5rem;
+            padding: 0 2rem;
             z-index: 2;
-            margin-bottom: 4rem;
-            cursor: pointer; /* Pointer indicates it can be clicked for story popup */
+            margin-bottom: 3.5rem;
+            cursor: pointer;
         }
 
         .timeline-dot {
@@ -287,7 +345,7 @@
             width: 16px;
             height: 16px;
             background: #ffffff;
-            border: 4px solid var(--accent);
+            border: 4px solid var(--accent-pink);
             border-radius: 50%;
             top: 20px;
             z-index: 10;
@@ -319,7 +377,7 @@
             border-radius: var(--radius-md);
             overflow: hidden;
             box-shadow: var(--cloud-shadow);
-            margin-bottom: 1rem;
+            margin-bottom: 0.75rem;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -327,7 +385,7 @@
         }
 
         .timeline-item:hover .timeline-media {
-            border-color: var(--accent);
+            border-color: var(--accent-pink);
         }
 
         .timeline-img {
@@ -359,33 +417,33 @@
             -webkit-backdrop-filter: blur(8px);
             border: 1px solid var(--border-color);
             border-radius: var(--radius-md);
-            padding: 1.5rem;
+            padding: 1.25rem;
             box-shadow: var(--cloud-shadow);
         }
 
         .timeline-step {
             font-size: 0.75rem;
             font-weight: 800;
-            color: var(--accent);
+            color: var(--accent-pink);
             text-transform: uppercase;
             letter-spacing: 0.05em;
             display: block;
-            margin-bottom: 0.25rem;
+            margin-bottom: 0.15rem;
         }
 
         .timeline-content h3 {
-            font-size: 1.2rem;
+            font-size: 1.15rem;
             color: var(--text-primary);
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.35rem;
         }
 
         .timeline-content p {
-            font-size: 0.9rem;
+            font-size: 0.875rem;
             color: var(--text-secondary);
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
-            overflow: hidden; /* Snipped preview on timeline */
+            overflow: hidden;
         }
 
         /* Scroll Animations */
@@ -395,11 +453,11 @@
         }
 
         .scroll-reveal.left {
-            transform: translateX(-30px);
+            transform: translateX(-20px);
         }
 
         .scroll-reveal.right {
-            transform: translateX(30px);
+            transform: translateX(20px);
         }
 
         .scroll-reveal.reveal-active {
@@ -417,7 +475,7 @@
                 width: 100%;
                 padding-left: 2.5rem;
                 padding-right: 0.5rem;
-                margin-bottom: 3rem;
+                margin-bottom: 2.5rem;
             }
             
             .timeline-item.left {
@@ -520,7 +578,7 @@
         .timeline-modal-step {
             font-size: 0.75rem;
             font-weight: 800;
-            color: var(--accent);
+            color: var(--accent-pink);
             text-transform: uppercase;
             letter-spacing: 0.05em;
             margin-bottom: 0.5rem;
@@ -578,7 +636,7 @@
         .user-badge {
             font-size: 0.7rem;
             font-weight: 700;
-            color: var(--accent);
+            color: var(--accent-pink);
             margin-top: 0.15rem;
             text-transform: uppercase;
             letter-spacing: 0.05em;
@@ -622,24 +680,26 @@
         .private-intro {
             text-align: center;
             max-width: 650px;
-            margin: 0.5rem auto 2rem auto;
+            margin: 0.5rem auto 1.5rem auto;
         }
 
         .private-intro h2 {
             color: var(--text-primary);
-            font-size: 1.6rem;
+            font-size: 1.5rem;
         }
 
         .private-intro p {
             color: var(--text-secondary);
-            font-size: 0.9rem;
+            font-size: 0.875rem;
             margin-top: 0.35rem;
+            line-height: 1.5;
+            padding: 0 1rem;
         }
 
         .friends-grid {
             display: flex;
             justify-content: center;
-            gap: 1.5rem;
+            gap: 1.25rem;
             flex-wrap: wrap;
             margin-top: 1rem;
         }
@@ -649,13 +709,13 @@
             backdrop-filter: blur(12px);
             border: 1px solid var(--border-color);
             border-radius: var(--radius-md);
-            padding: 1.5rem 1.25rem;
+            padding: 1.25rem 1rem;
             text-align: center;
             cursor: pointer;
             transition: all var(--transition-smooth);
             box-shadow: var(--cloud-shadow);
-            width: 210px; /* Snug Square Width */
-            height: 190px; /* Snug Height */
+            width: 200px; /* Snug Square Width */
+            height: 180px; /* Snug Height - prevents vertical stretching */
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -664,15 +724,16 @@
 
         .locked-friend-card:hover {
             transform: translateY(-4px);
-            border-color: var(--accent);
+            border-color: var(--accent-pink);
             box-shadow: 0 15px 30px -5px rgba(236, 72, 153, 0.08);
         }
 
+        /* Styled Circular Card Avatar */
         .friend-card-avatar-box {
-            width: 76px;
-            height: 76px;
+            width: 72px;
+            height: 72px;
             border-radius: 50%;
-            margin-bottom: 0.75rem;
+            margin-bottom: 0.5rem;
             overflow: hidden;
             border: 2px solid var(--color-blue-soft);
             box-shadow: var(--cloud-shadow);
@@ -684,7 +745,7 @@
         }
 
         .locked-friend-card:hover .friend-card-avatar-box {
-            border-color: var(--accent);
+            border-color: var(--accent-pink);
         }
 
         .card-avatar-img {
@@ -699,7 +760,7 @@
         }
 
         .locked-friend-card h3 {
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             color: var(--text-primary);
             margin-bottom: 0.15rem;
             font-weight: 700;
@@ -714,7 +775,7 @@
         }
 
         /* ==========================================================================
-           10. Overlay lock modal & Split private letter screens
+           10. Overlay lock modal & Split private letter screens (Scrapbook Theme)
            ========================================================================== */
         .private-letter-overlay {
             display: none;
@@ -723,7 +784,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(224, 242, 254, 0.8);
+            background-color: rgba(224, 242, 254, 0.8); /* Translucent sky blue backdrop */
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             z-index: 1000;
@@ -737,15 +798,20 @@
 
         .letter-container {
             width: 95%;
-            max-width: 740px; /* Wider to support split columns */
+            max-width: 720px; /* Supporting split columns */
             margin: 1rem auto;
-            background-color: rgba(255, 255, 255, 0.92);
+            background-color: rgba(255, 255, 255, 0.94);
             border: 1px solid rgba(255, 255, 255, 0.8);
             border-radius: var(--radius-lg);
-            padding: 2rem;
+            padding: 1.75rem;
             box-shadow: 0 20px 45px -10px rgba(148, 163, 184, 0.2);
             position: relative;
             animation: modalSlideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes modalSlideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .close-letter-btn {
@@ -769,10 +835,11 @@
         }
 
         .close-letter-btn:hover {
-            color: var(--accent);
+            color: var(--accent-pink);
             transform: rotate(90deg);
         }
 
+        /* Password Lockscreen styling */
         .password-prompt-box {
             text-align: center;
             padding: 2rem 1rem;
@@ -805,7 +872,8 @@
 
         .prompt-input:focus {
             outline: none;
-            border-color: var(--accent);
+            border-color: var(--accent-pink);
+            box-shadow: 0 0 0 3px var(--accent-light);
         }
 
         .error-text {
@@ -816,6 +884,7 @@
             display: none;
         }
 
+        /* Unlocked Contents */
         .unlocked-content {
             display: none;
         }
@@ -831,7 +900,7 @@
         }
 
         .friend-subtitle {
-            color: var(--accent);
+            color: var(--accent-pink);
             font-size: 0.8rem;
             font-weight: 700;
             text-transform: uppercase;
@@ -840,7 +909,7 @@
         }
 
         /* --------------------------------------------------------------------------
-           NEW: Split Column Memory Grid (Images on Left, Narratives on Right)
+           NEW: Split Column Memory Grid (Polaroid Style, Stack on Left)
            -------------------------------------------------------------------------- */
         .friend-memories-list {
             display: flex;
@@ -853,7 +922,7 @@
             display: flex;
             flex-direction: column;
             gap: 1.25rem;
-            background-color: rgba(255, 255, 255, 0.45);
+            background-color: rgba(255, 255, 255, 0.55);
             border: 1px solid var(--border-color);
             border-radius: var(--radius-md);
             padding: 1.25rem;
@@ -867,22 +936,36 @@
             }
         }
 
+        /* Beautiful Polaroid framing to avoid "mechanical" two-box look */
         .friend-memory-img-box {
             flex: 1;
             height: 180px;
-            border-radius: var(--radius-md);
-            overflow: hidden;
-            border: 1px solid var(--border-color);
+            background: #ffffff;
+            border-radius: var(--radius-sm);
+            padding: 8px 8px 16px 8px; /* Polaroid bottom lip */
+            border: 1px solid rgba(148, 163, 184, 0.15);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
             display: flex;
             align-items: center;
             justify-content: center;
-            background-color: #ffffff;
+            overflow: hidden;
+            transform: rotate(-1.5deg); /* organic tilt */
+            transition: transform var(--transition-smooth);
+        }
+
+        .friend-memory-row:nth-child(even) .friend-memory-img-box {
+            transform: rotate(1.5deg); /* Alternating paper tilt */
+        }
+
+        .friend-memory-row:hover .friend-memory-img-box {
+            transform: rotate(0deg) scale(1.02);
         }
 
         .friend-memory-img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            border-radius: 4px;
         }
 
         .friend-memory-text-box {
@@ -896,7 +979,7 @@
             font-size: 0.85rem;
             font-weight: 700;
             text-transform: uppercase;
-            color: var(--accent);
+            color: var(--accent-pink);
             letter-spacing: 0.05em;
             margin-bottom: 0.35rem;
         }
@@ -907,9 +990,7 @@
             line-height: 1.5;
         }
 
-        /* --------------------------------------------------------------------------
-           Private Form Box (Write back to me)
-           -------------------------------------------------------------------------- */
+        /* Private response box styling (Write for me :)) */
         .private-write-back-section {
             margin-top: 3rem;
             padding-top: 2rem;
@@ -917,7 +998,7 @@
         }
 
         .private-write-back-section h3 {
-            font-size: 1.25rem;
+            font-size: 1.2rem;
             font-weight: 700;
             color: var(--text-primary);
             margin-bottom: 0.35rem;
@@ -956,7 +1037,7 @@
         }
 
         .file-dropzone:hover {
-            border-color: var(--accent);
+            border-color: var(--accent-pink);
             background-color: rgba(255, 255, 255, 0.85);
         }
 
@@ -988,7 +1069,7 @@
         }
 
         .dropzone-text .browse {
-            color: var(--accent);
+            color: var(--accent-pink);
             font-weight: 700;
         }
 
@@ -998,7 +1079,7 @@
             justify-content: space-between;
             padding: 0.6rem 0.8rem;
             background-color: rgba(255, 255, 255, 0.95);
-            border: 1px solid var(--accent);
+            border: 1px solid var(--accent-pink);
             border-radius: var(--radius-md);
             margin-top: 0.5rem;
         }
@@ -1038,13 +1119,13 @@
         }
 
         .btn-primary {
-            background-color: var(--accent);
+            background-color: var(--accent-pink);
             color: #ffffff;
             box-shadow: 0 4px 12px rgba(236, 72, 153, 0.2);
         }
 
         .btn-primary:hover {
-            background-color: var(--accent-hover);
+            background-color: var(--accent-pink-hover);
         }
 
         .btn-primary:active {
@@ -1106,6 +1187,13 @@
 </head>
 <body>
 
+    <!-- Native Animated Moving Cloud Canvas Overlay -->
+    <div class="cloud-background-canvas">
+        <div class="cloud-blob cloud-blob-1"></div>
+        <div class="cloud-blob cloud-blob-2"></div>
+        <div class="cloud-blob cloud-blob-3"></div>
+    </div>
+
     <!-- Floating Minimal Speaker Audio Button (Bottom-Right Corner) -->
     <button id="floatingAudioBtn" class="audio-floating-btn" title="Toggle background piano cover">
         <!-- Modern minimalist SVG speaker vector icon -->
@@ -1125,8 +1213,8 @@
             
             <!-- Dynamic Navigation Tabs -->
             <nav class="tab-nav">
-                <button class="tab-btn active" data-tab="home">Our Journey</button>
-                <button class="tab-btn" data-tab="private">Our Space</button>
+                <button class="tab-btn active" data-tab="home">Psiog Days</button>
+                <button class="tab-btn" data-tab="private">My Friends</button>
             </nav>
         </div>
     </header>
@@ -1269,8 +1357,7 @@
              ================================================================== -->
         <section id="view-private" class="tab-view">
             <div class="private-intro">
-                <h2>Tribute Cards</h2>
-                <p>These sections are dedicated to my closest office peers. Click your card and enter our shared secret office nickname to unlock our private memories and write back directly to me.</p>
+                <p>We have named ourselves or anyone we know with a nickname, so use that and enter to see what I have written for you. If you want to see other people's memories, and you happen to know their nickname, feel free to enter it and see, no issues! :)</p>
             </div>
 
             <!-- Friends Grid generated dynamically in JS -->
@@ -1620,7 +1707,8 @@
                     row.className = 'friend-memory-row';
                     row.innerHTML = `
                         <div class="friend-memory-img-box">
-                            <img src="${memory.image}" alt="${memory.title}" class="friend-memory-img" onerror="this.style.display='none'; this.parentNode.innerHTML='<div class="img-err">📸 Photo Missing</div>'">
+                            <img src="${memory.image}" alt="${memory.title}" class="friend-memory-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="img-err" style="display:none;">📸 Photo Missing</div>
                         </div>
                         <div class="friend-memory-text-box">
                             <h4>${memory.title}</h4>
@@ -1841,7 +1929,6 @@
 
                     let mediaMarkup = '';
                     if (data.mediaUrl) {
-                        // Safe rendering of both Base64 compressed strings and raw shared URLs
                         const isBase64 = data.mediaUrl.startsWith('data:image/');
                         const escapedUrl = isBase64 ? data.mediaUrl : escapeHTML(data.mediaUrl);
 
