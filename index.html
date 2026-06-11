@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Psiog Memories...Archives</title>
     <!-- Cache-busting link directly targeting your upcoming stylesheet style.css -->
-    <link rel="stylesheet" href="style.css?v=2">
+    <link rel="stylesheet" href="style.css?v=3">
 </head>
 <body>
 
@@ -19,7 +19,7 @@
             <nav class="tab-nav">
                 <button class="tab-btn active" data-tab="home">Our Journey</button>
                 <button class="tab-btn" data-tab="slambook">Shared Memories</button>
-                <button class="tab-btn" data-tab="private">Private Letters</button>
+                <button class="tab-btn" data-tab="private">Our Space</button>
             </nav>
         </div>
     </header>
@@ -28,38 +28,17 @@
     <main class="app-container">
 
         <!-- ==================================================================
-             TAB 1: OUR JOURNEY (HOME)
+             TAB 1: OUR JOURNEY (HOME SCROLLING TIMELINE)
              ================================================================== -->
         <section id="view-home" class="tab-view active">
-            <div class="home-grid">
-                
-                <!-- Your Farewell Letter and Media Snapshots -->
-                <article class="cloud-card">
-                    <h2>Time @ psiog</h2>
-                    <p>We learn,grow and part ways at each stage of our lives..in the process it's human nature that we forget the simple, fun and every moments filled with all kind of emotions. Doing this to look back and cherish the memories of psiog and the people that it gave me.</p>
-                    
-                    <h3 class="snapshots-title">Workspace Snapshots</h3>
-                    <div class="media-grid">
-                        <div class="media-placeholder">
-                            <span class="placeholder-icon">📸</span>
-                            <span>[Our Group Team Photo]</span>
-                        </div>
-                        <div class="media-placeholder">
-                            <span class="placeholder-icon">☕</span>
-                            <span>[Rare meetups]</span>
-                        </div>
-                        <div class="media-placeholder">
-                            <span class="placeholder-icon">✨</span>
-                            <span>[Moments]</span>
-                        </div>
+            
+            <!-- Custom Styled Floating Piano Player -->
+            <div class="audio-banner">
+                <aside class="audio-widget-compact">
+                    <div class="audio-info">
+                        <h3>New Year's Day</h3>
+                        <p>My Mobile Piano Cover</p>
                     </div>
-                </article>
-
-                <!-- Custom Styled Piano Music Widget -->
-                <aside class="audio-widget">
-                    <h3>New Year's Day</h3>
-                    <p>My Mobile Piano Cover</p>
-                    
                     <!-- HTML5 audio node (Make sure new_years_day.mp3 is uploaded to your root folder) -->
                     <audio id="bgPianoAudio" src="new_years_day.mp3" preload="metadata"></audio>
                     
@@ -70,7 +49,115 @@
                         </div>
                     </div>
                 </aside>
+            </div>
 
+            <!-- Flowy Vertical Storytelling Timeline -->
+            <div class="timeline-wrapper">
+                <div class="timeline-intro">
+                    <h2>Time @ psiog</h2>
+                    <p>We learn, grow, and part ways at each stage of our lives. In the process, it's human nature that we forget the simple, fun, and every moments filled with all kinds of emotions. Scroll down to look back and cherish the memories of psiog and the people that it gave me.</p>
+                </div>
+
+                <div class="timeline-track">
+                    <div class="timeline-line"></div>
+
+                    <!-- Step 1: First Day -->
+                    <div class="timeline-item scroll-reveal left">
+                        <div class="timeline-media">
+                            <img src="images/firstday.jpeg" alt="First Day" class="timeline-img" onerror="this.onerror=null; this.parentNode.innerHTML='<div class="img-err">📸 [firstday.jpeg]</div>'">
+                        </div>
+                        <div class="timeline-content">
+                            <span class="timeline-step">Step 1</span>
+                            <h3>The Welcome Card</h3>
+                            <p>My very first day at the company. Walking in, seeing my desk, and reading this welcome note made the nervous excitement of starting a new job feel like a warm welcome.</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: The Badge -->
+                    <div class="timeline-item scroll-reveal right">
+                        <div class="timeline-media">
+                            <img src="images/badge.jpeg" alt="The Badge" class="timeline-img" onerror="this.onerror=null; this.parentNode.innerHTML='<div class="img-err">📸 [badge.jpeg]</div>'">
+                        </div>
+                        <div class="timeline-content">
+                            <span class="timeline-step">Step 2</span>
+                            <h3>Official Identity</h3>
+                            <p>Getting my physical ID badge. Swiping it for the first time made it official—I was part of the team, ready to learn, integrate, and take on staging deployments.</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Pathway -->
+                    <div class="timeline-item scroll-reveal left">
+                        <div class="timeline-media">
+                            <img src="images/pathway.jpeg" alt="The Pathway" class="timeline-img" onerror="this.onerror=null; this.parentNode.innerHTML='<div class="img-err">📸 [pathway.jpeg]</div>'">
+                        </div>
+                        <div class="timeline-content">
+                            <span class="timeline-step">Step 3</span>
+                            <h3>The Daily Walkway</h3>
+                            <p>The daily walk through this pathway. Every morning was a mental preparation for what lay ahead, and every evening was a space to unwind and look back at the day's tasks.</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 4: The Break -->
+                    <div class="timeline-item scroll-reveal right">
+                        <div class="timeline-media">
+                            <img src="images/break.jpeg" alt="Coffee Break" class="timeline-img" onerror="this.onerror=null; this.parentNode.innerHTML='<div class="img-err">📸 [break.jpeg]</div>'">
+                        </div>
+                        <div class="timeline-content">
+                            <span class="timeline-step">Step 4</span>
+                            <h3>Daily Respite</h3>
+                            <p>Daily routines and little escapes. The workspace breaks where we checked our phones, talked about code frustrations, and simply took a breath together between releases.</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 5: Razz Event -->
+                    <div class="timeline-item scroll-reveal left">
+                        <div class="timeline-media">
+                            <img src="images/razz2025.jpeg" alt="Razz Event" class="timeline-img" onerror="this.onerror=null; this.parentNode.innerHTML='<div class="img-err">📸 [razz2025.jpeg]</div>'">
+                        </div>
+                        <div class="timeline-content">
+                            <span class="timeline-step">Step 5</span>
+                            <h3>Office Celebrations</h3>
+                            <p>Gathering together for our annual events. Seeing everyone dressed up, laughing outside of formal client calls, and celebrating the milestones we built as a team.</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 6: Pongal Celebration -->
+                    <div class="timeline-item scroll-reveal right">
+                        <div class="timeline-media">
+                            <img src="images/pongal.jpeg" alt="Pongal Celebrations" class="timeline-img" onerror="this.onerror=null; this.parentNode.innerHTML='<div class="img-err">📸 [pongal.jpeg]</div>'">
+                        </div>
+                        <div class="timeline-content">
+                            <span class="timeline-step">Step 6</span>
+                            <h3>Festive Days</h3>
+                            <p>Office celebrations bring a different kind of light to the desk. Dressing in traditional wear, decorating the bay, and sharing sweets with our colleagues.</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 7: The Last Days -->
+                    <div class="timeline-item scroll-reveal left">
+                        <div class="timeline-media">
+                            <img src="images/herlastday.jpeg" alt="The Last Days" class="timeline-img" onerror="this.onerror=null; this.parentNode.innerHTML='<div class="img-err">📸 [herlastday.jpeg]</div>'">
+                        </div>
+                        <div class="timeline-content">
+                            <span class="timeline-step">Step 7</span>
+                            <h3>Winding Down</h3>
+                            <p>As the final weeks approached, every conversation felt a little more significant. Wrapping up final handovers and saying my preliminary goodbyes to the bay.</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 8: The Exit -->
+                    <div class="timeline-item scroll-reveal right">
+                        <div class="timeline-media">
+                            <img src="images/exitinterview.jpeg" alt="The Exit Interview" class="timeline-img" onerror="this.onerror=null; this.parentNode.innerHTML='<div class="img-err">📸 [exitinterview.jpeg]</div>'">
+                        </div>
+                        <div class="timeline-content">
+                            <span class="timeline-step">Step 8</span>
+                            <h3>Final Checkout</h3>
+                            <p>Passing by this door on my last day. Closing my workspace logs, signing my exit clearances, and stepping out into the next chapter of my career.</p>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </section>
 
@@ -136,12 +223,12 @@
         </section>
 
         <!-- ==================================================================
-             TAB 3: PRIVATE LETTERS (THE 5 FRIENDS GRID)
+             TAB 3: OUR SPACE (THE 3 FRIENDS GRID)
              ================================================================== -->
         <section id="view-private" class="tab-view">
             <div class="private-intro">
                 <h2>Tribute Cards</h2>
-                <p>These sections are dedicated to 5 of my closest office peers. Click your card and enter our shared secret office nickname to unlock our private memories and write back directly to me.</p>
+                <p>These sections are dedicated to my closest office peers. Click your card and enter our shared secret office nickname to unlock our private memories and write back directly to me.</p>
             </div>
 
             <!-- Friends Grid generated dynamically in JS -->
@@ -180,7 +267,7 @@
                     <p id="stepSpark"></p>
                 </div>
                 <div class="narrative-step">
-                    <h4>2. The Connection (How we bonded)</h4>
+                    <h4>2. Our First Interaction</h4>
                     <p id="stepConnection"></p>
                 </div>
                 <div class="narrative-step">
@@ -188,11 +275,11 @@
                     <p id="stepEvolution"></p>
                 </div>
                 <div class="narrative-step">
-                    <h4>4. The Scrapbook (Shared Memories)</h4>
+                    <h4>4. Core Memory</h4>
                     <p id="stepScrapbook"></p>
                 </div>
                 <div class="narrative-step">
-                    <h4>5. The Horizon (Hopes for the Future)</h4>
+                    <h4>5. Final Words :)</h4>
                     <p id="stepHorizon"></p>
                 </div>
 
@@ -201,7 +288,7 @@
                     <h3>Our Private Scrapbook Wall</h3>
                     <p class="private-section-desc">Write back to me, attach image/audio files, or share your thoughts here. It will stay private on this page.</p>
                     
-                    <!-- Form to write back directly -->
+                    <!-- Form to write back directly (Integrated Form) -->
                     <form id="privateResponseForm" class="private-form" novalidate>
                         <div class="form-group">
                             <label for="privateMessage">Write back to me <span class="required">*</span></label>
@@ -220,7 +307,7 @@
                             </div>
                             <!-- Image Compress Preview -->
                             <div id="privateImagePreview" class="file-preview-container hidden">
-                                <span id="privateImageName">image-file.jpg</span>
+                                <span id="privateImageName">image-file.jpeg</span>
                                 <button type="button" id="removePrivateImageBtn" class="btn-text">Remove</button>
                             </div>
                         </div>
@@ -333,64 +420,43 @@
            ================================================================== */
         const friendsData = [
             {
-                id: "vani",
-                displayName: "Vani",
-                role: "Frontend Partner",
-                password: "Vani_nickname", // Nickname password
-                heroImage: "images/vani.jpg", // Saved locally in your GitHub repository
-                spark: "We met in our first developer sprint meeting.",
-                connection: "We started laughing at custom CSS bugs and daily office tasks.",
+                id: "shruthi",
+                displayName: "Shruthi",
+                role: "PM / Friend",
+                password: "shruthi_nickname", // Your secret nickname password
+                heroImage: "images/shrutzbday.jpeg", // Main image displayed when unlocked
+                cardAvatar: "images/shrutzselfie.jpeg", // Image displayed on the card front
+                spark: "We met in our first developer sprint meeting when discussing timeline commitments.",
+                connection: "Do you remember the first first time we interacted?",
                 evolution: "From formal colleagues to my dearest advisor on designs.",
-                scrapbook: "Those countless iterations fixing visual errors right before our weekly staging builds.",
-                horizon: "Keep coding elegant interfaces, and keep our chat threads alive!"
+                scrapbook: "A memory that u wont forget about during our time here.",
+                horizon: "Write a note, a secret, or well wishes for the future..."
             },
             {
-                id: "rohan",
-                displayName: "Rohan",
-                role: "Backend Architect",
-                password: "Rohan_nickname",
-                heroImage: "images/rohan.jpg",
-                spark: "Met during API structure discussions.",
-                connection: "Bonded when we stayed late to debug backend pipeline configurations.",
-                evolution: "From a silent workspace neighbor to a primary mentor in architectural thinking.",
-                scrapbook: "Deploying production hotfixes while tracking bugs over late-night Slack threads.",
-                horizon: "Don't let the database logic stop you from working on your side projects. Let's build together soon!"
+                id: "bala",
+                displayName: "Bala",
+                role: "Best Friend",
+                password: "bala_nickname",
+                heroImage: "images/bday2025.jpeg",
+                cardAvatar: "images/balaamma.jpeg",
+                spark: "Met during the onboarding process and soon became inseparable.",
+                connection: "Do you remember the first first time we interacted?",
+                evolution: "From a simple workspace neighbor to my absolute best friend for life.",
+                scrapbook: "Too many to list here—every single project debug, whiteboard jam, and walk.",
+                horizon: "Grateful and thankful to god for giving me my best friend for life. Stay close forever!"
             },
             {
-                id: "anjali",
-                displayName: "Anjali",
-                role: "Product Manager",
-                password: "Anjali_nickname",
-                heroImage: "images/anjali.jpg",
-                spark: "You walked over to my desk to request feature timeline commitments.",
-                connection: "We connected when we sat through endless sprint plan revisions.",
-                evolution: "You went from my task planner to my most trusted coffee run companion.",
-                scrapbook: "Sharing private lunch runs outside the office just to skip formal workspace discussions.",
-                horizon: "Don't lose your balance over feature logs. Keep staying exactly as energetic as you are!"
-            },
-            {
-                id: "karthik",
-                displayName: "Karthik",
-                role: "DevOps Lead",
-                password: "Karthik_nickname",
-                heroImage: "images/karthik.jpg",
-                spark: "Helped me setup my workspace environments on Slack.",
-                connection: "We discovered we both spent hours learning guitar and music covers.",
-                evolution: "From an admin contact to my core creative partner in office jams.",
-                scrapbook: "Playing acoustic sessions in empty conference rooms during lunch breaks.",
-                horizon: "Send me your next cover recording! Let's schedule a jam session soon."
-            },
-            {
-                id: "priya",
-                displayName: "Priya",
-                role: "QA Reviewer",
-                password: "Priya_nickname",
-                heroImage: "images/priya.jpg",
-                spark: "Sent me a massive list of console bugs on my first staging deployment.",
-                connection: "We laughed about how we notice completely different design alignments.",
-                evolution: "From my strictly-principled reviewer to my closest lunchtime sister.",
-                scrapbook: "Sneaking away from the mandatory office assembly to grab waffles around the block.",
-                horizon: "Keep testing code without mercy, but keep sharing your life updates with me daily!"
+                id: "joel",
+                displayName: "Joel",
+                role: "First Colleague",
+                password: "joel_nickname",
+                heroImage: "images/withlove.jpeg",
+                cardAvatar: "images/joel.jpeg",
+                spark: "You were the first person I sat next to when I stepped into the office.",
+                connection: "Do you remember the first first time we interacted?",
+                evolution: "From my first colleague to a highly valued teammate whose queries I cherish.",
+                scrapbook: "The way you question and expect logical answers from me in every scenario.",
+                horizon: "Stay exactly the same with your curious questions. Let's keep learning together!"
             }
         ];
 
@@ -415,7 +481,9 @@
                 const card = document.createElement('article');
                 card.className = 'locked-friend-card';
                 card.innerHTML = `
-                    <span class="cloud-badge-icon">☁️</span>
+                    <div class="friend-card-avatar-box">
+                        <img src="${friend.cardAvatar}" alt="${friend.displayName}" class="card-avatar-img" onerror="this.onerror=null; this.parentNode.innerHTML='<span class="cloud-badge-icon">☁️</span>'">
+                    </div>
                     <h3>${friend.displayName}</h3>
                     <p>${friend.role}</p>
                 `;
@@ -844,6 +912,26 @@
         }, (error) => {
             console.error("Failed to fetch real-time updates: ", error);
         });
+
+        /* ==================================================================
+           9. Intersection Observer (The Dynamic "Flowy" Scroll Reveal)
+           ================================================================== */
+        const revealItems = document.querySelectorAll('.scroll-reveal');
+        
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('reveal-active');
+                    // Stop observing once revealed to maintain high layout performance
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.15, // Triggers when 15% of the card crosses into screen space
+            rootMargin: "0px 0px -50px 0px" // Slight bottom offset for smoother timing
+        });
+
+        revealItems.forEach(item => revealObserver.observe(item));
     </script>
 
 </body>
