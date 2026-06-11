@@ -464,25 +464,6 @@
             overflow: hidden;
         }
 
-        /* Scroll Animations */
-        .scroll-reveal {
-            opacity: 0;
-            transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .scroll-reveal.left {
-            transform: translateX(-20px);
-        }
-
-        .scroll-reveal.right {
-            transform: translateX(20px);
-        }
-
-        .scroll-reveal.reveal-active {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
         @media (max-width: 768px) {
             .timeline-line {
                 left: 1.25rem;
@@ -711,7 +692,7 @@
         }
 
         /* ==========================================================================
-           9. Overlay lock modal & Split private scrapbook screen (Warm Editorial Journal Layout)
+           9. Cozy Immersive Full-Page Scrapbook Layout (No Mechanical Modals!)
            ========================================================================== */
         .private-letter-overlay {
             display: none;
@@ -720,7 +701,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(224, 242, 254, 0.8);
+            background-color: rgba(224, 242, 254, 0.85); /* Cloud sky overlay */
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             z-index: 1000;
@@ -732,28 +713,24 @@
             display: block;
         }
 
+        /* Expanded container to utilize the full-page beautifully */
         .letter-container {
             width: 95%;
-            max-width: 720px;
-            margin: 1rem auto;
+            max-width: 1024px; /* Expanded wider to support rich, premium layouts */
+            margin: 1.5rem auto;
             background-color: rgba(255, 255, 255, 0.94);
             border: 1px solid rgba(255, 255, 255, 0.8);
             border-radius: var(--radius-lg);
-            padding: 1.75rem;
+            padding: 2.5rem 2rem;
             box-shadow: 0 20px 45px -10px rgba(148, 163, 184, 0.2);
             position: relative;
             animation: modalSlideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
-        @keyframes modalSlideUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
         .close-letter-btn {
             position: absolute;
-            top: 1.25rem;
-            right: 1.25rem;
+            top: 1.5rem;
+            right: 1.5rem;
             background: #ffffff;
             border: 1px solid var(--border-color);
             color: var(--text-secondary);
@@ -777,11 +754,11 @@
 
         .password-prompt-box {
             text-align: center;
-            padding: 2rem 1rem;
+            padding: 3rem 1rem;
         }
 
         .lock-icon {
-            font-size: 2.2rem;
+            font-size: 2.5rem;
             margin-bottom: 0.75rem;
             display: block;
         }
@@ -829,218 +806,234 @@
 
         #friendName {
             color: var(--text-primary);
-            font-size: 1.75rem;
+            font-size: 2rem;
             margin-bottom: 0.15rem;
+            font-weight: 800;
         }
 
         .friend-subtitle {
             color: var(--accent-pink);
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.05em;
-            margin-bottom: 1.5rem;
-        }
-
-        /* --------------------------------------------------------------------------
-           NEW: Cozy Split Column Editorial Grid (Photos on Left, Story on Right)
-           -------------------------------------------------------------------------- */
-        .friend-memories-list {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
             margin-bottom: 2rem;
         }
 
-        .friend-memory-row {
+        /* --------------------------------------------------------------------------
+           NEW: Split Column Scrapbook Layout (Slideshow Left, Narratives Right)
+           -------------------------------------------------------------------------- */
+        .friend-scrapbook-row {
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        @media (min-width: 768px) {
+            .friend-scrapbook-row {
+                flex-direction: row;
+                align-items: flex-start;
+            }
+        }
+
+        /* Auto-playing dynamic slideshow (Left column) */
+        .slideshow-column {
+            flex: 1.2;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .slideshow-container {
+            position: relative;
+            width: 100%;
+            height: 320px;
+            background-color: #ffffff;
+            border-radius: var(--radius-md);
+            padding: 10px 10px 24px 10px; /* Polaroid bottom lip */
+            border: 1px solid rgba(148, 163, 184, 0.15);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+            overflow: hidden;
+            cursor: pointer;
+            transform: rotate(-1deg);
+            transition: transform var(--transition-smooth);
+        }
+
+        .slideshow-container:hover {
+            transform: rotate(0deg) scale(1.02);
+        }
+
+        .slide-item {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 24px;
+            opacity: 0;
+            z-index: 1;
+            transition: opacity 0.8s ease-in-out;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .slide-item.active {
+            opacity: 1;
+            z-index: 2;
+        }
+
+        .slide-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Slider Indicator Dots */
+        .slideshow-dots {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 0.25rem;
+        }
+
+        .slideshow-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--color-blue-soft);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background var(--transition-smooth);
+        }
+
+        .slideshow-dot.active {
+            background: var(--accent-pink);
+            transform: scale(1.1);
+        }
+
+        /* Stories list column (Right column) */
+        .narratives-column {
+            flex: 1.5;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .friend-memory-block {
+            border-left: 3px solid var(--color-pink-soft);
+            padding-left: 1.25rem;
+            transition: border-color var(--transition-smooth);
+        }
+
+        .friend-memory-block.active {
+            border-color: var(--accent-pink);
+        }
+
+        .friend-memory-block h4 {
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            letter-spacing: 0.05em;
+            margin-bottom: 0.25rem;
+            transition: color var(--transition-smooth);
+        }
+
+        .friend-memory-block.active h4 {
+            color: var(--accent-pink);
+        }
+
+        .friend-memory-block p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* --------------------------------------------------------------------------
+           NEW: Premium Glassmorphic Write-Back Box
+           -------------------------------------------------------------------------- */
+        .private-write-back-section {
+            margin-top: 3.5rem;
+            padding-top: 2.5rem;
+            border-top: 1px solid var(--color-blue-soft);
+        }
+
+        .private-write-back-section h3 {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .private-section-desc {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Glassmorphic input container */
+        .private-form {
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid var(--border-color);
+            padding: 1.75rem;
+            border-radius: var(--radius-md);
+            box-shadow: var(--cloud-shadow);
+            margin-bottom: 2rem;
+        }
+
+        /* Modern input overrides */
+        .private-form textarea,
+        .private-form input[type="text"] {
+            background-color: rgba(255, 255, 255, 0.95);
+            border: 1.5px solid var(--color-blue-soft);
+            border-radius: 12px;
+            padding: 0.85rem 1.1rem;
+            font-size: 0.925rem;
+            color: var(--text-primary);
+            box-shadow: 0 2px 8px rgba(148, 163, 184, 0.04);
+            transition: all var(--transition-smooth);
+        }
+
+        .private-form textarea:focus,
+        .private-form input[type="text"]:focus {
+            background-color: #ffffff;
+            border-color: var(--accent-pink);
+            box-shadow: 0 0 15px rgba(236, 72, 153, 0.15);
+        }
+
+        /* Pill-shaped modern post button */
+        .private-form .btn-primary {
+            border-radius: 50px;
+            padding: 1rem 2rem;
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            box-shadow: 0 6px 20px rgba(236, 72, 153, 0.25);
+            width: auto;
+            display: inline-flex;
+            margin-top: 0.5rem;
+        }
+
+        .private-response-feed {
             display: flex;
             flex-direction: column;
             gap: 1.25rem;
-            background-color: rgba(255, 255, 255, 0.55);
+        }
+
+        /* Private response cards */
+        .private-response-feed .feed-card {
+            background: rgba(255, 255, 255, 0.65);
             border: 1px solid var(--border-color);
             border-radius: var(--radius-md);
             padding: 1.25rem;
             box-shadow: var(--cloud-shadow);
         }
 
-        @media (min-width: 768px) {
-            .friend-memory-row {
-                flex-direction: row;
-                align-items: center;
-            }
-        }
-
-        /* Beautiful Polaroid framing for a handcrafted, cozy feel */
-        .friend-memory-img-box {
-            flex: 1;
-            height: 180px;
-            background: #ffffff;
-            border-radius: var(--radius-sm);
-            padding: 8px 8px 16px 8px; /* Classic bottom frame offset */
-            border: 1px solid rgba(148, 163, 184, 0.15);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            transform: rotate(-1.5deg); /* cozy manual photo drop tilt */
-            transition: transform var(--transition-smooth);
-            cursor: pointer;
-        }
-
-        .friend-memory-row:nth-child(even) .friend-memory-img-box {
-            transform: rotate(1.5deg); /* Alternating paper orientation tilt */
-        }
-
-        .friend-memory-row:hover .friend-memory-img-box {
-            transform: rotate(0deg) scale(1.02);
-            border-color: var(--accent-pink);
-        }
-
-        .friend-memory-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 4px;
-        }
-
-        .friend-memory-text-box {
-            flex: 1.5;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .friend-memory-text-box h4 {
-            font-size: 0.85rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            color: var(--accent-pink);
-            letter-spacing: 0.05em;
-            margin-bottom: 0.35rem;
-        }
-
-        .friend-memory-text-box p {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            line-height: 1.5;
-        }
-
-        /* Private response box styling (Write for me :)) */
-        .private-write-back-section {
-            margin-top: 3rem;
-            padding-top: 2rem;
-            border-top: 1px solid var(--color-blue-soft);
-        }
-
-        .private-write-back-section h3 {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 0.35rem;
-        }
-
-        .private-section-desc {
-            color: var(--text-secondary);
-            font-size: 0.85rem;
-            margin-bottom: 1.25rem;
-        }
-
-        .private-form {
-            background: rgba(255, 255, 255, 0.45);
-            border: 1px solid var(--border-color);
-            padding: 1.25rem;
-            border-radius: var(--radius-md);
-            margin-bottom: 1.5rem;
-        }
-
-        .private-response-feed {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        /* Forms Dropzone inside Modal */
-        .file-preview-container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0.6rem 0.8rem;
-            background-color: rgba(255, 255, 255, 0.95);
-            border: 1px solid var(--accent-pink);
-            border-radius: var(--radius-md);
-            margin-top: 0.5rem;
-        }
-
-        .file-preview-container span {
-            font-size: 0.8rem;
-            color: var(--text-primary);
-            font-weight: 600;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            max-width: 80%;
-        }
-
-        .btn-text {
-            background: none;
-            border: none;
-            color: var(--error);
-            font-size: 0.8rem;
-            font-weight: 700;
-            cursor: pointer;
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            padding: 0.8rem 1.25rem;
-            font-size: 0.9rem;
-            font-weight: 700;
-            border-radius: var(--radius-md);
-            border: none;
-            cursor: pointer;
-            transition: background-color var(--transition-smooth), transform var(--transition-smooth);
-            position: relative;
-        }
-
-        .btn-primary {
-            background-color: var(--accent-pink);
-            color: #ffffff;
-            box-shadow: 0 4px 12px rgba(236, 72, 153, 0.2);
-        }
-
-        .btn-primary:hover {
-            background-color: var(--accent-pink-hover);
-        }
-
-        .btn-primary:active {
-            transform: scale(0.98);
-        }
-
-        .hidden {
-            display: none !important;
-        }
-
-        .loader {
-            width: 16px;
-            height: 16px;
-            border: 2px solid #ffffff;
-            border-top: 2px solid transparent;
-            border-radius: 50%;
-            margin-left: 0.5rem;
-            animation: spin 0.8s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
+        /* forms helper labels */
         .form-group {
-            margin-bottom: 1rem;
+            margin-bottom: 1.25rem;
             display: flex;
             flex-direction: column;
         }
@@ -1048,8 +1041,10 @@
         label {
             font-size: 0.8rem;
             font-weight: 700;
-            margin-bottom: 0.35rem;
+            margin-bottom: 0.45rem;
             color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
 
         .required {
@@ -1066,7 +1061,7 @@
         /* Document Footer */
         .app-footer {
             text-align: center;
-            padding: 2rem 1rem;
+            padding: 2.5rem 1rem;
             color: var(--text-muted);
             font-size: 0.8rem;
             background: transparent;
@@ -1101,8 +1096,8 @@
             
             <!-- Dynamic Navigation Tabs -->
             <nav class="tab-nav">
-                <button class="tab-btn active" data-tab="home">Psiog Days</button>
-                <button class="tab-btn" data-tab="private">My Friends</button>
+                <button class="tab-btn active" data-tab="home">Psiog days</button>
+                <button class="tab-btn" data-tab="private">Friends</button>
             </nav>
         </div>
     </header>
@@ -1241,7 +1236,7 @@
         </section>
 
         <!-- ==================================================================
-             TAB 2: OUR SPACE (THE 3 FRIENDS GRID)
+             TAB 2: OUR SPACE (THE 5 FRIENDS GRID)
              ================================================================== -->
         <section id="view-private" class="tab-view">
             <div class="private-intro">
@@ -1254,7 +1249,7 @@
 
     </main>
 
-    <!-- Interactive Lightbox Modal for Timeline Stories -->
+    <!-- Interactive Lightbox Modal for Timeline Stories & Private Scrapbook Slides -->
     <div id="timelineModal" class="timeline-modal">
         <div class="timeline-modal-container">
             <button class="close-letter-btn" id="closeTimelineModalBtn">✕</button>
@@ -1290,11 +1285,24 @@
                 <p id="friendSubtitle" class="friend-subtitle"></p>
                 
                 <!-- Dynamic Split Columns Memory Area -->
-                <div class="friend-memories-list" id="friendSplitMemories">
-                    <!-- Dynamic Rows containing Image on Left, Narratives on Right injected by JS -->
+                <div class="friend-scrapbook-row">
+                    <!-- Left Column: Auto-playing Carousel -->
+                    <div class="slideshow-column">
+                        <div class="slideshow-container" id="friendSlideshow">
+                            <!-- Dynamic images injected here -->
+                        </div>
+                        <div class="slideshow-dots" id="friendSlideshowDots">
+                            <!-- Navigation dots injected here -->
+                        </div>
+                    </div>
+                    
+                    <!-- Right Column: Narrative Stories -->
+                    <div class="narratives-column" id="friendSplitMemories">
+                        <!-- Dynamic narratives injected here -->
+                    </div>
                 </div>
 
-                <!-- Private Write-Back Feature Section (Rename to Write for me :)) -->
+                <!-- Private Write-Back Feature Section (Write for me :)) -->
                 <div class="private-write-back-section">
                     <h3>Write for me :)</h3>
                     <p class="private-section-desc">Write back to me, attach image/audio files, or share your thoughts here. It will stay private on this page.</p>
@@ -1506,6 +1514,49 @@
                         text: "Stay exactly the same with your curious questions. Let's keep learning together!"
                     }
                 ]
+            },
+            {
+                id: "chandhan",
+                displayName: "Chandhan",
+                role: "Thambi",
+                password: "chandhan_nickname",
+                cardAvatar: "images/badge.jpeg", // Replace with his actual thambi image if available
+                memories: [
+                    {
+                        image: "images/badge.jpeg",
+                        title: "1. The Connection",
+                        text: "Even though we worked in different spheres, you were always like a younger brother (thambi) to me in this office."
+                    },
+                    {
+                        image: "images/bday2025.jpeg",
+                        title: "2. Birthday Moments",
+                        text: "Celebrating milestones together, cracking jokes, and sharing sweets in the bay."
+                    }
+                ]
+            },
+            {
+                id: "varshini",
+                displayName: "Varshini",
+                role: "Friend / Colleague",
+                password: "varshini_nickname",
+                cardAvatar: "images/varshini.jpeg",
+                memories: [
+                    {
+                        image: "images/varshini.jpeg",
+                        title: "1. The Spark",
+                        text: "Met you in the corridor on my initial days at Psiog, immediately hitting it off."
+                    },
+                    {
+                        image: "images/herlastday.jpeg",
+                        title: "2. Celebrations & Daily Syncs",
+                        text: "Working beside each other on design checkouts, discussing reviews, and having tea."
+                    },
+                    {
+                        image: "images/willmissus.jpeg",
+                        title: "3. Winding Down",
+                        text: "Grateful for having you as a dear, supportive friend during my journey at Psiog!"
+                    }
+                ]
             }
         ];
 
@@ -1523,6 +1574,7 @@
 
         let activeFriend = null;
         let unsubscribePrivateFeed = null; 
+        let carouselIntervalId = null; // Holds the auto-play timer
 
         function renderFriendsGrid() {
             friendsGrid.innerHTML = '';
@@ -1570,36 +1622,55 @@
                 document.getElementById('friendName').textContent = activeFriend.displayName;
                 document.getElementById('friendSubtitle').textContent = activeFriend.role;
 
-                // Build the new Dynamic Split columns memory items
-                const splitContainer = document.getElementById('friendSplitMemories');
-                splitContainer.innerHTML = '';
+                // Build Carousel & Stories side-by-side
+                const slideshowContainer = document.getElementById('friendSlideshow');
+                const dotsContainer = document.getElementById('friendSlideshowDots');
+                const narrativesContainer = document.getElementById('friendSplitMemories');
                 
+                slideshowContainer.innerHTML = '';
+                dotsContainer.innerHTML = '';
+                narrativesContainer.innerHTML = '';
+
                 activeFriend.memories.forEach((memory, idx) => {
-                    const row = document.createElement('div');
-                    row.className = 'friend-memory-row';
-                    row.innerHTML = `
-                        <div class="friend-memory-img-box">
-                            <img src="${memory.image}" alt="${memory.title}" class="friend-memory-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                            <div class="img-err" style="display:none;">📸 Photo Missing</div>
-                        </div>
-                        <div class="friend-memory-text-box">
-                            <h4>${memory.title}</h4>
-                            <p>${memory.text}</p>
-                        </div>
+                    // 1. Inject Slide Images
+                    const slide = document.createElement('div');
+                    slide.className = `slide-item ${idx === 0 ? 'active' : ''}`;
+                    slide.innerHTML = `
+                        <img src="${memory.image}" alt="${memory.title}" class="slide-img" onerror="this.style.display='none'; this.parentNode.innerHTML='<div class="img-err">📸 Photo Missing</div>'">
                     `;
-                    
-                    // Attach click handler to let unlocked pictures open up in lightbox modal!
-                    const imgBox = row.querySelector('.friend-memory-img-box');
-                    imgBox.addEventListener('click', () => {
-                        document.getElementById('timelineModalStep').textContent = `Memory ${idx + 1}`;
+                    slideshowContainer.appendChild(slide);
+
+                    // 2. Inject Nav Dots
+                    const dot = document.createElement('span');
+                    dot.className = `slideshow-dot ${idx === 0 ? 'active' : ''}`;
+                    dot.addEventListener('click', () => goToSlide(idx));
+                    dotsContainer.appendChild(dot);
+
+                    // 3. Inject Narrative Text Blocks
+                    const block = document.createElement('div');
+                    block.className = `friend-memory-block ${idx === 0 ? 'active' : ''}`;
+                    block.innerHTML = `
+                        <h4>${memory.title}</h4>
+                        <p>${memory.text}</p>
+                    `;
+                    narrativesContainer.appendChild(block);
+                });
+
+                // Set up lightbox click on active slideshow container to view full picture!
+                slideshowContainer.addEventListener('click', () => {
+                    const activeIndex = Array.from(slideshowContainer.children).findIndex(slide => slide.classList.contains('active'));
+                    if (activeIndex !== -1) {
+                        const memory = activeFriend.memories[activeIndex];
+                        document.getElementById('timelineModalStep').textContent = `Memory ${activeIndex + 1}`;
                         document.getElementById('timelineModalTitle').textContent = memory.title;
                         document.getElementById('timelineModalDesc').textContent = memory.text;
                         document.getElementById('timelineModalImg').src = memory.image;
                         timelineModal.classList.add('active');
-                    });
-
-                    splitContainer.appendChild(row);
+                    }
                 });
+
+                // Start automatic carousel slideshow (moves every 4 seconds)
+                startSlideshowAutoPlay();
 
                 // Load real-time private messages specifically for this friend
                 listenToPrivateFeed(activeFriend.id);
@@ -1608,9 +1679,51 @@
             }
         }
 
+        /* Carousel Slideshow Control Functions */
+        let currentSlideIndex = 0;
+
+        function goToSlide(index) {
+            const slides = document.querySelectorAll('.slide-item');
+            const dots = document.querySelectorAll('.slideshow-dot');
+            const blocks = document.querySelectorAll('.friend-memory-block');
+
+            if (!slides.length) return;
+
+            // Reset current active states
+            slides.forEach(s => s.classList.remove('active'));
+            dots.forEach(d => d.classList.remove('active'));
+            blocks.forEach(b => b.classList.remove('active'));
+
+            currentSlideIndex = index;
+            slides[currentSlideIndex].classList.add('active');
+            dots[currentSlideIndex].classList.add('active');
+            blocks[currentSlideIndex].classList.add('active');
+        }
+
+        function nextSlide() {
+            if (!activeFriend) return;
+            const totalSlides = activeFriend.memories.length;
+            let nextIndex = (currentSlideIndex + 1) % totalSlides;
+            goToSlide(nextIndex);
+        }
+
+        function startSlideshowAutoPlay() {
+            currentSlideIndex = 0;
+            stopSlideshowAutoPlay();
+            carouselIntervalId = setInterval(nextSlide, 4000); // Transitions every 4 seconds
+        }
+
+        function stopSlideshowAutoPlay() {
+            if (carouselIntervalId) {
+                clearInterval(carouselIntervalId);
+                carouselIntervalId = null;
+            }
+        }
+
         closeOverlayBtn.addEventListener('click', () => {
             letterOverlay.classList.remove('active');
             activeFriend = null;
+            stopSlideshowAutoPlay();
             resetPrivateFormMedia();
             if (unsubscribePrivateFeed) {
                 unsubscribePrivateFeed(); 
@@ -1630,7 +1743,6 @@
         
         let base64CompressedImage = null; // Stored string
 
-        // Check if elements exist before adding event listeners to prevent script failures
         if (privateImageInput) {
             privateImageInput.addEventListener('change', async (e) => {
                 const file = e.target.files[0];
