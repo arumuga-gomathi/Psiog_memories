@@ -4,8 +4,1098 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Psiog Memories...Archives</title>
-    <!-- Cache-busting link directly targeting your separate stylesheet style.css -->
-    <link rel="stylesheet" href="style.css?v=4">
+    <style>
+        /* ==========================================================================
+           1. CSS Custom Properties & Base Variables (Fluid Soft Cloud Theme)
+           ========================================================================== */
+        :root {
+            --bg-gradient: linear-gradient(135deg, #fff2f6 0%, #e0f2fe 50%, #f0fdf4 100%);
+            
+            --color-pink-soft: #fbcfe8;
+            --color-blue-soft: #bae6fd;
+            --accent: #ec4899; /* Cloud Rose Pink */
+            --accent-hover: #db2777;
+            --accent-light: rgba(236, 72, 153, 0.08);
+            --error: #ef4444;
+            --success: #10b981;
+
+            --text-primary: #1e293b; /* Slate blue for high readability */
+            --text-secondary: #475569;
+            --text-muted: #64748b;
+            --border-color: rgba(255, 255, 255, 0.6);
+            --bg-card: rgba(255, 255, 255, 0.75);
+
+            --font-system: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --radius-sm: 8px;
+            --radius-md: 16px;
+            --radius-lg: 24px;
+            --transition-smooth: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            
+            --cloud-shadow: 0 10px 30px -5px rgba(148, 163, 184, 0.12), 0 4px 12px -2px rgba(148, 163, 184, 0.04);
+        }
+
+        /* ==========================================================================
+           2. Base Document Resets & Background Configurations
+           ========================================================================== */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            background-attachment: fixed;
+            color: var(--text-primary);
+            font-family: var(--font-system);
+            line-height: 1.5;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+            padding-bottom: 4rem;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--color-blue-soft);
+            border-radius: var(--radius-sm);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--color-pink-soft);
+        }
+
+        /* ==========================================================================
+           3. Modern Floating Audio Controller (Persistent Bottom-Right)
+           ========================================================================== */
+        .audio-floating-btn {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 56px;
+            height: 56px;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 30px -5px rgba(148, 163, 184, 0.2);
+            cursor: pointer;
+            z-index: 9999;
+            transition: all var(--transition-smooth);
+        }
+
+        .audio-floating-btn:hover {
+            transform: scale(1.08);
+            background: #ffffff;
+            border-color: var(--accent);
+        }
+
+        .audio-floating-btn.playing {
+            box-shadow: 0 0 20px rgba(236, 72, 153, 0.3);
+            border-color: var(--accent);
+            animation: gentle-pulse 2s infinite;
+        }
+
+        .audio-icon-svg {
+            width: 24px;
+            height: 24px;
+            fill: var(--text-secondary);
+            transition: fill var(--transition-smooth);
+        }
+
+        .audio-floating-btn:hover .audio-icon-svg,
+        .audio-floating-btn.playing .audio-icon-svg {
+            fill: var(--accent);
+        }
+
+        @keyframes gentle-pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* ==========================================================================
+           4. Header & Tab Navigation
+           ========================================================================== */
+        .app-header {
+            padding: 2.5rem 1.5rem 1rem 1.5rem;
+            text-align: center;
+        }
+
+        .header-container {
+            max-width: 1320px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 2.2rem;
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            line-height: 1.1;
+            background: linear-gradient(135deg, #db2777 0%, #0284c7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.25rem;
+        }
+
+        .subtitle {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .tab-nav {
+            display: inline-flex;
+            gap: 0.25rem;
+            background: rgba(255, 255, 255, 0.55);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            padding: 5px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            box-shadow: var(--cloud-shadow);
+        }
+
+        .tab-btn {
+            padding: 0.65rem 1.25rem;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            font-weight: 700;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all var(--transition-smooth);
+        }
+
+        .tab-btn:hover {
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.4);
+        }
+
+        .tab-btn.active {
+            background-color: #ffffff;
+            color: var(--accent);
+            box-shadow: 0 4px 10px rgba(148, 163, 184, 0.08);
+        }
+
+        .tab-view {
+            display: none;
+            animation: cloudSlideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .tab-view.active {
+            display: block;
+        }
+
+        @keyframes cloudSlideIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ==========================================================================
+           5. Layout Containers & Snug Grid Systems
+           ========================================================================== */
+        .app-container {
+            width: 95%;
+            max-width: 1320px;
+            margin: 1rem auto;
+            padding: 0 0.5rem;
+        }
+
+        .full-width-feed {
+            width: 100%;
+        }
+
+        .cloud-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--cloud-shadow);
+            padding: 2rem;
+        }
+
+        .cloud-card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: var(--text-primary);
+            font-weight: 700;
+        }
+
+        .cloud-card p {
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+        }
+
+        /* ==========================================================================
+           6. Authentic Vertical Alternate Timeline
+           ========================================================================== */
+        .timeline-wrapper {
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        .timeline-intro {
+            background: var(--bg-card);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            box-shadow: var(--cloud-shadow);
+            margin-bottom: 3.5rem;
+            text-align: center;
+        }
+
+        .timeline-intro h2 {
+            font-size: 1.6rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-intro p {
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline-track {
+            position: relative;
+            width: 100%;
+            max-width: 920px;
+            margin: 0 auto;
+            padding: 1.5rem 0;
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(180deg, var(--color-blue-soft) 0%, var(--color-pink-soft) 100%);
+            transform: translateX(-50%);
+            z-index: 1;
+        }
+
+        .timeline-item {
+            position: relative;
+            width: 50%;
+            padding: 0 2.5rem;
+            z-index: 2;
+            margin-bottom: 4rem;
+        }
+
+        /* Central Bullet Dot */
+        .timeline-dot {
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            background: #ffffff;
+            border: 4px solid var(--accent);
+            border-radius: 50%;
+            top: 20px;
+            z-index: 10;
+        }
+
+        .timeline-item.left {
+            left: 0;
+            text-align: right;
+        }
+
+        .timeline-item.left .timeline-dot {
+            right: -10px;
+        }
+
+        .timeline-item.right {
+            left: 50%;
+            text-align: left;
+        }
+
+        .timeline-item.right .timeline-dot {
+            left: -10px;
+        }
+
+        /* Bounded Image Containers inside Timeline */
+        .timeline-media {
+            width: 100%;
+            max-height: 250px; /* Secure height bounds */
+            background: rgba(255, 255, 255, 0.6);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--cloud-shadow);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .timeline-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform var(--transition-smooth);
+        }
+
+        .timeline-item:hover .timeline-img {
+            transform: scale(1.03);
+        }
+
+        .img-err {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            background: rgba(255, 255, 255, 0.5);
+            padding: 2rem 0;
+        }
+
+        .timeline-content {
+            background: var(--bg-card);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            box-shadow: var(--cloud-shadow);
+        }
+
+        .timeline-step {
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        .timeline-content h3 {
+            font-size: 1.2rem;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-content p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        /* Scroll Animation States */
+        .scroll-reveal {
+            opacity: 0;
+            transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .scroll-reveal.left {
+            transform: translateX(-30px);
+        }
+
+        .scroll-reveal.right {
+            transform: translateX(30px);
+        }
+
+        .scroll-reveal.reveal-active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Timeline Responsiveness (Collapse into single column on mobile) */
+        @media (max-width: 768px) {
+            .timeline-line {
+                left: 1.25rem;
+                transform: none;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 2.5rem;
+                padding-right: 0.5rem;
+                margin-bottom: 3rem;
+            }
+            
+            .timeline-item.left {
+                left: 0;
+                text-align: left;
+            }
+            
+            .timeline-item.left .timeline-dot {
+                left: 1.25rem;
+                right: auto;
+                transform: translateX(-50%);
+            }
+            
+            .timeline-item.right {
+                left: 0;
+                text-align: left;
+            }
+
+            .timeline-item.right .timeline-dot {
+                left: 1.25rem;
+                transform: translateX(-50%);
+            }
+            
+            .scroll-reveal.left,
+            .scroll-reveal.right {
+                transform: translateY(20px);
+            }
+            
+            .scroll-reveal.reveal-active {
+                transform: translateY(0);
+            }
+        }
+
+        /* ==========================================================================
+           7. Dynamic Feed Cards (Tab 2)
+           ========================================================================== */
+        .feed-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.25rem;
+        }
+
+        .feed-stats {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            background-color: rgba(255, 255, 255, 0.6);
+            padding: 0.2rem 0.6rem;
+            border-radius: 999px;
+            border: 1px solid var(--border-color);
+        }
+
+        .memory-feed {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .feed-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            box-shadow: var(--cloud-shadow);
+            transition: transform var(--transition-smooth), border-color var(--transition-smooth);
+        }
+
+        .feed-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--color-pink-soft);
+        }
+
+        .feed-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .user-meta {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user-name {
+            font-size: 1.05rem;
+            font-weight: 800;
+            line-height: 1.2;
+            color: var(--text-primary);
+        }
+
+        .user-badge {
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-top: 0.15rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .post-time {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+
+        .feed-card-body {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .memory-block,
+        .message-block {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .feed-block-title {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            letter-spacing: 0.05em;
+            margin-bottom: 0.15rem;
+        }
+
+        .feed-card-body p {
+            font-size: 0.925rem;
+            color: var(--text-primary);
+        }
+
+        .memory-block p {
+            font-style: italic;
+            color: var(--text-secondary);
+        }
+
+        .media-container {
+            margin-top: 0.5rem;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            background-color: #000000;
+            border: 1px solid var(--border-color);
+            display: flex;
+            justify-content: center;
+        }
+
+        .feed-media {
+            max-width: 100%;
+            max-height: 360px;
+            display: block;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem 1.5rem;
+            border: 2px dashed var(--border-color);
+            border-radius: var(--radius-lg);
+            background-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .empty-state .icon {
+            font-size: 2.5rem;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .empty-state p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* ==========================================================================
+           8. Tab 3: Friends Portal Locked Grid (Squeezed & Squared)
+           ========================================================================== */
+        .private-intro {
+            text-align: center;
+            max-width: 650px;
+            margin: 0.5rem auto 2.5rem auto;
+        }
+
+        .private-intro h2 {
+            color: var(--text-primary);
+            font-size: 1.6rem;
+        }
+
+        .private-intro p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: 0.35rem;
+        }
+
+        .friends-grid {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        /* Resized Compact Locked Friend Card */
+        .locked-friend-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1.5rem 1.25rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all var(--transition-smooth);
+            box-shadow: var(--cloud-shadow);
+            width: 210px; /* Snug Square Width */
+            height: 190px; /* Snug Height - prevents vertical stretching */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .locked-friend-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent);
+            box-shadow: 0 15px 30px -5px rgba(236, 72, 153, 0.08);
+        }
+
+        /* Styled Circular Card Avatar */
+        .friend-card-avatar-box {
+            width: 76px;
+            height: 76px;
+            border-radius: 50%;
+            margin-bottom: 0.75rem;
+            overflow: hidden;
+            border: 2px solid var(--color-blue-soft);
+            box-shadow: var(--cloud-shadow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(255, 255, 255, 0.8);
+            transition: border-color var(--transition-smooth);
+        }
+
+        .locked-friend-card:hover .friend-card-avatar-box {
+            border-color: var(--accent);
+        }
+
+        .card-avatar-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .cloud-badge-icon {
+            font-size: 1.8rem;
+            display: inline-block;
+        }
+
+        .locked-friend-card h3 {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            margin-bottom: 0.15rem;
+            font-weight: 700;
+        }
+
+        .locked-friend-card p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* ==========================================================================
+           9. Overlay lock modal & Private letter screens
+           ========================================================================== */
+        .private-letter-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(224, 242, 254, 0.8);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            z-index: 1000;
+            overflow-y: auto;
+            padding: 1.5rem 0.5rem;
+        }
+
+        .private-letter-overlay.active {
+            display: block;
+        }
+
+        .letter-container {
+            width: 95%;
+            max-width: 680px;
+            margin: 1rem auto;
+            background-color: rgba(255, 255, 255, 0.92);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            border-radius: var(--radius-lg);
+            padding: 1.75rem;
+            box-shadow: 0 20px 45px -10px rgba(148, 163, 184, 0.2);
+            position: relative;
+            animation: modalSlideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes modalSlideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .close-letter-btn {
+            position: absolute;
+            top: 1.25rem;
+            right: 1.25rem;
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(148, 163, 184, 0.06);
+            transition: all var(--transition-smooth);
+            z-index: 10;
+        }
+
+        .close-letter-btn:hover {
+            color: var(--accent);
+            transform: rotate(90deg);
+        }
+
+        .password-prompt-box {
+            text-align: center;
+            padding: 2rem 1rem;
+        }
+
+        .lock-icon {
+            font-size: 2.2rem;
+            margin-bottom: 0.75rem;
+            display: block;
+        }
+
+        .prompt-subtext {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin-top: 0.35rem;
+        }
+
+        .prompt-input {
+            max-width: 280px;
+            margin: 1.25rem auto 0 auto;
+            text-align: center;
+            font-size: 1.05rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            background-color: #ffffff;
+            border: 1px solid var(--color-blue-soft);
+            border-radius: var(--radius-md);
+            padding: 0.6rem;
+        }
+
+        .prompt-input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .error-text {
+            color: var(--error);
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-top: 0.75rem;
+            display: none;
+        }
+
+        .unlocked-content {
+            display: none;
+        }
+
+        .unlocked-content.active {
+            display: block;
+        }
+
+        #friendName {
+            color: var(--text-primary);
+            font-size: 1.75rem;
+            margin-bottom: 0.15rem;
+        }
+
+        .friend-subtitle {
+            color: var(--accent);
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1.25rem;
+        }
+
+        .friend-image-placeholder {
+            width: 100%;
+            height: 240px;
+            background: rgba(255, 255, 255, 0.65);
+            border-radius: var(--radius-md);
+            border: 2px dashed rgba(236, 72, 153, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            overflow: hidden;
+        }
+
+        .friend-hero-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .narrative-step {
+            margin-bottom: 1.25rem;
+            border-left: 3px solid var(--accent);
+            padding-left: 1rem;
+        }
+
+        .narrative-step h4 {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--accent);
+            letter-spacing: 0.05em;
+            margin-bottom: 0.25rem;
+        }
+
+        .narrative-step p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Private response box styling */
+        .private-write-back-section {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--color-blue-soft);
+        }
+
+        .private-write-back-section h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.35rem;
+        }
+
+        .private-section-desc {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .private-form {
+            background: rgba(255, 255, 255, 0.45);
+            border: 1px solid var(--border-color);
+            padding: 1.25rem;
+            border-radius: var(--radius-md);
+            margin-bottom: 1.5rem;
+        }
+
+        .private-response-feed {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        /* Forms Dropzone inside Modal */
+        .file-dropzone {
+            position: relative;
+            border: 2px dashed rgba(236, 72, 153, 0.25);
+            border-radius: var(--radius-md);
+            padding: 1.25rem;
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.6);
+            transition: border-color var(--transition-smooth), background-color var(--transition-smooth);
+            cursor: pointer;
+        }
+
+        .file-dropzone:hover {
+            border-color: var(--accent);
+            background-color: rgba(255, 255, 255, 0.85);
+        }
+
+        .file-dropzone input[type="file"] {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .dropzone-text {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            pointer-events: none;
+        }
+
+        .dropzone-text .icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .dropzone-text .text {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .dropzone-text .browse {
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        .file-preview-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.6rem 0.8rem;
+            background-color: rgba(255, 255, 255, 0.95);
+            border: 1px solid var(--accent);
+            border-radius: var(--radius-md);
+            margin-top: 0.5rem;
+        }
+
+        .file-preview-container span {
+            font-size: 0.8rem;
+            color: var(--text-primary);
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 80%;
+        }
+
+        .btn-text {
+            background: none;
+            border: none;
+            color: var(--error);
+            font-size: 0.8rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 0.8rem 1.25rem;
+            font-size: 0.9rem;
+            font-weight: 700;
+            border-radius: var(--radius-md);
+            border: none;
+            cursor: pointer;
+            transition: background-color var(--transition-smooth), transform var(--transition-smooth);
+            position: relative;
+        }
+
+        .btn-primary {
+            background-color: var(--accent);
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(236, 72, 153, 0.2);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent-hover);
+        }
+
+        .btn-primary:active {
+            transform: scale(0.98);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .loader {
+            width: 16px;
+            height: 16px;
+            border: 2px solid #ffffff;
+            border-top: 2px solid transparent;
+            border-radius: 50%;
+            margin-left: 0.5rem;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Responsive Embed Helpers */
+        .video-responsive-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+        }
+
+        .video-responsive-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .audio-streaming-container {
+            padding: 1rem;
+            background-color: var(--bg-card);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .audio-streaming-subtext {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            margin-bottom: 0.35rem;
+            font-weight: 700;
+        }
+
+        .fallback-link-container {
+            padding: 1rem;
+            background-color: var(--bg-card);
+            text-align: center;
+        }
+
+        .fallback-link {
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        .fallback-link:hover {
+            text-decoration: underline;
+        }
+
+        /* ==========================================================================
+           11. Document Footer
+           ========================================================================== */
+        .app-footer {
+            text-align: center;
+            padding: 2rem 1rem;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            background: transparent;
+        }
+    </style>
 </head>
 <body>
 
@@ -33,16 +1123,17 @@
     <main class="app-container">
 
         <!-- ==================================================================
-             TAB 1: OUR JOURNEY (AUTHENTIC VERTICAL TIMELINE)
+             TAB 1: OUR JOURNEY (AUTHENTIC SCROLLING STORY HOME PAGE)
              ================================================================== -->
         <section id="view-home" class="tab-view active">
+
+            <!-- Flowy Vertical Storytelling Timeline -->
             <div class="timeline-wrapper">
                 <div class="timeline-intro">
                     <h2>Time @ psiog</h2>
                     <p>We learn, grow, and part ways at each stage of our lives. In the process, it's human nature that we forget the simple, fun, and every moments filled with all kinds of emotions. Scroll down to look back and cherish the memories of psiog and the people that it gave me.</p>
                 </div>
 
-                <!-- True Alternate Vertical Timeline -->
                 <div class="timeline-track">
                     <div class="timeline-line"></div>
 
@@ -416,9 +1507,9 @@
                 id: "shruthi",
                 displayName: "Shruthi",
                 role: "PM / Friend",
-                password: "shruthi_nickname", // Secret nickname
-                heroImage: "images/shrutzbday.jpeg",
-                cardAvatar: "images/shrutzselfie.jpeg",
+                password: "shruthi_nickname", // Your secret nickname password
+                heroImage: "images/shrutzbday.jpeg", // Main image displayed when unlocked
+                cardAvatar: "images/shrutzselfie.jpeg", // Image displayed on the card front
                 spark: "We met in our first developer sprint meeting when discussing timeline commitments.",
                 connection: "Do you remember the first first time we interacted?",
                 evolution: "From formal colleagues to my dearest advisor on designs.",
@@ -553,7 +1644,7 @@
         const privateImageName = document.getElementById('privateImageName');
         const removePrivateImageBtn = document.getElementById('removePrivateImageBtn');
         
-        let base64CompressedImage = null; 
+        let base64CompressedImage = null; // Stored string
 
         privateImageInput.addEventListener('change', async (e) => {
             const file = e.target.files[0];
@@ -566,7 +1657,7 @@
             }
 
             try {
-                // Compress and convert to base64 string
+                // Compress and convert to base64
                 base64CompressedImage = await compressImageToJPEG(file);
                 privateImageName.textContent = `${file.name} (Compressed)`;
                 privateImagePreview.classList.remove('hidden');
@@ -585,7 +1676,7 @@
             base64CompressedImage = null;
         }
 
-        // Canvas Compression Algorithm (Bypasses Blaze restrictions)
+        // Elegant Canvas Compression Algorithm
         function compressImageToJPEG(file) {
             return new Promise((resolve, reject) => {
                 const reader = new FileReader();
@@ -737,6 +1828,7 @@
 
                     let mediaMarkup = '';
                     if (data.mediaUrl) {
+                        // Safe rendering of both Base64 compressed strings and raw shared URLs
                         const isBase64 = data.mediaUrl.startsWith('data:image/');
                         const escapedUrl = isBase64 ? data.mediaUrl : escapeHTML(data.mediaUrl);
 
