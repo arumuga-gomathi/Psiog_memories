@@ -182,10 +182,10 @@
         }
 
         /* ==========================================================================
-           4. Highly Compact Header Area (No Wasted Space)
+           4. Highly Compact Header Area
            ========================================================================== */
         .app-header {
-            padding: 1.5rem 1rem 1rem 1rem; /* Squeezed paddings */
+            padding: 1.5rem 1rem 1rem 1rem;
             text-align: center;
         }
 
@@ -278,6 +278,28 @@
 
         .full-width-feed {
             width: 100%;
+        }
+
+        .cloud-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--cloud-shadow);
+            padding: 2rem;
+        }
+
+        .cloud-card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: var(--text-primary);
+            font-weight: 700;
+        }
+
+        .cloud-card p {
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
         }
 
         /* ==========================================================================
@@ -446,25 +468,6 @@
             overflow: hidden;
         }
 
-        /* Scroll Animations */
-        .scroll-reveal {
-            opacity: 0;
-            transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .scroll-reveal.left {
-            transform: translateX(-20px);
-        }
-
-        .scroll-reveal.right {
-            transform: translateX(20px);
-        }
-
-        .scroll-reveal.reveal-active {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
         @media (max-width: 768px) {
             .timeline-line {
                 left: 1.25rem;
@@ -598,94 +601,12 @@
         }
 
         /* ==========================================================================
-           8. Tab 2: Shared Memories Dynamic Cards
-           ========================================================================== */
-        .feed-card {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-lg);
-            padding: 1.5rem;
-            box-shadow: var(--cloud-shadow);
-            transition: transform var(--transition-smooth), border-color var(--transition-smooth);
-        }
-
-        .feed-card:hover {
-            transform: translateY(-2px);
-            border-color: var(--color-pink-soft);
-        }
-
-        .feed-card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 1rem;
-        }
-
-        .user-meta {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .user-name {
-            font-size: 1.05rem;
-            font-weight: 800;
-            line-height: 1.2;
-            color: var(--text-primary);
-        }
-
-        .user-badge {
-            font-size: 0.7rem;
-            font-weight: 700;
-            color: var(--accent-pink);
-            margin-top: 0.15rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .post-time {
-            font-size: 0.7rem;
-            color: var(--text-muted);
-        }
-
-        .feed-card-body {
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-        }
-
-        .feed-card-body p {
-            font-size: 0.925rem;
-            color: var(--text-primary);
-        }
-
-        .media-container {
-            margin-top: 0.5rem;
-            border-radius: var(--radius-md);
-            overflow: hidden;
-            background-color: #000000;
-            border: 1px solid var(--border-color);
-            display: flex;
-            justify-content: center;
-        }
-
-        .feed-media {
-            max-width: 100%;
-            max-height: 360px;
-            display: block;
-        }
-
-        /* ==========================================================================
-           9. Tab 3: Friends Portal Grid (Squeezed & Squared)
+           8. My Friends Grid (Clean Spacing, Snug, Evenly-Spaced)
            ========================================================================== */
         .private-intro {
             text-align: center;
             max-width: 650px;
             margin: 0.5rem auto 1.5rem auto;
-        }
-
-        .private-intro h2 {
-            color: var(--text-primary);
-            font-size: 1.5rem;
         }
 
         .private-intro p {
@@ -715,7 +636,7 @@
             transition: all var(--transition-smooth);
             box-shadow: var(--cloud-shadow);
             width: 200px; /* Snug Square Width */
-            height: 180px; /* Snug Height - prevents vertical stretching */
+            height: 180px; /* Snug Height */
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -775,7 +696,7 @@
         }
 
         /* ==========================================================================
-           10. Overlay lock modal & Split private letter screens (Scrapbook Theme)
+           9. Overlay lock modal & Split private scrapbook screen (Warm Editorial Journal Layout)
            ========================================================================== */
         .private-letter-overlay {
             display: none;
@@ -784,7 +705,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(224, 242, 254, 0.8); /* Translucent sky blue backdrop */
+            background-color: rgba(224, 242, 254, 0.8);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             z-index: 1000;
@@ -798,7 +719,7 @@
 
         .letter-container {
             width: 95%;
-            max-width: 720px; /* Supporting split columns */
+            max-width: 720px;
             margin: 1rem auto;
             background-color: rgba(255, 255, 255, 0.94);
             border: 1px solid rgba(255, 255, 255, 0.8);
@@ -839,7 +760,6 @@
             transform: rotate(90deg);
         }
 
-        /* Password Lockscreen styling */
         .password-prompt-box {
             text-align: center;
             padding: 2rem 1rem;
@@ -884,7 +804,6 @@
             display: none;
         }
 
-        /* Unlocked Contents */
         .unlocked-content {
             display: none;
         }
@@ -909,7 +828,7 @@
         }
 
         /* --------------------------------------------------------------------------
-           NEW: Split Column Memory Grid (Polaroid Style, Stack on Left)
+           NEW: Cozy Split Column Editorial Grid (Photos on Left, Story on Right)
            -------------------------------------------------------------------------- */
         .friend-memories-list {
             display: flex;
@@ -936,25 +855,25 @@
             }
         }
 
-        /* Beautiful Polaroid framing to avoid "mechanical" two-box look */
+        /* Beautiful Polaroid framing for a handcrafted, cozy feel */
         .friend-memory-img-box {
             flex: 1;
             height: 180px;
             background: #ffffff;
             border-radius: var(--radius-sm);
-            padding: 8px 8px 16px 8px; /* Polaroid bottom lip */
+            padding: 8px 8px 16px 8px; /* Classic bottom frame offset */
             border: 1px solid rgba(148, 163, 184, 0.15);
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            transform: rotate(-1.5deg); /* organic tilt */
+            transform: rotate(-1.5deg); /* cozy manual photo drop tilt */
             transition: transform var(--transition-smooth);
         }
 
         .friend-memory-row:nth-child(even) .friend-memory-img-box {
-            transform: rotate(1.5deg); /* Alternating paper tilt */
+            transform: rotate(1.5deg); /* Alternating paper orientation tilt */
         }
 
         .friend-memory-row:hover .friend-memory-img-box {
@@ -998,7 +917,7 @@
         }
 
         .private-write-back-section h3 {
-            font-size: 1.2rem;
+            font-size: 1.25rem;
             font-weight: 700;
             color: var(--text-primary);
             margin-bottom: 0.35rem;
