@@ -43,6 +43,7 @@
         }
 
         body {
+            background: var(--bg-gradient);
             background-color: #f0f4f8;
             color: var(--text-primary);
             font-family: var(--font-system);
@@ -274,28 +275,6 @@
             max-width: 1320px;
             margin: 0.5rem auto;
             padding: 0 0.5rem;
-        }
-
-        .cloud-card {
-            background: var(--bg-card);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-lg);
-            box-shadow: var(--cloud-shadow);
-            padding: 2rem;
-        }
-
-        .cloud-card h2 {
-            font-size: 1.5rem;
-            margin-bottom: 0.75rem;
-            color: var(--text-primary);
-            font-weight: 700;
-        }
-
-        .cloud-card p {
-            margin-bottom: 1rem;
-            color: var(--text-secondary);
         }
 
         /* ==========================================================================
@@ -952,117 +931,8 @@
             line-height: 1.6;
         }
 
-        /* --------------------------------------------------------------------------
-           NEW: Premium Glassmorphic Write-Back Box
-           -------------------------------------------------------------------------- */
-        .private-write-back-section {
-            margin-top: 3.5rem;
-            padding-top: 2.5rem;
-            border-top: 1px solid var(--color-blue-soft);
-        }
-
-        .private-write-back-section h3 {
-            font-size: 1.25rem;
-            font-weight: 800;
-            color: var(--text-primary);
-            margin-bottom: 0.5rem;
-        }
-
-        .private-section-desc {
-            color: var(--text-secondary);
-            font-size: 0.85rem;
-            margin-bottom: 1.25rem;
-        }
-
-        /* Glassmorphic input container */
-        .private-form {
-            background: rgba(255, 255, 255, 0.65);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            border: 1px solid var(--border-color);
-            padding: 1.75rem;
-            border-radius: var(--radius-md);
-            box-shadow: var(--cloud-shadow);
-            margin-bottom: 2rem;
-        }
-
-        /* Modern input overrides */
-        .private-form textarea,
-        .private-form input[type="text"] {
-            background-color: rgba(255, 255, 255, 0.95);
-            border: 1.5px solid var(--color-blue-soft);
-            border-radius: 12px;
-            padding: 0.85rem 1.1rem;
-            font-size: 0.925rem;
-            color: var(--text-primary);
-            box-shadow: 0 2px 8px rgba(148, 163, 184, 0.04);
-            transition: all var(--transition-smooth);
-        }
-
-        .private-form textarea:focus,
-        .private-form input[type="text"]:focus {
-            background-color: #ffffff;
-            border-color: var(--accent-pink);
-            box-shadow: 0 0 15px rgba(236, 72, 153, 0.15);
-        }
-
-        /* Pill-shaped modern post button */
-        .private-form .btn-primary {
-            border-radius: 50px;
-            padding: 1rem 2rem;
-            font-size: 0.9rem;
-            font-weight: 700;
-            letter-spacing: 0.02em;
-            box-shadow: 0 6px 20px rgba(236, 72, 153, 0.25);
-            width: auto;
-            display: inline-flex;
-            margin-top: 0.5rem;
-        }
-
-        .private-response-feed {
-            display: flex;
-            flex-direction: column;
-            gap: 1.25rem;
-        }
-
-        /* Private response cards */
-        .private-response-feed .feed-card {
-            background: rgba(255, 255, 255, 0.65);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-md);
-            padding: 1.25rem;
-            box-shadow: var(--cloud-shadow);
-        }
-
-        /* forms helper labels */
-        .form-group {
-            margin-bottom: 1.25rem;
-            display: flex;
-            flex-direction: column;
-        }
-
-        label {
-            font-size: 0.8rem;
-            font-weight: 700;
-            margin-bottom: 0.45rem;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .required {
-            color: var(--error);
-            margin-left: 0.15rem;
-        }
-
-        .optional {
-            color: var(--text-muted);
-            font-weight: 400;
-            font-size: 0.75rem;
-        }
-
         /* ==========================================================================
-           11. Shared Memories Full-Width Carousel Tab View (Premium Visuals)
+           10. Shared Memories Full-Width Carousel Tab View (Premium Visuals)
            ========================================================================== */
         .memories-carousel-container {
             width: 100%;
@@ -1312,10 +1182,11 @@
                 <div class="memories-carousel-container">
                     <div class="public-slideshow-container" id="publicMemoriesSlideshow">
                         
-                        <!-- Slide 1: Video File (Point to images/dance.mp4 in your repo) -->
+                        <!-- Slide 1: Video File (Point to images/video.mp4 or video.mp4 in your repo) -->
                         <div class="public-slide-item active">
                             <video controls preload="metadata" class="public-slide-media" style="width:100%; height:100%; object-fit:contain;">
-                                <source src="images/dance.mp4" type="video/mp4">
+                                <source src="images/video.mp4" type="video/mp4">
+                                <source src="video.mp4" type="video/mp4">
                                 Your browser does not support the video tag.
                             </video>
                         </div>
@@ -1356,7 +1227,7 @@
         </section>
 
         <!-- ==================================================================
-             TAB 3: MY FRIENDS (THE 5 FRIENDS GRID)
+             TAB 3: OUR SPACE (THE 3 FRIENDS GRID)
              ================================================================== -->
         <section id="view-private" class="tab-view">
             <div class="private-intro">
@@ -1422,33 +1293,7 @@
                     </div>
                 </div>
 
-                <!-- Private Write-Back Feature Section (Rename to Write for me :)) -->
-                <div class="private-write-back-section">
-                    <h3>Write for me :)</h3>
-                    <p class="private-section-desc">Write back to me, attach image/audio files, or share your thoughts here. It will stay private on this page.</p>
-                    
-                    <!-- Form to write back directly (Integrated Form) -->
-                    <form id="privateResponseForm" class="private-form" novalidate>
-                        <div class="form-group">
-                            <label for="privateMessage">Write back to me <span class="required">*</span></label>
-                            <textarea id="privateMessage" required placeholder="Write a note, a secret, or well wishes for the future..." rows="4"></textarea>
-                            <span class="error-msg" id="privateMsgError">(ahn vazhthukal vazhthukal nu solama naladha solunga)</span>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="privateMediaUrl">Attach Media Link <span class="optional">(Optional: Google Drive, Dropbox, YouTube)</span></label>
-                            <input type="text" id="privateMediaUrl" placeholder="https://drive.google.com/... or https://youtube.com/...">
-                        </div>
-                        
-                        <button type="submit" id="privateSubmitBtn" class="btn btn-primary" style="width: auto;">
-                            <span class="btn-text">Will stay the same and a promise to not forget</span>
-                            <span class="loader hidden"></span>
-                        </button>
-                    </form>
-
-                    <!-- Feed showing only responses for this unlocked friend -->
-                    <div id="privateResponseFeed" class="private-response-feed"></div>
-                </div>
+                <!-- WRITE BACK FORM REMOVED PERMANENTLY FOR CLEAN STATIC ARCHIVE -->
             </div>
         </div>
     </div>
@@ -1459,35 +1304,9 @@
     </footer>
 
     <!-- ==================================================================
-         FIREBASE MODULE & SITE CONTROLLERS
+         SITE CONTROLLERS
          ================================================================== -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { 
-            getFirestore, 
-            collection, 
-            addDoc, 
-            onSnapshot, 
-            query, 
-            orderBy,
-            where
-        } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-
-        // Production Firebase Configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyDJm59knoWRD6wVdKtBcNNNSSReIpe5rdg",
-            authDomain: "psiogmemories.firebaseapp.com",
-            projectId: "psiogmemories",
-            storageBucket: "psiogmemories.firebasestorage.app",
-            messagingSenderId: "597467892317",
-            appId: "1:597467892317:web:9b886d52ec733724149bb4",
-            measurementId: "G-PKC5RR6151"
-        };
-
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-
+    <script>
         /* ==================================================================
            1. Dynamic Navigation & Tab Switching
            ================================================================== */
@@ -1647,7 +1466,7 @@
                 displayName: "Chandhan",
                 role: "Thambi",
                 password: "chandhan_nickname",
-                cardAvatar: "images/badge.jpeg", // Replace with his actual thambi image if available
+                cardAvatar: "images/badge.jpeg", 
                 memories: [
                     {
                         image: "images/badge.jpeg",
@@ -1700,7 +1519,6 @@
         const passwordError = document.getElementById('passwordError');
 
         let activeFriend = null;
-        let unsubscribePrivateFeed = null; 
         let carouselIntervalId = null; // Holds the auto-play timer for Friends slide
 
         function renderFriendsGrid() {
@@ -1798,9 +1616,6 @@
 
                 // Start automatic carousel slideshow (moves every 4 seconds)
                 startSlideshowAutoPlay();
-
-                // Load real-time private messages specifically for this friend
-                listenToPrivateFeed(activeFriend.id);
             } else {
                 passwordError.style.display = 'block';
             }
@@ -1851,190 +1666,12 @@
             letterOverlay.classList.remove('active');
             activeFriend = null;
             stopSlideshowAutoPlay();
-            resetPrivateFormMedia();
-            if (unsubscribePrivateFeed) {
-                unsubscribePrivateFeed(); 
-                unsubscribePrivateFeed = null;
-            }
         });
 
         renderFriendsGrid();
 
         /* ==================================================================
-           6. Private Write-Back Form Submission (Firestore)
-           ================================================================== */
-        const privateForm = document.getElementById('privateResponseForm');
-        const privateSubmitBtn = document.getElementById('privateSubmitBtn');
-        const privateResponseFeed = document.getElementById('privateResponseFeed');
-
-        privateForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const msgInput = document.getElementById('privateMessage');
-            const mediaUrlInput = document.getElementById('privateMediaUrl');
-            const errorMsg = document.getElementById('privateMsgError');
-
-            if (!msgInput.value.trim()) {
-                errorMsg.style.display = 'block';
-                return;
-            }
-            errorMsg.style.display = 'none';
-
-            // Loading state
-            privateSubmitBtn.disabled = true;
-            privateSubmitBtn.querySelector('.btn-text').textContent = "Saving to scrapbook...";
-            privateSubmitBtn.querySelector('.loader').classList.remove('hidden');
-
-            const message = msgInput.value.trim();
-            const rawMediaUrl = mediaUrlInput.value.trim();
-
-            try {
-                let cleanUrl = rawMediaUrl;
-                let mediaType = 'unknown';
-
-                if (rawMediaUrl) {
-                    cleanUrl = transformShareLink(rawMediaUrl);
-                    mediaType = detectMediaType(rawMediaUrl);
-                }
-
-                // Add entry flagged with recipient ID
-                await addDoc(collection(db, "private_friend_notes"), {
-                    friendId: activeFriend.id,
-                    senderName: activeFriend.displayName,
-                    message: message,
-                    mediaUrl: cleanUrl,
-                    mediaType: mediaType,
-                    timestamp: new Date()
-                });
-
-                privateForm.reset();
-                resetPrivateFormMedia();
-
-            } catch (error) {
-                console.error("Failed to write to private feed:", error);
-                alert("Could not post message. Please verify network settings.");
-            } finally {
-                privateSubmitBtn.disabled = false;
-                privateSubmitBtn.querySelector('.btn-text').textContent = "Will stay the same and a promise to not forget";
-                privateSubmitBtn.querySelector('.loader').classList.add('hidden');
-            }
-        });
-
-        function resetPrivateFormMedia() {
-            base64CompressedImage = null;
-        }
-
-        // Listen for entries created specifically for this friend ID
-        function listenToPrivateFeed(friendId) {
-            if (unsubscribePrivateFeed) unsubscribePrivateFeed();
-
-            const privateQuery = query(
-                collection(db, "private_friend_notes"), 
-                where("friendId", "==", friendId),
-                orderBy("timestamp", "desc")
-            );
-
-            unsubscribePrivateFeed = onSnapshot(privateQuery, (snapshot) => {
-                privateResponseFeed.innerHTML = '';
-                
-                if (snapshot.size === 0) {
-                    privateResponseFeed.innerHTML = `
-                        <div style="text-align:center; padding: 1.5rem; border: 1px dashed var(--border-color); border-radius: var(--radius-md); margin-top: 1.5rem;">
-                            <p style="color: var(--text-muted); font-size: 0.85rem;">The scrapbook is empty. Write back to me to add our first note!</p>
-                        </div>`;
-                    return;
-                }
-
-                snapshot.forEach((doc) => {
-                    const data = doc.data();
-                    const card = document.createElement('div');
-                    card.className = 'feed-card';
-
-                    const dateStr = data.timestamp ? new Date(data.timestamp.seconds * 1000).toLocaleDateString(undefined, {
-                        month: 'short',
-                        day: 'numeric',
-                        year: 'numeric'
-                    }) : 'Recent';
-
-                    const escapeHTML = (str) => {
-                        if (!str) return '';
-                        return str.replace(/[&<>'"]/g, tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag));
-                    };
-
-                    let mediaMarkup = '';
-                    if (data.mediaUrl) {
-                        const isBase64 = data.mediaUrl.startsWith('data:image/');
-                        const escapedUrl = isBase64 ? data.mediaUrl : escapeHTML(data.mediaUrl);
-
-                        if (data.mediaType === 'image') {
-                            mediaMarkup = `<div class="media-container"><img src="${escapedUrl}" class="feed-media" loading="lazy"></div>`;
-                        } else if (data.mediaType === 'video' && escapedUrl.includes('youtube.com/embed/')) {
-                            mediaMarkup = `<div class="media-container video-responsive-container"><iframe src="${escapedUrl}" frameborder="0" allowfullscreen></iframe></div>`;
-                        } else if (data.mediaType === 'video') {
-                            mediaMarkup = `<div class="media-container"><video controls class="feed-media"><source src="${escapedUrl}"></video></div>`;
-                        } else if (data.mediaType === 'audio_or_video') {
-                            mediaMarkup = `<div class="media-container audio-streaming-container"><p class="audio-streaming-subtext">Audio Scrapbook Note</p><audio controls class="feed-media"><source src="${escapedUrl}"></audio></div>`;
-                        } else {
-                            mediaMarkup = `<div class="media-container fallback-link-container"><a href="${escapedUrl}" target="_blank" rel="noopener noreferrer" class="fallback-link">🔗 View Attached Media Attachment</a></div>`;
-                        }
-                    }
-
-                    card.innerHTML = `
-                        <header class="feed-card-header" style="margin-bottom: 0.5rem;">
-                            <div class="user-meta">
-                                <h4 style="font-size: 0.95rem; font-weight:700;">${escapeHTML(data.senderName)}</h4>
-                            </div>
-                            <time class="post-time">${dateStr}</time>
-                        </header>
-                        <div class="feed-card-body">
-                            <p style="font-size: 0.9rem; color: var(--text-primary); white-space: pre-wrap;">${escapeHTML(data.message)}</p>
-                            ${mediaMarkup}
-                        </div>
-                    `;
-                    privateResponseFeed.appendChild(card);
-                });
-            }, (error) => {
-                console.error("Private stream fetch failed: ", error);
-            });
-        }
-
-        /* ==================================================================
-           7. Media Shared URL Helper Functions
-           ================================================================== */
-        function detectMediaType(url) {
-            const lowerUrl = url.toLowerCase();
-            if (lowerUrl.includes('youtube.com') || lowerUrl.includes('youtu.be') || lowerUrl.endsWith('.mp4') || lowerUrl.endsWith('.mov') || lowerUrl.endsWith('.webm')) {
-                return 'video';
-            }
-            if (lowerUrl.endsWith('.mp3') || lowerUrl.endsWith('.wav') || lowerUrl.endsWith('.m4a') || lowerUrl.endsWith('.ogg') || lowerUrl.includes('drive.google.com/file/d/')) {
-                return 'audio_or_video';
-            }
-            if (lowerUrl.endsWith('.jpg') || lowerUrl.endsWith('.jpeg') || lowerUrl.endsWith('.png') || lowerUrl.endsWith('.gif') || lowerUrl.includes('imgur.com')) {
-                return 'image';
-            }
-            return 'unknown';
-        }
-
-        function transformShareLink(url) {
-            if (url.includes('drive.google.com/file/d/')) {
-                const matches = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
-                if (matches && matches[1]) {
-                    return `https://docs.google.com/uc?export=download&id=${matches[1]}`;
-                }
-            }
-            if (url.includes('youtube.com/watch?v=')) {
-                const urlParams = new URLSearchParams(new URL(url).search);
-                const videoId = urlParams.get('v');
-                if (videoId) return `https://www.youtube.com/embed/${videoId}`;
-            }
-            if (url.includes('youtu.be/')) {
-                const matches = url.match(/youtu\.be\/([a-zA-Z0-9_-]+)/);
-                if (matches && matches[1]) return `https://www.youtube.com/embed/${matches[1]}`;
-            }
-            return url;
-        }
-
-        /* ==================================================================
-           8. Shared Memories (Public Carousel Auto-Play Loop)
+           6. Shared Memories (Public Carousel Auto-Play Loop)
            ================================================================== */
         let publicSlideIndex = 0;
         let publicCarouselTimer = null;
@@ -2083,6 +1720,24 @@
         // Let user manually click any indicator dot to navigate
         window.goToPublicSlide = goToPublicSlide;
 
+        /* ==================================================================
+           7. Intersection Observer (The Dynamic "Flowy" Scroll Reveal)
+           ================================================================== */
+        const revealItems = document.querySelectorAll('.scroll-reveal');
+        
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('reveal-active');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.15,
+            rootMargin: "0px 0px -50px 0px"
+        });
+
+        revealItems.forEach(item => revealObserver.observe(item));
     </script>
 
 </body>
