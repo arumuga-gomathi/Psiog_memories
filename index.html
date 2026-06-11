@@ -19,11 +19,11 @@
             --error: #ef4444;
             --success: #10b981;
 
-            --text-primary: #1e293b; /* Slate blue for high readability */
-            --text-secondary: #475569;
+            --text-primary: #1e293b; /* Deep slate blue for perfect legibility on pastel backdrops */
+            --text-secondary: #475569; /* Slate Gray */
             --text-muted: #64748b;
-            --border-color: rgba(255, 255, 255, 0.6);
-            --bg-card: rgba(255, 255, 255, 0.75);
+            --border-color: rgba(255, 255, 255, 0.6); /* Glassmorphic translucent border */
+            --bg-card: rgba(255, 255, 255, 0.75); /* Cloudy semi-transparent card fill */
 
             --font-system: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             --radius-sm: 8px;
@@ -52,10 +52,10 @@
             min-height: 100vh;
             -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
-            padding-bottom: 4rem;
+            padding-bottom: 2rem;
         }
 
-        /* Custom Scrollbar */
+        /* Styled Light-Blue Scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
             height: 8px;
@@ -223,30 +223,8 @@
             width: 100%;
         }
 
-        .cloud-card {
-            background: var(--bg-card);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-lg);
-            box-shadow: var(--cloud-shadow);
-            padding: 2rem;
-        }
-
-        .cloud-card h2 {
-            font-size: 1.5rem;
-            margin-bottom: 0.75rem;
-            color: var(--text-primary);
-            font-weight: 700;
-        }
-
-        .cloud-card p {
-            margin-bottom: 1rem;
-            color: var(--text-secondary);
-        }
-
         /* ==========================================================================
-           6. Authentic Vertical Alternate Timeline
+           6. Authentic Alternate Timeline (Interactive Click-Popup Cards)
            ========================================================================== */
         .timeline-wrapper {
             width: 100%;
@@ -301,9 +279,9 @@
             padding: 0 2.5rem;
             z-index: 2;
             margin-bottom: 4rem;
+            cursor: pointer; /* Pointer indicates it can be clicked for story popup */
         }
 
-        /* Central Bullet Dot */
         .timeline-dot {
             position: absolute;
             width: 16px;
@@ -333,10 +311,9 @@
             left: -10px;
         }
 
-        /* Bounded Image Containers inside Timeline */
         .timeline-media {
             width: 100%;
-            max-height: 250px; /* Secure height bounds */
+            max-height: 250px;
             background: rgba(255, 255, 255, 0.6);
             border: 1px solid var(--border-color);
             border-radius: var(--radius-md);
@@ -346,6 +323,11 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: border-color var(--transition-smooth);
+        }
+
+        .timeline-item:hover .timeline-media {
+            border-color: var(--accent);
         }
 
         .timeline-img {
@@ -400,9 +382,13 @@
         .timeline-content p {
             font-size: 0.9rem;
             color: var(--text-secondary);
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden; /* Snipped preview on timeline */
         }
 
-        /* Scroll Animation States */
+        /* Scroll Animations */
         .scroll-reveal {
             opacity: 0;
             transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
@@ -421,7 +407,6 @@
             transform: translateX(0);
         }
 
-        /* Timeline Responsiveness (Collapse into single column on mobile) */
         @media (max-width: 768px) {
             .timeline-line {
                 left: 1.25rem;
@@ -455,43 +440,108 @@
                 left: 1.25rem;
                 transform: translateX(-50%);
             }
-            
-            .scroll-reveal.left,
-            .scroll-reveal.right {
-                transform: translateY(20px);
-            }
-            
-            .scroll-reveal.reveal-active {
-                transform: translateY(0);
-            }
         }
 
         /* ==========================================================================
-           7. Dynamic Feed Cards (Tab 2)
+           7. Timeline Lightbox Popup Modal
            ========================================================================== */
-        .feed-header {
+        .timeline-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(224, 242, 254, 0.8);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            z-index: 10001;
+            overflow-y: auto;
+            padding: 1.5rem 0.5rem;
+        }
+
+        .timeline-modal.active {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            margin-bottom: 1.25rem;
+            justify-content: center;
         }
 
-        .feed-stats {
-            font-size: 0.8rem;
-            font-weight: 700;
-            color: var(--text-muted);
-            background-color: rgba(255, 255, 255, 0.6);
-            padding: 0.2rem 0.6rem;
-            border-radius: 999px;
-            border: 1px solid var(--border-color);
-        }
-
-        .memory-feed {
+        .timeline-modal-container {
+            width: 95%;
+            max-width: 840px;
+            background-color: rgba(255, 255, 255, 0.92);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            border-radius: var(--radius-lg);
+            box-shadow: 0 25px 50px -10px rgba(148, 163, 184, 0.25);
+            position: relative;
+            overflow: hidden;
             display: flex;
             flex-direction: column;
-            gap: 1.25rem;
+            animation: modalSlideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
+        @media (min-width: 768px) {
+            .timeline-modal-container {
+                flex-direction: row;
+                height: 480px;
+            }
+        }
+
+        .timeline-modal-media {
+            flex: 1.2;
+            background-color: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 250px;
+        }
+
+        @media (min-width: 768px) {
+            .timeline-modal-media {
+                height: 100%;
+            }
+        }
+
+        .timeline-modal-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .timeline-modal-content {
+            flex: 1;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            overflow-y: auto;
+        }
+
+        .timeline-modal-step {
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-modal-content h3 {
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .timeline-modal-content p {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* ==========================================================================
+           8. Tab 2: Shared Memories Dynamic Cards
+           ========================================================================== */
         .feed-card {
             background-color: var(--bg-card);
             border: 1px solid var(--border-color);
@@ -545,29 +595,9 @@
             gap: 0.75rem;
         }
 
-        .memory-block,
-        .message-block {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .feed-block-title {
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            color: var(--text-muted);
-            letter-spacing: 0.05em;
-            margin-bottom: 0.15rem;
-        }
-
         .feed-card-body p {
             font-size: 0.925rem;
             color: var(--text-primary);
-        }
-
-        .memory-block p {
-            font-style: italic;
-            color: var(--text-secondary);
         }
 
         .media-container {
@@ -586,32 +616,13 @@
             display: block;
         }
 
-        .empty-state {
-            text-align: center;
-            padding: 3rem 1.5rem;
-            border: 2px dashed var(--border-color);
-            border-radius: var(--radius-lg);
-            background-color: rgba(255, 255, 255, 0.4);
-        }
-
-        .empty-state .icon {
-            font-size: 2.5rem;
-            display: block;
-            margin-bottom: 0.5rem;
-        }
-
-        .empty-state p {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-
         /* ==========================================================================
-           8. Tab 3: Friends Portal Locked Grid (Squeezed & Squared)
+           9. Tab 3: Friends Portal Grid (Squeezed & Squared)
            ========================================================================== */
         .private-intro {
             text-align: center;
             max-width: 650px;
-            margin: 0.5rem auto 2.5rem auto;
+            margin: 0.5rem auto 2rem auto;
         }
 
         .private-intro h2 {
@@ -633,7 +644,6 @@
             margin-top: 1rem;
         }
 
-        /* Resized Compact Locked Friend Card */
         .locked-friend-card {
             background: var(--bg-card);
             backdrop-filter: blur(12px);
@@ -645,7 +655,7 @@
             transition: all var(--transition-smooth);
             box-shadow: var(--cloud-shadow);
             width: 210px; /* Snug Square Width */
-            height: 190px; /* Snug Height - prevents vertical stretching */
+            height: 190px; /* Snug Height */
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -658,7 +668,6 @@
             box-shadow: 0 15px 30px -5px rgba(236, 72, 153, 0.08);
         }
 
-        /* Styled Circular Card Avatar */
         .friend-card-avatar-box {
             width: 76px;
             height: 76px;
@@ -705,7 +714,7 @@
         }
 
         /* ==========================================================================
-           9. Overlay lock modal & Private letter screens
+           10. Overlay lock modal & Split private letter screens
            ========================================================================== */
         .private-letter-overlay {
             display: none;
@@ -728,20 +737,15 @@
 
         .letter-container {
             width: 95%;
-            max-width: 680px;
+            max-width: 740px; /* Wider to support split columns */
             margin: 1rem auto;
             background-color: rgba(255, 255, 255, 0.92);
             border: 1px solid rgba(255, 255, 255, 0.8);
             border-radius: var(--radius-lg);
-            padding: 1.75rem;
+            padding: 2rem;
             box-shadow: 0 20px 45px -10px rgba(148, 163, 184, 0.2);
             position: relative;
             animation: modalSlideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-
-        @keyframes modalSlideUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
         }
 
         .close-letter-btn {
@@ -832,51 +836,80 @@
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.05em;
-            margin-bottom: 1.25rem;
+            margin-bottom: 1.5rem;
         }
 
-        .friend-image-placeholder {
-            width: 100%;
-            height: 240px;
-            background: rgba(255, 255, 255, 0.65);
+        /* --------------------------------------------------------------------------
+           NEW: Split Column Memory Grid (Images on Left, Narratives on Right)
+           -------------------------------------------------------------------------- */
+        .friend-memories-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .friend-memory-row {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            background-color: rgba(255, 255, 255, 0.45);
+            border: 1px solid var(--border-color);
             border-radius: var(--radius-md);
-            border: 2px dashed rgba(236, 72, 153, 0.15);
+            padding: 1.25rem;
+            box-shadow: var(--cloud-shadow);
+        }
+
+        @media (min-width: 768px) {
+            .friend-memory-row {
+                flex-direction: row;
+                align-items: center;
+            }
+        }
+
+        .friend-memory-img-box {
+            flex: 1;
+            height: 180px;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 1.5rem;
-            color: var(--text-muted);
-            font-size: 0.85rem;
-            overflow: hidden;
+            background-color: #ffffff;
         }
 
-        .friend-hero-img {
+        .friend-memory-img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
 
-        .narrative-step {
-            margin-bottom: 1.25rem;
-            border-left: 3px solid var(--accent);
-            padding-left: 1rem;
+        .friend-memory-text-box {
+            flex: 1.5;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
-        .narrative-step h4 {
-            font-size: 0.8rem;
+        .friend-memory-text-box h4 {
+            font-size: 0.85rem;
             font-weight: 700;
             text-transform: uppercase;
             color: var(--accent);
             letter-spacing: 0.05em;
-            margin-bottom: 0.25rem;
+            margin-bottom: 0.35rem;
         }
 
-        .narrative-step p {
+        .friend-memory-text-box p {
             color: var(--text-secondary);
             font-size: 0.9rem;
+            line-height: 1.5;
         }
 
-        /* Private response box styling */
+        /* --------------------------------------------------------------------------
+           Private Form Box (Write back to me)
+           -------------------------------------------------------------------------- */
         .private-write-back-section {
             margin-top: 3rem;
             padding-top: 2rem;
@@ -884,7 +917,7 @@
         }
 
         .private-write-back-section h3 {
-            font-size: 1.2rem;
+            font-size: 1.25rem;
             font-weight: 700;
             color: var(--text-primary);
             margin-bottom: 0.35rem;
@@ -1037,57 +1070,31 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* Responsive Embed Helpers */
-        .video-responsive-container {
-            position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
-            overflow: hidden;
-        }
-
-        .video-responsive-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-
-        .audio-streaming-container {
-            padding: 1rem;
-            background-color: var(--bg-card);
+        .form-group {
+            margin-bottom: 1rem;
             display: flex;
             flex-direction: column;
-            align-items: center;
         }
 
-        .audio-streaming-subtext {
-            font-size: 0.7rem;
-            color: var(--text-muted);
+        label {
+            font-size: 0.8rem;
+            font-weight: 700;
             margin-bottom: 0.35rem;
-            font-weight: 700;
+            color: var(--text-secondary);
         }
 
-        .fallback-link-container {
-            padding: 1rem;
-            background-color: var(--bg-card);
-            text-align: center;
+        .required {
+            color: var(--error);
+            margin-left: 0.15rem;
         }
 
-        .fallback-link {
-            color: var(--accent);
-            text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: 700;
+        .optional {
+            color: var(--text-muted);
+            font-weight: 400;
+            font-size: 0.75rem;
         }
 
-        .fallback-link:hover {
-            text-decoration: underline;
-        }
-
-        /* ==========================================================================
-           11. Document Footer
-           ========================================================================== */
+        /* Document Footer */
         .app-footer {
             text-align: center;
             padding: 2rem 1rem;
@@ -1100,7 +1107,13 @@
 <body>
 
     <!-- Floating Minimal Speaker Audio Button (Bottom-Right Corner) -->
-    <button id="floatingAudioBtn" class="audio-floating-btn" title="Toggle background piano cover">🎵</button>
+    <button id="floatingAudioBtn" class="audio-floating-btn" title="Toggle background piano cover">
+        <!-- Modern minimalist SVG speaker vector icon -->
+        <svg class="audio-icon-svg" viewBox="0 0 24 24">
+            <path d="M12 2L6.5 7H2v10h4.5L12 22V2zm3.5 10c0-1.8-1-3.3-2.5-4v8c1.5-.7 2.5-2.2 2.5-4zm1.5-6.5l-1.5 1.5c1.8 1.4 3 3.6 3 6s-1.2 4.6-3 6l1.5 1.5c2.3-1.8 4-4.6 4-7.5s-1.7-5.7-4-7.5z"/>
+        </svg>
+    </button>
+    
     <!-- HTML5 audio node -->
     <audio id="bgPianoAudio" src="new_years_day.mp3" loop preload="metadata"></audio>
 
@@ -1113,7 +1126,6 @@
             <!-- Dynamic Navigation Tabs -->
             <nav class="tab-nav">
                 <button class="tab-btn active" data-tab="home">Our Journey</button>
-                <button class="tab-btn" data-tab="slambook">Shared Memories</button>
                 <button class="tab-btn" data-tab="private">Our Space</button>
             </nav>
         </div>
@@ -1123,22 +1135,21 @@
     <main class="app-container">
 
         <!-- ==================================================================
-             TAB 1: OUR JOURNEY (AUTHENTIC SCROLLING STORY HOME PAGE)
+             TAB 1: OUR JOURNEY (SCROLL TIMELINE WITH CLICK POPUP)
              ================================================================== -->
         <section id="view-home" class="tab-view active">
-
-            <!-- Flowy Vertical Storytelling Timeline -->
             <div class="timeline-wrapper">
                 <div class="timeline-intro">
                     <h2>Time @ psiog</h2>
-                    <p>We learn, grow, and part ways at each stage of our lives. In the process, it's human nature that we forget the simple, fun, and every moments filled with all kinds of emotions. Scroll down to look back and cherish the memories of psiog and the people that it gave me.</p>
+                    <p>We learn, grow, and part ways at each stage of our lives. In the process, it's human nature that we forget the simple, fun, and every moments filled with all kinds of emotions. Scroll down and click any image to look back and cherish the memories of psiog.</p>
                 </div>
 
+                <!-- True Alternate Vertical Timeline -->
                 <div class="timeline-track">
                     <div class="timeline-line"></div>
 
                     <!-- Step 1: First Day -->
-                    <div class="timeline-item scroll-reveal left">
+                    <div class="timeline-item scroll-reveal left" data-step="Step 1" data-title="The Welcome Card" data-desc="My very first day at the company. Walking in, seeing my desk, and reading this welcome note made the nervous excitement of starting a new job feel like a warm welcome.">
                         <div class="timeline-dot"></div>
                         <div class="timeline-media">
                             <img src="images/firstday.jpeg" alt="First Day" class="timeline-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
@@ -1152,7 +1163,7 @@
                     </div>
 
                     <!-- Step 2: The Badge -->
-                    <div class="timeline-item scroll-reveal right">
+                    <div class="timeline-item scroll-reveal right" data-step="Step 2" data-title="Official Identity" data-desc="Getting my physical ID badge. Swiping it for the first time made it official—I was part of the team, ready to learn, integrate, and take on staging deployments.">
                         <div class="timeline-dot"></div>
                         <div class="timeline-media">
                             <img src="images/badge.jpeg" alt="The Badge" class="timeline-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
@@ -1166,7 +1177,7 @@
                     </div>
 
                     <!-- Step 3: Pathway -->
-                    <div class="timeline-item scroll-reveal left">
+                    <div class="timeline-item scroll-reveal left" data-step="Step 3" data-title="The Daily Walkway" data-desc="The daily walk through this pathway. Every morning was a mental preparation for what lay ahead, and every evening was a space to unwind and look back at the day's tasks.">
                         <div class="timeline-dot"></div>
                         <div class="timeline-media">
                             <img src="images/pathway.jpeg" alt="The Pathway" class="timeline-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
@@ -1180,7 +1191,7 @@
                     </div>
 
                     <!-- Step 4: The Break -->
-                    <div class="timeline-item scroll-reveal right">
+                    <div class="timeline-item scroll-reveal right" data-step="Step 4" data-title="Daily Respite" data-desc="Daily routines and little escapes. The workspace breaks where we checked our phones, talked about code frustrations, and simply took a breath together between releases.">
                         <div class="timeline-dot"></div>
                         <div class="timeline-media">
                             <img src="images/break.jpeg" alt="Coffee Break" class="timeline-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
@@ -1194,7 +1205,7 @@
                     </div>
 
                     <!-- Step 5: Razz Event -->
-                    <div class="timeline-item scroll-reveal left">
+                    <div class="timeline-item scroll-reveal left" data-step="Step 5" data-title="Office Celebrations" data-desc="Gathering together for our annual events. Seeing everyone dressed up, laughing outside of formal client calls, and celebrating the milestones we built as a team.">
                         <div class="timeline-dot"></div>
                         <div class="timeline-media">
                             <img src="images/razz2025.jpeg" alt="Razz Event" class="timeline-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
@@ -1208,7 +1219,7 @@
                     </div>
 
                     <!-- Step 6: Pongal Celebration -->
-                    <div class="timeline-item scroll-reveal right">
+                    <div class="timeline-item scroll-reveal right" data-step="Step 6" data-title="Festive Days" data-desc="Office celebrations bring a different kind of light to the desk. Dressing in traditional wear, decorating the bay, and sharing sweets with our colleagues.">
                         <div class="timeline-dot"></div>
                         <div class="timeline-media">
                             <img src="images/pongal.jpeg" alt="Pongal Celebrations" class="timeline-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
@@ -1222,7 +1233,7 @@
                     </div>
 
                     <!-- Step 7: The Last Days -->
-                    <div class="timeline-item scroll-reveal left">
+                    <div class="timeline-item scroll-reveal left" data-step="Step 7" data-title="Winding Down" data-desc="As the final weeks approached, every conversation felt a little more significant. Wrapping up final handovers and saying my preliminary goodbyes to the bay.">
                         <div class="timeline-dot"></div>
                         <div class="timeline-media">
                             <img src="images/herlastday.jpeg" alt="The Last Days" class="timeline-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
@@ -1236,7 +1247,7 @@
                     </div>
 
                     <!-- Step 8: The Exit -->
-                    <div class="timeline-item scroll-reveal right">
+                    <div class="timeline-item scroll-reveal right" data-step="Step 8" data-title="Final Checkout" data-desc="Passing by this door on my last day. Closing my workspace logs, signing my exit clearances, and stepping out into the next chapter of my career.">
                         <div class="timeline-dot"></div>
                         <div class="timeline-media">
                             <img src="images/exitinterview.jpeg" alt="The Exit Interview" class="timeline-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
@@ -1254,68 +1265,7 @@
         </section>
 
         <!-- ==================================================================
-             TAB 2: PUBLIC SLAM FEED (READ-ONLY PUBLIC ARCHIVE)
-             ================================================================== -->
-        <section id="view-slambook" class="tab-view">
-            <div class="feed-section full-width-feed">
-                <div class="feed-header">
-                    <h2>Shared Memories</h2>
-                    <div class="feed-stats">
-                        <span id="entryCount">Loading notes...</span>
-                    </div>
-                </div>
-
-                <!-- Dynamic Card Output Wrapper -->
-                <div id="memoryFeed" class="memory-feed">
-                    
-                    <!-- Static Mockup 1: Bala -->
-                    <article class="feed-card">
-                        <header class="feed-card-header">
-                            <div class="user-meta">
-                                <h3 class="user-name">Bala</h3>
-                                <span class="user-badge">best friend</span>
-                            </div>
-                            <time class="post-time">Just now</time>
-                        </header>
-                        <div class="feed-card-body">
-                            <div class="memory-block">
-                                <h4 class="feed-block-title">Core Memory:</h4>
-                                <p>"Too many to list here"</p>
-                            </div>
-                            <div class="message-block">
-                                <h4 class="feed-block-title">The Note:</h4>
-                                <p>Grateful and thankful for god for giving me my best friend for life</p>
-                            </div>
-                        </div>
-                    </article>
-
-                    <!-- Static Mockup 2: Joel -->
-                    <article class="feed-card">
-                        <header class="feed-card-header">
-                            <div class="user-meta">
-                                <h3 class="user-name">joel</h3>
-                                <span class="user-badge">Idk..he is a my first colleague</span>
-                            </div>
-                            <time class="post-time">2 hours ago</time>
-                        </header>
-                        <div class="feed-card-body">
-                            <div class="memory-block">
-                                <h4 class="feed-block-title">Core Memory:</h4>
-                                <p>The way you question and expect answers form me</p>
-                            </div>
-                            <div class="message-block">
-                                <h4 class="feed-block-title">The Note:</h4>
-                                <p>Stay the same with your curious questions</p>
-                            </div>
-                        </div>
-                    </article>
-
-                </div>
-            </div>
-        </section>
-
-        <!-- ==================================================================
-             TAB 3: OUR SPACE (THE 3 FRIENDS GRID)
+             TAB 2: OUR SPACE (THE 3 FRIENDS GRID)
              ================================================================== -->
         <section id="view-private" class="tab-view">
             <div class="private-intro">
@@ -1328,6 +1278,21 @@
         </section>
 
     </main>
+
+    <!-- Interactive Lightbox Modal for Timeline Stories -->
+    <div id="timelineModal" class="timeline-modal">
+        <div class="timeline-modal-container">
+            <button class="close-letter-btn" id="closeTimelineModalBtn">✕</button>
+            <div class="timeline-modal-media">
+                <img id="timelineModalImg" src="" alt="Zoomed Story Memory" class="timeline-modal-img">
+            </div>
+            <div class="timeline-modal-content">
+                <span id="timelineModalStep" class="timeline-modal-step">Step 1</span>
+                <h3 id="timelineModalTitle">Welcome</h3>
+                <p id="timelineModalDesc">Story loading...</p>
+            </div>
+        </div>
+    </div>
 
     <!-- Overlay Modal for Private Friend Letters & Private Response Box -->
     <div id="letterOverlay" class="private-letter-overlay">
@@ -1349,35 +1314,14 @@
                 <h2 id="friendName">Friend Name</h2>
                 <p id="friendSubtitle" class="friend-subtitle"></p>
                 
-                <div class="friend-image-placeholder" id="friendHeroImage">
-                    <span>📸 [Photo of Us]</span>
+                <!-- Dynamic Split Columns Memory Area -->
+                <div class="friend-memories-list" id="friendSplitMemories">
+                    <!-- Dynamic Rows containing Image on Left, Narratives on Right injected by JS -->
                 </div>
 
-                <!-- Your 5-Step Story to them -->
-                <div class="narrative-step">
-                    <h4>1. The Spark (How we met)</h4>
-                    <p id="stepSpark"></p>
-                </div>
-                <div class="narrative-step">
-                    <h4>2. Our First Interaction</h4>
-                    <p id="stepConnection"></p>
-                </div>
-                <div class="narrative-step">
-                    <h4>3. The Evolution (Then vs Now)</h4>
-                    <p id="stepEvolution"></p>
-                </div>
-                <div class="narrative-step">
-                    <h4>4. Core Memory</h4>
-                    <p id="stepScrapbook"></p>
-                </div>
-                <div class="narrative-step">
-                    <h4>5. Final Words :)</h4>
-                    <p id="stepHorizon"></p>
-                </div>
-
-                <!-- Private Write-Back Feature Section -->
+                <!-- Private Write-Back Feature Section (Rename to Write for me :)) -->
                 <div class="private-write-back-section">
-                    <h3>Our Private Scrapbook Wall</h3>
+                    <h3>Write for me :)</h3>
                     <p class="private-section-desc">Write back to me, attach image/audio files, or share your thoughts here. It will stay private on this page.</p>
                     
                     <!-- Form to write back directly (Integrated Form) -->
@@ -1457,10 +1401,6 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // Public Feed DOM elements
-        const memoryFeed = document.getElementById('memoryFeed');
-        const entryCountSpan = document.getElementById('entryCount');
-
         /* ==================================================================
            1. Dynamic Navigation & Tab Switching
            ================================================================== */
@@ -1500,7 +1440,40 @@
         });
 
         /* ==================================================================
-           3. Tribute Friends Data Structure
+           3. Timeline Interactivity Modal (Lightbox)
+           ================================================================== */
+        const timelineModal = document.getElementById('timelineModal');
+        const closeTimelineBtn = document.getElementById('closeTimelineModalBtn');
+        const timelineItems = document.querySelectorAll('.timeline-item');
+
+        timelineItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const step = item.getAttribute('data-step');
+                const title = item.getAttribute('data-title');
+                const desc = item.getAttribute('data-desc');
+                const imgUrl = item.querySelector('.timeline-img').src;
+
+                document.getElementById('timelineModalStep').textContent = step;
+                document.getElementById('timelineModalTitle').textContent = title;
+                document.getElementById('timelineModalDesc').textContent = desc;
+                document.getElementById('timelineModalImg').src = imgUrl;
+
+                timelineModal.classList.add('active');
+            });
+        });
+
+        closeTimelineBtn.addEventListener('click', () => {
+            timelineModal.classList.remove('active');
+        });
+
+        timelineModal.addEventListener('click', (e) => {
+            if (e.target === timelineModal) {
+                timelineModal.classList.remove('active');
+            }
+        });
+
+        /* ==================================================================
+           4. Tribute Friends Data Structure (With Multi-Image Array)
            ================================================================== */
         const friendsData = [
             {
@@ -1508,44 +1481,77 @@
                 displayName: "Shruthi",
                 role: "PM / Friend",
                 password: "shruthi_nickname", // Your secret nickname password
-                heroImage: "images/shrutzbday.jpeg", // Main image displayed when unlocked
-                cardAvatar: "images/shrutzselfie.jpeg", // Image displayed on the card front
-                spark: "We met in our first developer sprint meeting when discussing timeline commitments.",
-                connection: "Do you remember the first first time we interacted?",
-                evolution: "From formal colleagues to my dearest advisor on designs.",
-                scrapbook: "A memory that u wont forget about during our time here.",
-                horizon: "Write a note, a secret, or well wishes for the future..."
+                cardAvatar: "images/shrutzselfie.jpeg", // Card front preview image
+                memories: [
+                    {
+                        image: "images/shrutzselfie.jpeg",
+                        title: "1. The Spark (How we met)",
+                        text: "We met in our first developer sprint meeting when discussing timeline commitments."
+                    },
+                    {
+                        image: "images/shrutzbday.jpeg",
+                        title: "2. Our First Interaction",
+                        text: "Do you remember the first first time we interacted?"
+                    },
+                    {
+                        image: "images/selfie.jpeg",
+                        title: "3. The Evolution",
+                        text: "From formal colleagues to my dearest PM and helper on releases."
+                    }
+                ]
             },
             {
                 id: "bala",
                 displayName: "Bala",
                 role: "Best Friend",
                 password: "bala_nickname",
-                heroImage: "images/bday2025.jpeg",
                 cardAvatar: "images/balaamma.jpeg",
-                spark: "Met during the onboarding process and soon became inseparable.",
-                connection: "Do you remember the first first time we interacted?",
-                evolution: "From a simple workspace neighbor to my absolute best friend for life.",
-                scrapbook: "Too many to list here—every single project debug, whiteboard jam, and walk.",
-                horizon: "Grateful and thankful to god for giving me my best friend for life. Stay close forever!"
+                memories: [
+                    {
+                        image: "images/balaamma.jpeg",
+                        title: "1. The Onboarding Spark",
+                        text: "Met during the onboarding process and soon became inseparable."
+                    },
+                    {
+                        image: "images/bday2025.jpeg",
+                        title: "2. Daily Coffee & Lunch runs",
+                        text: "Shared common workspace jokes, coffee runs, and lunchtime gossips."
+                    },
+                    {
+                        image: "images/withlove.jpeg",
+                        title: "3. Best Friends Forever",
+                        text: "Too many to list here—every single project debug, whiteboard jam, and walk. Grateful and thankful to god for giving me my best friend for life."
+                    }
+                ]
             },
             {
                 id: "joel",
                 displayName: "Joel",
                 role: "First Colleague",
                 password: "joel_nickname",
-                heroImage: "images/withlove.jpeg",
                 cardAvatar: "images/joel.jpeg",
-                spark: "You were the first person I sat next to when I stepped into the office.",
-                connection: "Do you remember the first first time we interacted?",
-                evolution: "From my first colleague to a highly valued teammate whose queries I cherish.",
-                scrapbook: "The way you question and expect logical answers from me in every scenario.",
-                horizon: "Stay exactly the same with your curious questions. Let's keep learning together!"
+                memories: [
+                    {
+                        image: "images/joel.jpeg",
+                        title: "1. The Seat next to me",
+                        text: "You were the first person I sat next to when I stepped into the office."
+                    },
+                    {
+                        image: "images/willmissus.jpeg",
+                        title: "2. Technical Syncs",
+                        text: "Connected over technical questions and design implementation strategies."
+                    },
+                    {
+                        image: "images/firstday.jpeg",
+                        title: "3. Curious Sync Partner",
+                        text: "Stay exactly the same with your curious questions. Let's keep learning together!"
+                    }
+                ]
             }
         ];
 
         /* ==================================================================
-           4. Friends UI Grid Rendering & Lock Gate Engine
+           5. Friends UI Grid Rendering & Lock Gate Engine
            ================================================================== */
         const friendsGrid = document.getElementById('friendsGrid');
         const letterOverlay = document.getElementById('letterOverlay');
@@ -1604,18 +1610,25 @@
                 // Populate private story elements
                 document.getElementById('friendName').textContent = activeFriend.displayName;
                 document.getElementById('friendSubtitle').textContent = activeFriend.role;
-                document.getElementById('stepSpark').textContent = activeFriend.spark;
-                document.getElementById('stepConnection').textContent = activeFriend.connection;
-                document.getElementById('stepEvolution').textContent = activeFriend.evolution;
-                document.getElementById('stepScrapbook').textContent = activeFriend.scrapbook;
-                document.getElementById('stepHorizon').textContent = activeFriend.horizon;
 
-                // Set up local hero image inside overlay
-                const heroImgContainer = document.getElementById('friendHeroImage');
-                heroImgContainer.innerHTML = `
-                    <img src="${activeFriend.heroImage}" alt="${activeFriend.displayName} and Me" class="friend-hero-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                    <div class="img-err" style="display:none;">📸 Photo of Us</div>
-                `;
+                // Build the new Dynamic Split columns memory items
+                const splitContainer = document.getElementById('friendSplitMemories');
+                splitContainer.innerHTML = '';
+                
+                activeFriend.memories.forEach(memory => {
+                    const row = document.createElement('div');
+                    row.className = 'friend-memory-row';
+                    row.innerHTML = `
+                        <div class="friend-memory-img-box">
+                            <img src="${memory.image}" alt="${memory.title}" class="friend-memory-img" onerror="this.style.display='none'; this.parentNode.innerHTML='<div class="img-err">📸 Photo Missing</div>'">
+                        </div>
+                        <div class="friend-memory-text-box">
+                            <h4>${memory.title}</h4>
+                            <p>${memory.text}</p>
+                        </div>
+                    `;
+                    splitContainer.appendChild(row);
+                });
 
                 // Load real-time private messages specifically for this friend
                 listenToPrivateFeed(activeFriend.id);
@@ -1637,7 +1650,7 @@
         renderFriendsGrid();
 
         /* ==================================================================
-           5. Client-Side Image Upload & Canvas Compressor Engine
+           6. Client-Side Image Upload & Canvas Compressor Engine
            ================================================================== */
         const privateImageInput = document.getElementById('privateImageFile');
         const privateImagePreview = document.getElementById('privateImagePreview');
@@ -1719,7 +1732,7 @@
         }
 
         /* ==================================================================
-           6. Private Write-Back Form Submission (Firestore)
+           7. Private Write-Back Form Submission (Firestore)
            ================================================================== */
         const privateForm = document.getElementById('privateResponseForm');
         const privateSubmitBtn = document.getElementById('privateSubmitBtn');
@@ -1865,7 +1878,7 @@
         }
 
         /* ==================================================================
-           7. Media Shared URL Helper Functions
+           8. Media Shared URL Helper Functions
            ================================================================== */
         function detectMediaType(url) {
             const lowerUrl = url.toLowerCase();
@@ -1901,7 +1914,7 @@
         }
 
         /* ==================================================================
-           8. Real-Time Dynamic Stream for Public Slam Feed
+           9. Real-Time Dynamic Stream for Public Slam Feed
            ================================================================== */
         const feedQuery = query(collection(db, "slambook_entries"), orderBy("timestamp", "desc"));
 
@@ -2000,7 +2013,7 @@
         });
 
         /* ==================================================================
-           9. Intersection Observer (The Dynamic "Flowy" Scroll Reveal)
+           10. Intersection Observer (The Dynamic "Flowy" Scroll Reveal)
            ================================================================== */
         const revealItems = document.querySelectorAll('.scroll-reveal');
         
