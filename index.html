@@ -43,6 +43,7 @@
         }
 
         body {
+            background: var(--bg-gradient);
             background-color: #f0f4f8;
             color: var(--text-primary);
             font-family: var(--font-system);
@@ -276,28 +277,6 @@
             padding: 0 0.5rem;
         }
 
-        .cloud-card {
-            background: var(--bg-card);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-lg);
-            box-shadow: var(--cloud-shadow);
-            padding: 2rem;
-        }
-
-        .cloud-card h2 {
-            font-size: 1.5rem;
-            margin-bottom: 0.75rem;
-            color: var(--text-primary);
-            font-weight: 700;
-        }
-
-        .cloud-card p {
-            margin-bottom: 1rem;
-            color: var(--text-secondary);
-        }
-
         /* ==========================================================================
            6. Authentic Alternate Timeline (Interactive Click-Popup Cards)
            ========================================================================== */
@@ -352,9 +331,9 @@
         .timeline-item {
             position: relative;
             width: 50%;
-            padding: 0 2rem;
+            padding: 0 2.5rem;
             z-index: 2;
-            margin-bottom: 3.5rem;
+            margin-bottom: 4rem;
             cursor: pointer;
         }
 
@@ -953,7 +932,7 @@
         }
 
         /* ==========================================================================
-           10. Shared Memories Full-Width Carousel Tab View (With Navigation Arrows)
+           10. Shared Memories Full-Width Carousel Tab View (Premium Visuals)
            ========================================================================== */
         .memories-carousel-container {
             width: 100%;
@@ -966,19 +945,19 @@
             border-radius: var(--radius-lg);
             padding: 2rem;
             box-shadow: var(--cloud-shadow);
-            position: relative; /* Context for absolute arrow overlays */
         }
 
         .public-slideshow-container {
             position: relative;
             width: 100%;
-            height: 480px;
+            height: 480px; /* High-definition visual container */
             background-color: #000000;
             border-radius: var(--radius-md);
             overflow: hidden;
             box-shadow: var(--cloud-shadow);
         }
 
+        /* Support for both images and video tags inside public carousel */
         .public-slide-item {
             position: absolute;
             top: 0;
@@ -1009,48 +988,6 @@
             justify-content: center;
             gap: 0.5rem;
             margin-top: 1.5rem;
-        }
-
-        /* Glassmorphic Carousel Arrow Buttons */
-        .carousel-arrow {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(255, 255, 255, 0.7);
-            border: 1px solid var(--border-color);
-            color: var(--text-primary);
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            cursor: pointer;
-            z-index: 10;
-            transition: all var(--transition-smooth);
-            backdrop-filter: blur(8px);
-        }
-
-        .carousel-arrow:hover {
-            background: #ffffff;
-            color: var(--accent-pink);
-            border-color: var(--accent-pink);
-            transform: translateY(-50%) scale(1.05);
-        }
-
-        .carousel-arrow.prev {
-            left: 3rem; /* Snug spacing inside the box edges */
-        }
-
-        .carousel-arrow.next {
-            right: 3rem;
-        }
-
-        /* Responsive timeline image containment */
-        @media (max-width: 768px) {
-            .carousel-arrow.prev { left: 2.25rem; }
-            .carousel-arrow.next { right: 2.25rem; }
         }
 
         /* Document Footer */
@@ -1116,7 +1053,7 @@
                     <div class="timeline-line"></div>
 
                     <!-- Step 1: First Day -->
-                    <div class="timeline-item scroll-reveal left">
+                    <div class="timeline-item scroll-reveal left" data-step="Step 1" data-title="The Welcome Card" data-desc="My very first day at the company. Walking in, seeing my desk, and reading this welcome note made the nervous excitement of starting a new job feel like a warm welcome.">
                         <div class="timeline-dot"></div>
                         <div class="timeline-media">
                             <img src="images/firstday.jpeg" alt="First Day" class="timeline-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
@@ -1125,12 +1062,12 @@
                         <div class="timeline-content">
                             <span class="timeline-step">Step 1</span>
                             <h3>The Welcome Card</h3>
-                            <p>My very first day at the company. Walking in, seeing my desk, and reading this welcome note made the nervous excitement of starting a new job feel like a warm welcome.</p>
+                            <p>Through the narrow passages that psiog 3.0 had and did all formalities on the first day ..handed over this kit and a task on the very first day.</p>
                         </div>
                     </div>
 
                     <!-- Step 2: The Badge -->
-                    <div class="timeline-item scroll-reveal right">
+                    <div class="timeline-item scroll-reveal right" data-step="Step 2" data-title="Official Identity" data-desc="Getting my physical ID badge. Swiping it for the first time made it official—I was part of the team, ready to learn, integrate, and take on staging deployments.">
                         <div class="timeline-dot"></div>
                         <div class="timeline-media">
                             <img src="images/badge.jpeg" alt="The Badge" class="timeline-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
@@ -1138,13 +1075,13 @@
                         </div>
                         <div class="timeline-content">
                             <span class="timeline-step">Step 2</span>
-                            <h3>Official Identity</h3>
-                            <p>Getting my physical ID badge. Swiping it for the first time made it official—I was part of the team, ready to learn, integrate, and take on staging deployments.</p>
+                            <h3>Badge</h3>
+                            <p>Still wondering how did they prompt this</p>
                         </div>
                     </div>
 
                     <!-- Step 3: Razzmatazz 2025 (Early Journey) -->
-                    <div class="timeline-item scroll-reveal left">
+                    <div class="timeline-item scroll-reveal left" data-step="Step 3" data-title="Razzmatazz 2025" data-desc="Gathering together for our annual events. Seeing everyone dressed up, laughing outside of formal client calls, and celebrating the milestones we built as a team.">
                         <div class="timeline-dot"></div>
                         <div class="timeline-media">
                             <img src="images/razz2025.jpeg" alt="Razzmatazz 2025" class="timeline-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
@@ -1153,12 +1090,12 @@
                         <div class="timeline-content">
                             <span class="timeline-step">Step 3</span>
                             <h3>Razzmatazz 2025</h3>
-                            <p>Gathering together for our annual events. Seeing everyone dressed up, laughing outside of formal client calls, and celebrating the milestones we built as a team.</p>
+                            <p>I felt lost for the first time but friends by the side didn't let that stay longer. Had food and returned back</p>
                         </div>
                     </div>
 
                     <!-- Step 4: Pathway -->
-                    <div class="timeline-item scroll-reveal right">
+                    <div class="timeline-item scroll-reveal right" data-step="Step 4" data-title="The Daily Walkway" data-desc="The daily walk through this pathway. Every morning was a mental preparation for what lay ahead, and every evening was a space to unwind and look back at the day's tasks.">
                         <div class="timeline-dot"></div>
                         <div class="timeline-media">
                             <img src="images/pathway.jpeg" alt="The Pathway" class="timeline-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
@@ -1167,12 +1104,12 @@
                         <div class="timeline-content">
                             <span class="timeline-step">Step 4</span>
                             <h3>The Daily Walkway</h3>
-                            <p>The daily walk through this pathway. Every morning was a mental preparation for what lay ahead, and every evening was a space to unwind and look back at the day's tasks.</p>
+                            <p>Each day is different yet the same while I walk through this way</p>
                         </div>
                     </div>
 
                     <!-- Step 5: Project Status -->
-                    <div class="timeline-item scroll-reveal left">
+                    <div class="timeline-item scroll-reveal left" data-step="Step 5" data-title="Project Status" data-desc="Project yet to be deployed in a project. Running final tests, configuring environment pipelines, and waiting for the clearance syncs.">
                         <div class="timeline-dot"></div>
                         <div class="timeline-media">
                             <img src="images/projectstatus.jpeg" alt="Project Status" class="timeline-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
@@ -1181,12 +1118,12 @@
                         <div class="timeline-content">
                             <span class="timeline-step">Step 5</span>
                             <h3>Project Status</h3>
-                            <p>Project yet to be deployed in a project. Running final tests, configuring environment pipelines, and waiting for the clearance syncs.</p>
+                            <p>A picture thats so relatable..Yet to be deployed</p>
                         </div>
                     </div>
 
                     <!-- Step 6: The Break -->
-                    <div class="timeline-item scroll-reveal right">
+                    <div class="timeline-item scroll-reveal right" data-step="Step 6" data-title="Daily Respite" data-desc="Daily routines and little escapes. The workspace breaks where we checked our phones, talked about code frustrations, and simply took a breath together between releases.">
                         <div class="timeline-dot"></div>
                         <div class="timeline-media">
                             <img src="images/break.jpeg" alt="Coffee Break" class="timeline-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
@@ -1195,12 +1132,12 @@
                         <div class="timeline-content">
                             <span class="timeline-step">Step 6</span>
                             <h3>Daily Respite</h3>
-                            <p>Daily routines and little escapes. The workspace breaks where we checked our phones, talked about code frustrations, and simply took a breath together between releases.</p>
+                            <p>From long hours of staring at screens thats what I feel I did most..taking breaks is a little escapes.Mostly by myself while calling amma</p>
                         </div>
                     </div>
 
                     <!-- Step 7: Pongal Celebration -->
-                    <div class="timeline-item scroll-reveal left">
+                    <div class="timeline-item scroll-reveal left" data-step="Step 7" data-title="Festive Days" data-desc="Office celebrations bring a different kind of light to the desk. Dressing in traditional wear, decorating the bay, and sharing sweets with our colleagues.">
                         <div class="timeline-dot"></div>
                         <div class="timeline-media">
                             <img src="images/pongal.jpeg" alt="Pongal Celebrations" class="timeline-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
@@ -1208,13 +1145,13 @@
                         </div>
                         <div class="timeline-content">
                             <span class="timeline-step">Step 7</span>
-                            <h3>Festive Days</h3>
-                            <p>Office celebrations bring a different kind of light to the desk. Dressing in traditional wear, decorating the bay, and sharing sweets with our colleagues.</p>
+                            <h3>Pongal</h3>
+                            <p>Did dressed up,did pookolam,had full meal, been tired,confused and missed a few that day </p>
                         </div>
                     </div>
 
                     <!-- Step 8: Razzmatazz 2026 (Before Last Time) -->
-                    <div class="timeline-item scroll-reveal right">
+                    <div class="timeline-item scroll-reveal right" data-step="Step 8" data-title="Razzmatazz 2026" data-desc="Our final major annual gathering together. Enjoying the performances, looking back at our growth, and capturing memories in our best outfits.">
                         <div class="timeline-dot"></div>
                         <div class="timeline-media">
                             <img src="images/razz2026.jpeg" alt="Razzmatazz 2026" class="timeline-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
@@ -1223,12 +1160,12 @@
                         <div class="timeline-content">
                             <span class="timeline-step">Step 8</span>
                             <h3>Razzmatazz 2026</h3>
-                            <p>Our final major annual gathering together. Enjoying the performances, looking back at our growth, and capturing memories in our best outfits.</p>
+                            <p>A day where I did which i have never done i performed in front of so many..Also,I tried my best and hardly to get my best back</p>
                         </div>
                     </div>
 
                     <!-- Step 9: The Last Days -->
-                    <div class="timeline-item scroll-reveal left">
+                    <div class="timeline-item scroll-reveal left" data-step="Step 9" data-title="Winding Down" data-desc="As the final weeks approached, every conversation felt a little more significant. Wrapping up final handovers and saying my preliminary goodbyes to the bay.">
                         <div class="timeline-dot"></div>
                         <div class="timeline-media">
                             <img src="images/herlastday.jpeg" alt="The Last Days" class="timeline-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
@@ -1237,12 +1174,12 @@
                         <div class="timeline-content">
                             <span class="timeline-step">Step 9</span>
                             <h3>Winding Down</h3>
-                            <p>As the final weeks approached, every conversation felt a little more significant. Wrapping up final handovers and saying my preliminary goodbyes to the bay.</p>
+                            <p>As the final few weeks approached, every conversation felt a little more than it would do.Slient goodbyes to the bay which i stare for no reason.</p>
                         </div>
                     </div>
 
                     <!-- Step 10: The Exit -->
-                    <div class="timeline-item scroll-reveal right">
+                    <div class="timeline-item scroll-reveal right" data-step="Step 10" data-title="Final Checkout" data-desc="Passing by this door on my last day. Closing my workspace logs, signing my exit clearances, and stepping out into the next chapter of my career.">
                         <div class="timeline-dot"></div>
                         <div class="timeline-media">
                             <img src="images/exitinterview.jpeg" alt="The Exit Interview" class="timeline-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
@@ -1251,7 +1188,7 @@
                         <div class="timeline-content">
                             <span class="timeline-step">Step 10</span>
                             <h3>Final Checkout</h3>
-                            <p>Passing by this door on my last day. Closing my workspace logs, signing my exit clearances, and stepping out into the next chapter of my career.</p>
+                            <p>Signing off from gabba(where it all started)</p>
                         </div>
                     </div>
 
@@ -1271,15 +1208,11 @@
 
                 <!-- Custom High-Definition Public Memories Carousel -->
                 <div class="memories-carousel-container">
-                    <!-- Carousel Left/Right navigation arrows -->
-                    <button class="carousel-arrow prev" onclick="prevPublicSlide()">❮</button>
-                    <button class="carousel-arrow next" onclick="nextPublicSlide()">❯</button>
-
                     <div class="public-slideshow-container" id="publicMemoriesSlideshow">
                         
                         <!-- Slide 1: Video File (Point to images/video.mp4 or video.mp4 in your repo) -->
                         <div class="public-slide-item active">
-                            <video id="publicPromoVideo" controls preload="metadata" class="public-slide-media" style="width:100%; height:100%; object-fit:contain;">
+                            <video controls preload="metadata" class="public-slide-media" style="width:100%; height:100%; object-fit:contain;">
                                 <source src="images/video.mp4" type="video/mp4">
                                 <source src="video.mp4" type="video/mp4">
                                 Your browser does not support the video tag.
@@ -1310,18 +1243,6 @@
                             <div class="img-err" style="display:none;">📸 [trio (1).jpeg]</div>
                         </div>
 
-                        <!-- Slide 6: Razzmatazz 2026 -->
-                        <div class="public-slide-item">
-                            <img src="images/razz2026.jpeg" alt="Razzmatazz 2026" class="public-slide-media" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                            <div class="img-err" style="display:none;">📸 [razz2026.jpeg]</div>
-                        </div>
-
-                        <!-- Slide 7: Birthday celebrations -->
-                        <div class="public-slide-item">
-                            <img src="images/bday2025.jpeg" alt="Birthday celebrations" class="public-slide-media" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                            <div class="img-err" style="display:none;">📸 [bday2025.jpeg]</div>
-                        </div>
-
                     </div>
 
                     <!-- Navigation Dots -->
@@ -1331,8 +1252,6 @@
                         <span class="slideshow-dot" onclick="goToPublicSlide(2)"></span>
                         <span class="slideshow-dot" onclick="goToPublicSlide(3)"></span>
                         <span class="slideshow-dot" onclick="goToPublicSlide(4)"></span>
-                        <span class="slideshow-dot" onclick="goToPublicSlide(5)"></span>
-                        <span class="slideshow-dot" onclick="goToPublicSlide(6)"></span>
                     </div>
                 </div>
 
@@ -1340,7 +1259,7 @@
         </section>
 
         <!-- ==================================================================
-             TAB 3: OUR SPACE (THE 5 FRIENDS GRID)
+             TAB 3: OUR SPACE (THE 3 FRIENDS GRID)
              ================================================================== -->
         <section id="view-private" class="tab-view">
             <div class="private-intro">
@@ -1376,7 +1295,7 @@
             <!-- LOCK SCREEN: Password Entry -->
             <div id="lockScreen" class="password-prompt-box">
                 <span class="lock-icon">🔒</span>
-                <h3 id="promptTitle">Unlock tribute section</h3>
+                <h3 id="promptTitle">Unlock</h3>
                 <p class="prompt-subtext">What is our shared private office nickname? (Case-insensitive)</p>
                 <input type="text" id="friendPasswordInput" class="prompt-input" placeholder="Enter nickname">
                 <button id="unlockBtn" class="btn btn-primary" style="max-width: 200px; margin: 1.5rem auto 0 auto;">Unlock</button>
@@ -1474,9 +1393,9 @@
 
         timelineItems.forEach(item => {
             item.addEventListener('click', () => {
-                const step = item.querySelector('.timeline-step').textContent;
-                const title = item.querySelector('h3').textContent;
-                const desc = item.querySelector('p').textContent;
+                const step = item.getAttribute('data-step');
+                const title = item.getAttribute('data-title');
+                const desc = item.getAttribute('data-desc');
                 const imgUrl = item.querySelector('.timeline-img').src;
 
                 document.getElementById('timelineModalStep').textContent = step;
@@ -1505,24 +1424,24 @@
             {
                 id: "shruthi",
                 displayName: "Shruthi",
-                role: "PM / Friend",
-                password: "shruthi_nickname", // Your secret nickname password
-                cardAvatar: "images/shrutzselfie.jpeg", // Card front preview image
+                role: "Wifeyy:) (Girl friend)",
+                password: "Hare Krishna", 
+                cardAvatar: "images/shrutzselfie.jpeg", 
                 memories: [
                     {
                         image: "images/shrutzselfie.jpeg",
-                        title: "1. The Spark (How we met)",
-                        text: "We met in our first developer sprint meeting when discussing timeline commitments."
+                        title: "How we met",
+                        text: "@rooftop with sugitra and team"
                     },
                     {
                         image: "images/shrutzbday.jpeg",
                         title: "2. Our First Interaction",
-                        text: "Do you remember the first first time we interacted?"
+                        text: "While we had lunch with sugitra, we spoke about the lunch u made by urself "
                     },
                     {
                         image: "images/selfie.jpeg",
-                        title: "3. The Evolution",
-                        text: "From formal colleagues to my dearest PM and helper on releases."
+                        title: " As days passed",
+                        text: "We were so similar yet so diffrent..and somehow bonded over a period of time. Someone I never thought I needed and would be friends for life"
                     }
                 ]
             },
@@ -1530,93 +1449,62 @@
                 id: "bala",
                 displayName: "Bala",
                 role: "Best Friend",
-                password: "bala_nickname",
+                password: "Ashtakannu Gomathi",
                 cardAvatar: "images/balaamma.jpeg",
                 memories: [
                     {
                         image: "images/balaamma.jpeg",
-                        title: "1. The Onboarding Spark",
-                        text: "Met during the onboarding process and soon became inseparable."
+                        title: "1.How we met?",
+                        text: " @office at our place outside centurion"
                     },
                     {
                         image: "images/bday2025.jpeg",
-                        title: "2. Daily Coffee & Lunch runs",
-                        text: "Shared common workspace jokes, coffee runs, and lunchtime gossips."
+                        title: "2. Our first conversation",
+                        text: "I started the conversation as u came and left office without any talks for like a day or two. You never spoke. "
                     },
                     {
                         image: "images/withlove.jpeg",
                         title: "3. Best Friends Forever",
-                        text: "Too many to list here—every single project debug, whiteboard jam, and walk. Grateful and thankful to god for giving me my best friend for life."
+                        text: "Too many memories to list here—every single day since we spoke..you're the same person as you were straightforward,kind and funny too. I have learnt so much from you. Please don't ever become a stranger..Like I always wished for be my best friend for life."
                     }
                 ]
             },
             {
                 id: "joel",
                 displayName: "Joel",
-                role: "First Colleague",
-                password: "joel_nickname",
+                role: "First trainee partner nd a good friend",
+                password: "Babu",
                 cardAvatar: "images/joel.jpeg",
                 memories: [
                     {
                         image: "images/joel.jpeg",
                         title: "1. The Seat next to me",
-                        text: "You were the first person I sat next to when I stepped into the office."
+                        text: "You were the first person I sat next to when I stepped into the office.Connected over technical questions and non technical questions which I hated..I dont think i have that level of opinions on the topics you speak"
                     },
-                    {
-                        image: "images/willmissus.jpeg",
-                        title: "2. Technical Syncs",
-                        text: "Connected over technical questions and design implementation strategies."
-                    },
+                
                     {
                         image: "images/firstday.jpeg",
-                        title: "3. Curious Sync Partner",
-                        text: "Stay exactly the same with your curious questions. Let's keep learning together!"
+                        title: "2. Wishing you the best",
+                        text: "Wishing you the best in everything that life have for you"
                     }
                 ]
             },
             {
                 id: "chandhan",
                 displayName: "Chandhan",
-                role: "Thambi",
-                password: "chandhan_nickname",
-                cardAvatar: "images/badge.jpeg", 
+                role: "Thambi boi",
+                password: "Sridevi",
+                cardAvatar: "images/chandhan.jpeg", 
                 memories: [
                     {
                         image: "images/badge.jpeg",
-                        title: "1. The Connection",
-                        text: "Even though we worked in different spheres, you were always like a younger brother (thambi) to me in this office."
-                    },
-                    {
-                        image: "images/bday2025.jpeg",
-                        title: "2. Birthday Moments",
-                        text: "Celebrating milestones together, cracking jokes, and sharing sweets in the bay."
+                        title: "Meme connection",
+                        text: "Known you through chandhini and over the period of your intern time at psiog, once in every 5 sentence we both drop a meme dialogue and all the best for your time @psiog "
                     }
-                ]
-            },
-            {
-                id: "varshini",
-                displayName: "Varshini",
-                role: "Friend / Colleague",
-                password: "varshini_nickname",
-                cardAvatar: "images/varshini.jpeg",
-                memories: [
-                    {
-                        image: "images/varshini.jpeg",
-                        title: "1. The Spark",
-                        text: "Met you in the corridor on my initial days at Psiog, immediately hitting it off."
-                    },
-                    {
-                        image: "images/herlastday.jpeg",
-                        title: "2. Celebrations & Daily Syncs",
-                        text: "Working beside each other on design checkouts, discussing reviews, and having tea."
-                    },
-                    {
-                        image: "images/willmissus.jpeg",
-                        title: "3. Winding Down",
-                        text: "Grateful for having you as a dear, supportive friend during my journey at Psiog!"
-                    }
+
                 ]
             }
+        
         ];
 
         /* ==================================================================
@@ -1789,7 +1677,7 @@
            ================================================================== */
         let publicSlideIndex = 0;
         let publicCarouselTimer = null;
-        const totalPublicSlides = 7; // We now have exactly 7 slides (Video + 6 images)
+        const totalPublicSlides = 5; // We have exactly 5 slides
 
         function goToPublicSlide(index) {
             const slides = document.querySelectorAll('.public-slide-item');
@@ -1800,22 +1688,10 @@
             slides.forEach(s => s.classList.remove('active'));
             dots.forEach(d => d.classList.remove('active'));
 
-            // Auto-pause video if navigating away from Slide 0
-            const videoElement = document.getElementById('publicPromoVideo');
-            if (videoElement) {
-                if (index !== 0) {
-                    if (!videoElement.paused) videoElement.pause();
-                    startPublicAutoPlay(); // Resume normal autoplay on other slides
-                } else {
-                    // We are back to the video. Disable autoplay so the user can watch!
-                    stopPublicAutoPlay();
-                    
-                    // Attach ended listener to auto-progress after video finishes playing
-                    videoElement.addEventListener('ended', () => {
-                        nextPublicSlide();
-                        startPublicAutoPlay();
-                    }, { once: true });
-                }
+            // Pause the video element if we navigate away from Slide 0
+            const videoElement = slides[0].querySelector('video');
+            if (index !== 0 && videoElement && !videoElement.paused) {
+                videoElement.pause();
             }
 
             publicSlideIndex = index;
@@ -1828,15 +1704,8 @@
             goToPublicSlide(nextIndex);
         }
 
-        function prevPublicSlide() {
-            let prevIndex = (publicSlideIndex - 1 + totalPublicSlides) % totalPublicSlides;
-            goToPublicSlide(prevIndex);
-        }
-
         function startPublicAutoPlay() {
             stopPublicAutoPlay();
-            // Don't auto-rotate if we are currently looking at the Video slide
-            if (publicSlideIndex === 0) return;
             publicCarouselTimer = setInterval(nextPublicSlide, 5000); // Transitions every 5 seconds
         }
 
@@ -1847,13 +1716,11 @@
             }
         }
 
-        // Initialize Public Auto-Play on page load (Except if on slide 0)
+        // Initialize Public Auto-Play on page load
         startPublicAutoPlay();
 
-        // Let user manually click dots or arrows
+        // Let user manually click any indicator dot to navigate
         window.goToPublicSlide = goToPublicSlide;
-        window.nextPublicSlide = nextPublicSlide;
-        window.prevPublicSlide = prevPublicSlide;
 
         /* ==================================================================
            7. Intersection Observer (The Dynamic "Flowy" Scroll Reveal)
